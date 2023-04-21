@@ -1,0 +1,22 @@
+.homepage {
+  background-color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+.homepage form {
+  padding: 1rem 20px 0;
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.homepage div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.required {
+  color: red;
+}
