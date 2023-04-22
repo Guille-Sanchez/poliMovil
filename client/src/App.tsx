@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom'
-import { Homepage } from './views/homepage/Homepage'
-import { Header } from './components/header/Header'
+import { Homepage } from './views/Homepage'
+import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 
 function App (): JSX.Element {
   return (
-    <div className='App'>
+    <div className='flex flex-col h-full'>
       <Header/>
-        <main>
+        <main className='flex-grow h-full'>
           <Routes>
             <Route path='/' element={<Homepage/>}/>
           </Routes>

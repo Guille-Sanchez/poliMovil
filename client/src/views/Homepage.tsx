@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import './homepage.css'
-import { PostForm } from '../../components/postForm/PostForm'
-import { PostTable } from '../../components/postsTable/PostsTable'
+import { PostForm } from '../components/PostForm'
+import { PostTable } from '../components/PostsTable'
 
 export const Homepage = (): JSX.Element => {
   const [showForm, setShowForm] = useState(false)
 
   return (
-    <div className="homepage">
+    <div className="bg-white grid place-items-center w-full">
       <button onClick={() => { setShowForm((prev) => !prev) }}>
         Agregar destino
       </button>

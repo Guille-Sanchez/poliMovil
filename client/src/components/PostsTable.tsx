@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import './homepage.css'
-import { type Users, type Posts } from '../../types'
-import mockupPosts from '../../mockups/mockupPosts.json'
-import mockupUsers from '../../mockups/mockupUsers.json'
+import { type Users, type Posts } from '../types'
+import mockupPosts from '../mockups/mockupPosts.json'
+import mockupUsers from '../mockups/mockupUsers.json'
 
 export const PostTable = (): JSX.Element => {
   const [posts, setPosts] = useState<Posts | null>(null)
@@ -27,8 +26,8 @@ export const PostTable = (): JSX.Element => {
       {
         posts?.map((post) => {
           return (
-            <div key={post.id} style={{ flexDirection: 'column' }}>
-                <div>
+            <div className='grid' key={post.id} style={{ flexDirection: 'column' }}>
+                <div className='flex justify-between'>
                   <p>
                     Usuario: {
                       users?.find((user) => {
@@ -36,7 +35,7 @@ export const PostTable = (): JSX.Element => {
                       })?.username
                     }
                   </p>
-                  <div>
+                  <div className='flex justify-between'>
                     <p>
                       Asientos Disponibles: {
                         post.numeroAsientos - post.pasajeros.length
@@ -56,14 +55,14 @@ export const PostTable = (): JSX.Element => {
                   </thead>
                   <tbody>
                     <tr>
-                      <th>{post.origen}</th>
-                      <th>{post.destino}</th>
-                      <th>{post.horario}</th>
+                      <td>{post.origen}</td>
+                      <td>{post.destino}</td>
+                      <td>{post.horario}</td>
                     </tr>
                   </tbody>
                 </table>
 
-                <div>
+                <div className='flex justify-between'>
                   {
                     post.numeroAsientos - post.pasajeros.length > 0
                       ? <button>Reservar</button>
