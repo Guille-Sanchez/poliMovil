@@ -26,50 +26,62 @@ export const PostTable = (): JSX.Element => {
       {
         posts?.map((post) => {
           return (
-            <div className='grid' key={post.id} style={{ flexDirection: 'column' }}>
-                <div className='flex justify-between'>
-                  <p>
-                    Usuario: {
-                      users?.find((user) => {
-                        return (user.usuarioID === post.usuarioID)
-                      })?.username
-                    }
-                  </p>
+            <div className='w-full' key={post.id}>
+              <div className='grid w-full pb-3 pr-5 pl-5 gap-3' style={{ flexDirection: 'column' }}>
+                  <div className='flex justify-between'>
+                    <div className='flex flex-col'>
+                      <p>
+                        {
+                          users?.find((user) => {
+                            return (user.usuarioID === post.usuarioID)
+                          })?.username
+                        }
+                      </p>
+                      <p className='text-xs'>
+                        {
+                          users?.find((user) => {
+                            return (user.usuarioID === post.usuarioID)
+                          })?.email
+                        }
+                      </p>
+                    </div>
+
+                    <div className='flex flex-col'>
+                      <p>Publicado hace:</p>
+                    </div>
+
+                  </div>
+
+                  <table className='border '>
+                    <thead>
+                      <tr>
+                        <th className='border-r'>Origen</th>
+                        <th className='border-r'>Destino</th>
+                        <th>Horario</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className='text-center border-r'>{post.origen}</td>
+                        <td className='text-center border-r'>{post.destino}</td>
+                        <td className='text-center'>{post.horario}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
                   <div className='flex justify-between'>
                     <p>
                       Asientos Disponibles: {
                         post.numeroAsientos - post.pasajeros.length
                       }
                     </p>
-                    <p>Publicado hace:</p>
+                    {
+                      post.numeroAsientos - post.pasajeros.length > 0 &&
+                        <button>Reservar</button>
+                    }
                   </div>
-                </div>
-
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Origen</th>
-                      <th>Destino</th>
-                      <th>Horario</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{post.origen}</td>
-                      <td>{post.destino}</td>
-                      <td>{post.horario}</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className='flex justify-between'>
-                  {
-                    post.numeroAsientos - post.pasajeros.length > 0
-                      ? <button>Reservar</button>
-                      : <p>No hay asientos disponibles</p>
-                  }
-                </div>
-                <hr />
+              </div>
+              <hr className='w-full pb-3'/>
             </div>
           )
         })
