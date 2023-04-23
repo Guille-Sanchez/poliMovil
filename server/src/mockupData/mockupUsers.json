@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "username": "Polibicho",
+      "email": "polibicho@gmail.com",
+      "password": "123fpuna"
+    },
+    {
+      "username": "CarreraEquivocada",
+      "email": "IAE@gmail.com",
+      "password": "IAE123"
+    },
+    {
+      "username": "PoliGata",
+      "email": "poligata@gmail.com",
+      "password": "miaumiau"
+    }
+  ]
+}

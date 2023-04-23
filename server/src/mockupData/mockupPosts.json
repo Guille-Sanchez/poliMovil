@@ -1,34 +1,25 @@
 {
   "posts": [
     {
-      "id": "abc123",
       "origen": "Luque",
       "destino": "Facu",
       "horario": "7:30",
       "numeroAsientos": 4,
-      "detalles": "",
-      "usuarioID": "1",
-      "pasajeros": ["12", "31"]
+      "detalles": ""
     },
     {
       "origen": "Facu",
       "destino": "Roque",
       "horario": "21:30",
       "numeroAsientos": 2,
-      "detalles": "Tomo Laguna Grande",
-      "usuarioID": "2",
-      "id": "abc143",
-      "pasajeros": ["4", "5"]
+      "detalles": "Tomo Laguna Grande"
     },
     {
       "origen": "Centro",
       "destino": "Facu",
       "horario": "14:30",
       "numeroAsientos": 3,
-      "detalles": "Mcal Lopez",
-      "usuarioID": "3",
-      "id": "abc1273",
-      "pasajeros": ["7", "8"]
+      "detalles": "Mcal Lopez"
     }
   ]
 }
