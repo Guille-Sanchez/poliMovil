@@ -5,18 +5,18 @@
       "origen": "Luque",
       "destino": "Facu",
       "horario": "7:30",
-      "numeroAsientos": 4,
+      "asientosDisponibles": 4,
       "detalles": "",
-      "usuarioID": "1",
+      "userId": "1",
       "pasajeros": ["12", "31"]
     },
     {
       "origen": "Facu",
       "destino": "Roque",
       "horario": "21:30",
-      "numeroAsientos": 2,
+      "asientosDisponibles": 2,
       "detalles": "Tomo Laguna Grande",
-      "usuarioID": "2",
+      "userId": "2",
       "id": "abc143",
       "pasajeros": ["4", "5"]
     },
@@ -24,9 +24,9 @@
       "origen": "Centro",
       "destino": "Facu",
       "horario": "14:30",
-      "numeroAsientos": 3,
+      "asientosDisponibles": 3,
       "detalles": "Mcal Lopez",
-      "usuarioID": "3",
+      "userId": "3",
       "id": "abc1273",
       "pasajeros": ["7", "8"]
     }

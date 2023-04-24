@@ -1,4 +1,4 @@
-import { createPost, getPosts } from '../controller/poliMovilPostController.js'
+import { createPost, getPosts } from '../controller/postController.js'
 import express from 'express'
 
 const router = express.Router()

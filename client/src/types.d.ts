@@ -4,9 +4,9 @@ export interface Post {
   origen: string
   destino: string
   horario: string
-  numeroAsientos: number
+  asientosDisponibles: number
   detalles: string
-  usuarioID: string
+  userId: string
   id: string
   pasajeros: string[]
 }
@@ -14,10 +14,9 @@ export interface Post {
 export type Users = User[]
 
 export interface User {
-  usuarioID: string
+  id: string
   username: string
   email: string
   password: string
   posts: string[]
-  isAdmin: boolean
 }

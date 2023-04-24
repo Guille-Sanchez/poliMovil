@@ -1,6 +1,6 @@
-import { PoliMovilUser } from '../models/poliMovilUser.js'
+import { User } from '../models/User.js'
 
-export const createPoliMovilUser = (req, res) => {
+export const createUser = (req, res) => {
   const { username, email, password } = req.body
   if (username === '' || email === '' || password === '') {
     res.status(400).send({
@@ -9,11 +9,7 @@ export const createPoliMovilUser = (req, res) => {
     return
   }
 
-  const user = new PoliMovilUser({
-    username,
-    email,
-    password
-  })
+  const user = new User({ ...req.body })
 
   user.save()
     .then((savedUser) => {
@@ -26,8 +22,8 @@ export const createPoliMovilUser = (req, res) => {
     })
 }
 
-export const getPoliMovilUsers = (req, res) => {
-  PoliMovilUser.find()
+export const getUsers = (req, res) => {
+  User.find()
     .then((users) => {
       res.status(200).json(users)
     })

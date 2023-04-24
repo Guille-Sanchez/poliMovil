@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { type Users, type Posts } from '../types'
-import mockupPosts from '../mockups/mockupPosts.json'
-import mockupUsers from '../mockups/mockupUsers.json'
 
 export const PostTable = (): JSX.Element => {
   const [posts, setPosts] = useState<Posts | null>(null)
@@ -12,8 +10,23 @@ export const PostTable = (): JSX.Element => {
 
     if (subscribed) {
       // Fetch Data From API
-      setPosts(() => mockupPosts.posts)
-      setUsers(() => mockupUsers.users)
+      fetch('http://localhost:3000/api/posts')
+        .then(async (response) => await response.json())
+        .then((data) => {
+          setPosts(() => data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
+      fetch('http://localhost:3000/api/users')
+        .then(async (response) => await response.json())
+        .then((data) => {
+          setUsers(() => data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
 
     return () => {
@@ -33,14 +46,14 @@ export const PostTable = (): JSX.Element => {
                       <p>
                         {
                           users?.find((user) => {
-                            return (user.usuarioID === post.usuarioID)
+                            return (user.id === post.userId)
                           })?.username
                         }
                       </p>
                       <p className='text-xs'>
                         {
                           users?.find((user) => {
-                            return (user.usuarioID === post.usuarioID)
+                            return (user.id === post.userId)
                           })?.email
                         }
                       </p>
@@ -72,11 +85,11 @@ export const PostTable = (): JSX.Element => {
                   <div className='flex justify-between'>
                     <p>
                       Asientos Disponibles: {
-                        post.numeroAsientos - post.pasajeros.length
+                        post.asientosDisponibles - post.pasajeros.length
                       }
                     </p>
                     {
-                      post.numeroAsientos - post.pasajeros.length > 0 &&
+                      post.asientosDisponibles - post.pasajeros.length > 0 &&
                         <button>Reservar</button>
                     }
                   </div>

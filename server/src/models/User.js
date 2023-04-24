@@ -2,20 +2,20 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-const PoliMovilUserSchema = new Schema({
+const UserSchema = new Schema({
   username: String,
   email: String,
   password: String,
   posts: {
     type: [Schema.Types.ObjectId],
-    ref: 'PoliMovilPost'
+    ref: 'Post'
   }
 },
 {
   timestamps: true
 })
 
-PoliMovilUserSchema.set('toJSON', {
+UserSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -24,4 +24,4 @@ PoliMovilUserSchema.set('toJSON', {
   }
 })
 
-export const PoliMovilUser = mongoose.model('PoliMovilUser', PoliMovilUserSchema)
+export const User = mongoose.model('User', UserSchema)

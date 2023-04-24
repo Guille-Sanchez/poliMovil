@@ -2,15 +2,15 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-const PoliMovilPostSchema = new Schema({
+const PostSchema = new Schema({
   origen: String,
   destino: String,
   horario: String,
-  numeroAsientos: Number,
+  asientosDisponibles: Number,
   detalles: String,
-  usuarioId: {
+  userId: {
     type: Schema.Types.ObjectId,
-    ref: 'PoliMovilUser'
+    ref: 'User'
   },
   pasajeros: [String]
 },
@@ -18,7 +18,7 @@ const PoliMovilPostSchema = new Schema({
   timestamps: true
 })
 
-PoliMovilPostSchema.set('toJSON', {
+PostSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -26,4 +26,4 @@ PoliMovilPostSchema.set('toJSON', {
   }
 })
 
-export const PoliMovilPost = mongoose.model('PoliMovilPost', PoliMovilPostSchema)
+export const Post = mongoose.model('Post', PostSchema)

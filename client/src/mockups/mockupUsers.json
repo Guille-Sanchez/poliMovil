@@ -1,28 +1,22 @@
 {
   "users": [
     {
-      "usuarioID": "1",
-      "username": "giberish1",
-      "email": "usuario1@gmail.com",
+      "username": "Polibicho",
+      "email": "polibicho@gmail.com",
       "password": "123fpuna",
-      "posts": ["abc123"],
-      "isAdmin": true
+      "posts": ["abc123"]
     },
     {
-      "usuarioID": "2",
-      "username": "Polibicho2",
-      "email": "usuario2@gmail.com",
-      "password": "123fpuna",
-      "posts": ["abc123"],
-      "isAdmin": false
+      "username": "CarreraEquivocada",
+      "email": "IAE@gmail.com",
+      "password": "IAE123",
+      "posts": ["abc123"]
     },
     {
-      "usuarioID": "3",
       "username": "CarreraEquivocada",
       "email": "usuario3@gmail.com",
       "password": "123fpuna",
-      "posts": ["abc123"],
-      "isAdmin": false
+      "posts": ["abc123"]
     }
   ]
 }
