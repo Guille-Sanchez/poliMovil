@@ -1,38 +1,9 @@
-import { useEffect, useState } from 'react'
-import { type Users, type Posts } from '../types'
+import { usePostsAPI } from '../hooks/usePostsAPI'
+import { useUsersAPI } from '../hooks/useUsersAPI'
 
 export const PostTable = (): JSX.Element => {
-  const [posts, setPosts] = useState<Posts | null>(null)
-  const [users, setUsers] = useState<Users | null>(null)
-
-  useEffect(() => {
-    let subscribed = true
-
-    if (subscribed) {
-      // Fetch Data From API
-      fetch('http://localhost:3000/api/posts')
-        .then(async (response) => await response.json())
-        .then((data) => {
-          setPosts(() => data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-
-      fetch('http://localhost:3000/api/users')
-        .then(async (response) => await response.json())
-        .then((data) => {
-          setUsers(() => data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
-
-    return () => {
-      subscribed = false
-    }
-  }, [])
+  const { posts } = usePostsAPI()
+  const { users } = useUsersAPI()
 
   return (
     <>
@@ -50,6 +21,7 @@ export const PostTable = (): JSX.Element => {
                           })?.username
                         }
                       </p>
+
                       <p className='text-xs'>
                         {
                           users?.find((user) => {
@@ -82,15 +54,14 @@ export const PostTable = (): JSX.Element => {
                     </tbody>
                   </table>
 
-                  <div className='flex justify-between'>
+                  <div className='flex justify-between items-center'>
                     <p>
-                      Asientos Disponibles: {
-                        post.asientosDisponibles - post.pasajeros.length
-                      }
+                      Asientos Disponibles: {post.asientosDisponibles - post.pasajeros.length}
                     </p>
+
                     {
                       post.asientosDisponibles - post.pasajeros.length > 0 &&
-                        <button>Reservar</button>
+                        <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white font-semibold pr-3 pl-3 pt-1 pb-1 rounded-lg'>Reservar</button>
                     }
                   </div>
               </div>

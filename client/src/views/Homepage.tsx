@@ -8,7 +8,7 @@ export const Homepage = (): JSX.Element => {
       <div className='h-full w-full flex justify-end pr-5'>
         <Link to={'/post'}>
           <button
-            className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-xl rounded-full h-10 w-10'
+            className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-xl font-bold rounded-full h-10 w-10'
           >
             +
           </button>
