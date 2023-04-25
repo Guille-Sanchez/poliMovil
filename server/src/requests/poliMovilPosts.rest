@@ -1,5 +1,5 @@
 // Create a new Post and sending in params usuarioID
-POST http://localhost:3000/api/posts/64468df2500199690a205804 HTTP/1.1
+POST http://localhost:3000/api/posts/6446e1df0154fd28edaa5dc7 HTTP/1.1
 content-type: application/json
 
 {

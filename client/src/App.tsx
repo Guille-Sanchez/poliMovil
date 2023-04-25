@@ -11,7 +11,7 @@ function App (): JSX.Element {
         <main className='flex-grow'>
           <Routes>
             <Route path='/' element={<Homepage/>}/>
-            <Route path='/post' element={<PostForm/>}/>
+            <Route path='/posts' element={<PostForm/>}/>
           </Routes>
         </main>
       <Footer/>

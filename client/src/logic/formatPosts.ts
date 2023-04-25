@@ -11,7 +11,9 @@ export const formatPosts = (data: Posts): Posts => {
         detalles: post.detalles,
         userId: post.userId,
         id: post.id,
-        pasajeros: post.pasajeros
+        pasajeros: post.pasajeros,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt
       })
     })
   )

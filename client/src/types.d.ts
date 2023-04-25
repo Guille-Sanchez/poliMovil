@@ -9,6 +9,8 @@ export interface Post {
   userId: string
   id: string
   pasajeros: string[]
+  createdAt: Date
+  updatedAt: Date
 }
 
 export type Users = User[]
