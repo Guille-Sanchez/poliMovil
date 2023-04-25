@@ -1,11 +1,23 @@
+// Create new User
 POST http://localhost:3000/api/users/register HTTP/1.1
 content-type: application/json
 
 {
-  "username": "PoliGata",
-  "email": "poligata@gmail.com",
-  "password": "miaumiau"
+  "username": "PoliDelegado",
+  "email": "CEP@gmail.com",
+  "password": "vape123"
 }
 
+// Get Users
 ###
 GET http://localhost:3000/api/users
+
+// Login
+###
+POST http://localhost:3000/api/users/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "CEP@gmail.com",
+  "password": ""
+}
