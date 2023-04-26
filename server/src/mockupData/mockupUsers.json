@@ -1,24 +1,36 @@
 {
   "users": [
     {
-      "username": "Polibicho",
+      "name": "Poli",
+      "lastName": "Bicho",
       "email": "polibicho@gmail.com",
-      "password": "123fpuna"
+      "password": "123fpuna",
+      "isAdmin": false,
+      "phone": "0971123456"
     },
     {
-      "username": "CarreraEquivocada",
+      "name": "Carrera",
+      "lastName": "Equivocada",
       "email": "IAE@gmail.com",
-      "password": "IAE123"
+      "password": "IAE123",
+      "isAdmin": false,
+      "phone": "0972224458"
     },
     {
-      "username": "PoliGata",
+      "name": "Poli",
+      "lastName": "Gata",
       "email": "poligata@gmail.com",
-      "password": "miaumiau"
+      "password": "miaumiau",
+      "isAdmin": false,
+      "phone": "0984855012"
     },
     {
-      "username": "PoliDelegado",
+      "name": "Poli",
+      "lastName": "Delegado",
       "email": "CEP@gmail.com",
-      "password": "vape123"
+      "password": "vape123",
+      "isAdmin": true,
+      "phone": "0981523987"
     }
   ]
 }

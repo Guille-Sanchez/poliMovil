@@ -6,13 +6,13 @@ const PostSchema = new Schema({
   origen: String,
   destino: String,
   horario: String,
-  asientosDisponibles: Number,
+  asientosDisponibles: String,
   detalles: String,
-  userId: {
+  travelId: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Travel'
   },
-  pasajeros: [String]
+  precio: String
 },
 {
   timestamps: true

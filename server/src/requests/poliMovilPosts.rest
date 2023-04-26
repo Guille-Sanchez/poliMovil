@@ -1,13 +1,14 @@
 // Create a new Post and sending in params usuarioID
-POST http://localhost:3000/api/posts/6446e1df0154fd28edaa5dc7 HTTP/1.1
+POST http://localhost:3000/api/posts/6449aa6cf336f1a93cf1c6d5 HTTP/1.1
 content-type: application/json
 
 {
-  "origen": "Centro",
+  "origen": "Luque",
   "destino": "Facu",
-  "horario": "14:30",
-  "asientosDisponibles": 3,
-  "detalles": "Mcal Lopez"
+  "horario": "7:30",
+  "asientosDisponibles": "4",
+  "detalles": "",
+  "precio": "gratis"
 }
 
 // Get all posts

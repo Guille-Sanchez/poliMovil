@@ -1,16 +1,17 @@
 import { User } from '../models/User.js'
 import bcrypt from 'bcrypt'
 
+// POST /api/users/Register
 export const createUser = (req, res) => {
-  const { username, email, password } = req.body
-  if (username === '' || email === '' || password === '') {
-    res.status(400).send({
+  const { name, lastName, email, password, phone } = req.body
+  if (name === '' || lastName === '' || email === '' || password === '' || phone === '') {
+    return res.status(400).send({
       message: 'Favor completar todos los campos'
     })
-    return
   }
 
-  const hashPassword = bcrypt.hashSync(password, process.env.bcryptSalt)
+  const bcryptSalt = parseInt(process.env.bcryptSalt)
+  const hashPassword = bcrypt.hashSync(password, bcryptSalt)
 
   const user = new User({ ...req.body, password: hashPassword })
 
@@ -39,7 +40,6 @@ export const getUsers = (req, res) => {
 
 export const logIn = (req, res) => {
   const { email, password } = req.body
-  console.log({ email, password })
   if (email === '' || password === '') {
     return res.status(400).json({
       message: 'Favor completar todos los campos'
@@ -55,9 +55,8 @@ export const logIn = (req, res) => {
       } else {
         bcrypt.compare(password, user.password, (err, result) => {
           if (err) {
-            console.log(err)
             return res.status(500).json({
-              message: 'Ocurrió un error al comparar las contraseñas'
+              message: 'Ocurrió un error al buscar al usuario'
             })
           } else if (result) {
             return res.status(200).json(user)

@@ -18,15 +18,15 @@ export const PostTable = (): JSX.Element => {
                       <p>
                         {
                           users?.find((user) => {
-                            return (user.id === post.userId)
-                          })?.username
+                            return (user.id === post.travelId.driverId)
+                          })?.name
                         }
                       </p>
 
                       <p className='text-xs'>
                         {
                           users?.find((user) => {
-                            return (user.id === post.userId)
+                            return (user.id === post.travelId.driverId)
                           })?.email
                         }
                       </p>
@@ -58,11 +58,11 @@ export const PostTable = (): JSX.Element => {
                   {post.detalles !== '' && <p><span className='font-bold'>Detalles:&nbsp;</span>{post.detalles}</p>}
                   <div className='flex justify-between items-center'>
                     <p>
-                      Asientos Disponibles: {post.asientosDisponibles - post.pasajeros.length}
+                      Asientos Disponibles: {+post.asientosDisponibles - post.travelId.passengerId.length}
                     </p>
 
                     {
-                      post.asientosDisponibles - post.pasajeros.length > 0 &&
+                      +post.asientosDisponibles - post.travelId.passengerId.length > 0 &&
                         <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white font-semibold pr-3 pl-3 pt-1 pb-1 rounded-lg'>
                           Reservar
                         </button>

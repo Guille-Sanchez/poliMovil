@@ -1,24 +1,32 @@
 export type Posts = Post[]
 
 export interface Post {
+  id: string
   origen: string
   destino: string
   horario: string
   asientosDisponibles: number
   detalles: string
-  userId: string
-  id: string
-  pasajeros: string[]
-  createdAt: Date
-  updatedAt: Date
+  travelId: travel
+  precio: string
 }
 
 export type Users = User[]
 
 export interface User {
   id: string
-  username: string
+  name: string
+  lastName: string
   email: string
   password: string
-  posts: string[]
+  isAdmin: boolean
+  phone: string
+  travels: travel
+}
+
+export interface travel {
+  id: string
+  driverId: string
+  passengerId: string[]
+  postId: string
 }

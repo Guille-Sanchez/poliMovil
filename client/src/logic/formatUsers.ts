@@ -4,10 +4,13 @@ export const formatUsers = (users: Users): Users => {
   return users.map((user) => {
     return ({
       id: user.id,
-      username: user.username,
+      name: user.name,
+      lastName: user.lastName,
       email: user.email,
       password: user.password,
-      posts: user.posts
+      isAdmin: user.isAdmin,
+      phone: user.phone,
+      travels: user.travels
     })
   })
 }

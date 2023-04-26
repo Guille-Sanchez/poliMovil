@@ -2,29 +2,30 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-const UserSchema = new Schema({
-  name: String,
-  lastName: String,
-  email: String,
-  password: String,
-  isAdmin: Boolean,
-  phone: String,
-  travels: {
+const TravelSchema = new Schema({
+  driverId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  passengerId: {
     type: [Schema.Types.ObjectId],
-    ref: 'Travel'
+    ref: 'User'
+  },
+  postId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Post'
   }
 },
 {
   timestamps: true
 })
 
-UserSchema.set('toJSON', {
+TravelSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
-    delete returnedObject.password
   }
 })
 
-export const User = mongoose.model('User', UserSchema)
+export const Travel = mongoose.model('Travel', TravelSchema)
