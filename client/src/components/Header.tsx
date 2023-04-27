@@ -14,7 +14,11 @@ export const Header = (): JSX.Element => {
         <h1>PoliMovil <span className='text-xs'>(beta)</span></h1>
 
         <button onClick={() => { setShowMenu((prev) => { return !prev }) }}>
-          {!showMenu ? <IconMenu height={'1.25em'} width={'1.25em'}/> : <IconClose height={'1.25em'} width={'1.25em'}/>}
+          {
+            !showMenu
+              ? <IconMenu height={'1.25em'} width={'1.25em'}/>
+              : <IconClose height={'1.25em'} width={'1.25em'}/>
+          }
         </button>
       </header>
 

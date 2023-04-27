@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { type Posts } from '../types'
 import { formatPosts } from '../logic/formatPosts'
 import { useDispatch } from 'react-redux'
-import { getPosts } from '../redux/postSlice'
+import { getPosts } from '../redux/postsSlice'
 
 export const usePostsAPI = (): void => {
   const dispatch = useDispatch()

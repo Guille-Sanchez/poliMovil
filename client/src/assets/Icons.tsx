@@ -20,24 +20,6 @@ export const IconClose = (props: React.SVGProps<SVGSVGElement>): JSX.Element => 
   )
 }
 
-export const IconFlag = (props: React.SVGProps<SVGSVGElement>): JSX.Element => {
-  return (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      viewBox="0 0 20 20"
-      height="1.25em"
-      width="1.25em"
-      {...props}
-    >
-      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7" />
-    </svg>
-  )
-}
-
 export const IconAddR = (props: React.SVGProps<SVGSVGElement>): JSX.Element => {
   return (
     <svg fill="none" viewBox="0 0 24 24" height="1em" width="1em" {...props}>

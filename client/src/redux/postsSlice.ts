@@ -24,7 +24,7 @@ const intialStatePost: Post = {
 const initialState: Posts = [intialStatePost]
 
 // Create slice
-export const postSlice = createSlice({
+export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
@@ -35,5 +35,5 @@ export const postSlice = createSlice({
 })
 
 // Export action creators and reducer
-export const { getPosts } = postSlice.actions
-export default postSlice.reducer
+export const { getPosts } = postsSlice.actions
+export default postsSlice.reducer

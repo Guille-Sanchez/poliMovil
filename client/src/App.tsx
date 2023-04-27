@@ -5,9 +5,11 @@ import { Footer } from './components/Footer'
 import { PostForm } from './views/PostForm'
 import { DetailedPost } from './views/DetailedPost'
 import { usePostsAPI } from './hooks/usePostsAPI'
+import { useUsersAPI } from './hooks/useUsersAPI'
 
 function App (): JSX.Element {
   usePostsAPI()
+  useUsersAPI()
 
   return (
     <div className='flex flex-col h-full'>

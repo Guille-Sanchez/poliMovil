@@ -28,5 +28,5 @@ export interface User {
   password: string
   isAdmin: boolean
   phone: string
-  travels: travel
+  travels: travel[]
 }
