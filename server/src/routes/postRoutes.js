@@ -9,4 +9,7 @@ router.post('/:id', createPost)
 // GET /api/posts/
 router.get('/', getPosts)
 
+// GET /api/posts/
+router.get('/:id', getPosts)
+
 export default router

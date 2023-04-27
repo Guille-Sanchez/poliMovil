@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom'
 import { IconFlag } from '../assets/Icons'
-import { usePostsAPI } from '../hooks/usePostsAPI'
 import { useUsersAPI } from '../hooks/useUsersAPI'
+import { useSelector } from 'react-redux'
+import { type RootState } from '../redux/store'
 
 export const PostTable = (): JSX.Element => {
-  const { posts } = usePostsAPI()
+  const posts = useSelector((state: RootState) => state.posts)
   const { users } = useUsersAPI()
 
   return (
@@ -12,8 +14,8 @@ export const PostTable = (): JSX.Element => {
         posts?.map((post, index) => {
           return (
             <div className='w-full' key={post.id}>
-              <div className='grid w-full pb-3 pr-5 pl-5 gap-3'>
-                  <div className='flex justify-between items-center'>
+              <div className='grid w-full pb-3 gap-3'>
+                  <div className='flex w-full justify-between items-center'>
                     <div className='flex flex-col'>
                       <p>
                         {
@@ -63,9 +65,11 @@ export const PostTable = (): JSX.Element => {
 
                     {
                       +post.asientosDisponibles - post.travelId.passengerId.length > 0 &&
+                      <Link to={`/posts/${post.id}`}>
                         <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white font-semibold pr-3 pl-3 pt-1 pb-1 rounded-lg'>
-                          Reservar
+                          Ver mas
                         </button>
+                      </Link>
                     }
                   </div>
               </div>

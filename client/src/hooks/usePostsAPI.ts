@@ -1,33 +1,32 @@
-import { useEffect, useState } from 'react'
+//  Custom hook that retrieves posts from an API and updates the state of posts in the Redux store
+
+import { useEffect } from 'react'
 import { type Posts } from '../types'
 import { formatPosts } from '../logic/formatPosts'
+import { useDispatch } from 'react-redux'
+import { getPosts } from '../redux/postSlice'
 
-interface returnProps {
-  posts: Posts | null
-  setPosts: React.Dispatch<React.SetStateAction<Posts | null>>
-}
-
-export const usePostsAPI = (): returnProps => {
-  const [posts, setPosts] = useState<Posts | null>(null)
+export const usePostsAPI = (): void => {
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    let subscribed = true
+    const controller = new AbortController()
 
-    if (subscribed) {
-      fetch('http://localhost:3000/api/posts')
-        .then(async (response) => await response.json())
-        .then((data: Posts) => {
-          setPosts(() => formatPosts(data))
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
+    fetch('http://localhost:3000/api/posts', { signal: controller.signal })
+      .then(async (response) => await response.json())
+      .then((data: Posts) => {
+        dispatch(getPosts(formatPosts(data)))
+      })
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          dispatch(getPosts([]))
+          return
+        }
+        console.log(error)
+      })
 
     return () => {
-      subscribed = false
+      controller.abort()
     }
   }, [])
-
-  return ({ posts, setPosts })
 }
