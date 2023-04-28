@@ -8,6 +8,9 @@ import { usePostsAPI } from './hooks/usePostsAPI'
 import { useUsersAPI } from './hooks/useUsersAPI'
 import { Login } from './views/Login'
 import { useState } from 'react'
+import { PageNotFound } from './views/PageNotFound'
+import { UnAuthHeader } from './components/unAuth/UnAuthHeader'
+import { UnAuthFooter } from './components/unAuth/UnAuthFooter'
 
 function App (): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -17,24 +20,24 @@ function App (): JSX.Element {
 
   return (
     <div className='flex flex-col h-full'>
-      <Header/>
+      {isAuthenticated ? <Header setIsAuthenticated={setIsAuthenticated}/> : <UnAuthHeader/>}
         <main className='flex-grow'>
           <Routes>
             {
               isAuthenticated
                 ? <>
-                  <Route path='/' element={<Homepage />} />
-                  <Route path='/posts' element={<PostForm />} />
-                  <Route path='/posts/:id' element={<DetailedPost />} />
-                </>
+                    <Route path='/' element={<Homepage />} />
+                    <Route path='/posts' element={<PostForm />} />
+                    <Route path='/posts/:id' element={<DetailedPost />} />
+                  </>
                 : <>
-                  <Route path='/' element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
-                  <Route path='*' element={<Homepage />} />
+                    <Route path='/' element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
+                    <Route path='*' element={<PageNotFound />} />
                   </>
             }
           </Routes>
         </main>
-      <Footer/>
+      {isAuthenticated ? <Footer/> : <UnAuthFooter/>}
     </div>
   )
 }

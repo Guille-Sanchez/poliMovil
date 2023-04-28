@@ -1,5 +1,12 @@
-export const Menu = (): JSX.Element => {
-  const links = ['Mi perfil', 'Acerca de', 'Cerrar Sesión']
+import { Link } from 'react-router-dom'
+
+interface Props {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+
+}
+
+export const Menu = ({ setIsAuthenticated }: Props): JSX.Element => {
+  const links = ['Mi perfil', 'Acerca de']
 
   return (
     <nav className="absolute z-10 inset-0 top-[72px] bg-black bg-opacity-50">
@@ -11,6 +18,7 @@ export const Menu = (): JSX.Element => {
             )
           })
         }
+        <li><Link to={'/'} onClick={() => { setIsAuthenticated(() => false) }}>Cerrar sesión</Link></li>
       </ul>
     </nav>
   )

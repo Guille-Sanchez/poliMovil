@@ -3,7 +3,12 @@ import { IconMenu, IconClose } from '../assets/Icons'
 import { Menu } from './Menu'
 import { usePreventScroll } from '../hooks/usePreventScroll'
 
-export const Header = (): JSX.Element => {
+interface Props {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+
+}
+
+export const Header = ({ setIsAuthenticated }: Props): JSX.Element => {
   const [showMenu, setShowMenu] = useState(false)
 
   usePreventScroll({ showMenu })
@@ -22,7 +27,7 @@ export const Header = (): JSX.Element => {
         </button>
       </header>
 
-      {showMenu && <Menu/>}
+      {showMenu && <Menu setIsAuthenticated={setIsAuthenticated}/>}
 
     </>
   )
