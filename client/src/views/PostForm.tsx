@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export const PostForm = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
+  const cities = ['Centro', 'Facultad', 'Luque', 'Mariano Roque Alonso', 'San Lorenzo', 'Villa Hayes']
+  const citiesId = useId()
   /* const initialState = {
     origen: '',
     destino: '',
@@ -18,6 +20,15 @@ export const PostForm = (): JSX.Element => {
     const { origen, destino, horario, asientosDisponibles, detalles } = Object.fromEntries(new FormData(e.currentTarget).entries())
     if (origen === '' || destino === '' || horario === '' || asientosDisponibles === '') {
       setError('Por favor, llene todos los campos necesarios.')
+      return
+    } else if (origen === destino) {
+      setError('El origen y el destino no pueden ser iguales.')
+      return
+    } else if (+asientosDisponibles < 1) {
+      setError('El numero de asientos no puede ser menor a 1.')
+      return
+    } else if (origen !== 'Facultad' && destino !== 'Facultad') {
+      setError('Origen o destino debe ser la facultad')
       return
     }
 
@@ -37,19 +48,24 @@ export const PostForm = (): JSX.Element => {
     }) */
   }
   return (
-    <section className='bg-white w-full h-full pt-5'>
+    <section className='bg-white w-full h-full p-5'>
       {
-        <form className='p-5 grid gap-6 w-full' onSubmit={(e) => { handleSubmit(e) }}>
+        <form className=' grid gap-5 w-full' onSubmit={(e) => { handleSubmit(e) }}>
           <div className='flex flex-col gap-2 justify-between items-center h-min'>
             <label htmlFor='origen' className='w-full text-left'>
               Origen (<span aria-required className='text-red-500'>*</span>):
             </label>
 
-            <input
+            <select
               className="border border-gray-500 rounded-lg pl-5 w-full"
-              type='text' name='origen' id='origen'
-              placeholder='Facultad, Luque, Centro, etc.'
-            />
+              name='origen'
+              id='origen'
+            >
+              <option value="">Seleccione origen</option>
+              {cities.map(city => {
+                return <option value={city} key={`${citiesId}-${city}`}>{city}</option>
+              })}
+            </select>
           </div>
 
           <div className='flex flex-col gap-2 justify-between items-center h-min'>
@@ -57,10 +73,17 @@ export const PostForm = (): JSX.Element => {
               Destino (<span aria-required className='text-red-500'>*</span>):
             </label>
 
-            <input className="border border-gray-500 rounded-lg pl-5 w-full"
-              type='text' name='destino' id='destino'
-              placeholder='Facultad, Luque, Centro, etc.'
-            />
+            <select
+              className="border border-gray-500 rounded-lg pl-5 w-full"
+              name='destino'
+              id='destino'
+            >
+              <option value="">Seleccione destino</option>
+              {cities.map(city => {
+                return <option value={city} key={`${citiesId}-${city}`}>{city}</option>
+              })}
+            </select>
+
           </div>
 
           <div className='flex flex-col gap-2 justify-between items-center h-min'>
@@ -81,7 +104,7 @@ export const PostForm = (): JSX.Element => {
 
             <input className="border border-gray-500 rounded-lg pl-5 w-full"
               type='number' name='asientosDisponibles' id='asientosDisponibles'
-              placeholder='0, 1, 2, 3, etc.'
+              placeholder='1, 2, 3, etc.'
             />
           </div>
 
@@ -96,13 +119,13 @@ export const PostForm = (): JSX.Element => {
             />
           </div>
 
+          {error !== null && <p className='text-red-500 text-center text-sm'>{error}</p>}
           <div className='flex justify-evenly items-center w-full'>
             <Link to={'/'}>
               <button className='bg-[#990000] text-white pt-2 pb-2 p-5 pr-5 rounded-lg'>Cancelar</button>
             </Link>
             <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'>Enviar</button>
           </div>
-          {error !== null && <p className='text-red-500 text-center'>{error}</p>}
         </form>
       }
     </section>
