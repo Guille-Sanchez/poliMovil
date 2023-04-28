@@ -1,11 +1,10 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
 
-interface Props {
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export const Login = ({ setIsAuthenticated }: Props): JSX.Element => {
+export const Login = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
+  const dispatch = useDispatch()
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -23,7 +22,8 @@ export const Login = ({ setIsAuthenticated }: Props): JSX.Element => {
     })
       .then(async res => {
         if (res.status === 200) {
-          setIsAuthenticated(() => true)
+          //  setIsAuthenticated(() => true)
+          dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: null }))
         } else if (res.status === 401) {
           setError(() => 'Usuario o contraseña incorrectos')
           throw new Error('Usuario o contraseña incorrectos')

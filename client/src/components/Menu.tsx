@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom'
+import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
+import { useDispatch } from 'react-redux'
 
-interface Props {
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-
-}
-
-export const Menu = ({ setIsAuthenticated }: Props): JSX.Element => {
+export const Menu = (): JSX.Element => {
   const links = ['Mi perfil', 'Acerca de']
+  const dispatch = useDispatch()
+
+  const logOut = (): void => {
+    dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: false, accessToken: null }))
+  }
 
   return (
     <nav className="absolute z-10 inset-0 top-[72px] bg-black bg-opacity-50">
-      <ul className="bg-white absolute flex flex-col items-center gap-4 p-5 rounded-lg text-black text-xl font-semibold" style={{ inset: '0 20px auto' }}>
+      <ul className="bg-white absolute flex flex-col items-center gap-4 p-5 rounded-lg text-black text-xl font-semibold"
+        style={{ inset: '0 20px auto' }}>
         {
           links.map((link) => {
             return (
@@ -18,7 +21,7 @@ export const Menu = ({ setIsAuthenticated }: Props): JSX.Element => {
             )
           })
         }
-        <li><Link to={'/'} onClick={() => { setIsAuthenticated(() => false) }}>Cerrar sesión</Link></li>
+        <li><Link to={'/'} onClick={logOut}>Cerrar sesión</Link></li>
       </ul>
     </nav>
   )
