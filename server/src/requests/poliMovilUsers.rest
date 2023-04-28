@@ -3,12 +3,12 @@ POST http://localhost:3000/api/users/register HTTP/1.1
 content-type: application/json
 
 {
-  "name": "Poli",
-  "lastName": "Bicho",
-  "email": "polibicho@gmail.com",
-  "password": "123fpuna",
+  "name": "Carrera",
+  "lastName": "Equivocada",
+  "email": "IAE@gmail.com",
+  "password": "IAE123",
   "isAdmin": false,
-  "phone": "0971123456"
+  "phone": "0972224458"
 }
 
 // Get Users
