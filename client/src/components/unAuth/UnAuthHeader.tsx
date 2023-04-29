@@ -6,7 +6,7 @@ export const UnAuthHeader = (): JSX.Element => {
       </h1>
 
       <p className="text-center text-gray-500 text-xl">
-        Comunidad de estudiantes de la Facultad Politécnica
+        Una comunidad de estudiantes de la Facultad Politécnica
       </p>
     </header>
   )

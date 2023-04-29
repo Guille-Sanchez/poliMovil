@@ -30,7 +30,6 @@ export const Footer = (): JSX.Element => {
           </button>
         </Link>
       </div>
-
     </footer>
   )
 }
