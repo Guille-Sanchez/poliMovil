@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export const PostForm = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
-  const cities = ['Centro', 'Facultad', 'Luque', 'Mariano Roque Alonso', 'San Lorenzo', 'Villa Hayes']
+  const cities = ['Centro', 'Facultad', 'Limpio', 'Luque', 'Mariano Roque Alonso', 'San Lorenzo', 'Villa Hayes']
   const citiesId = useId()
   /* const initialState = {
     origen: '',
@@ -16,32 +16,52 @@ export const PostForm = (): JSX.Element => {
   */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
+    setError(null)
+    const horarioRegex = /^(?:[5-9]|0[5-9]|1[0-9]|2[0-1]):[0-5][0-9]$|^(22:00)$/
 
     const { origen, destino, horario, asientosDisponibles, detalles } = Object.fromEntries(new FormData(e.currentTarget).entries())
-    if (origen === '' || destino === '' || horario === '' || asientosDisponibles === '') {
-      setError('Por favor, llene todos los campos necesarios.')
-      return
-    } else if (origen === destino) {
-      setError('El origen y el destino no pueden ser iguales.')
-      return
-    } else if (+asientosDisponibles < 1) {
-      setError('El numero de asientos no puede ser menor a 1.')
-      return
-    } else if (origen !== 'Facultad' && destino !== 'Facultad') {
-      setError('Origen o destino debe ser la facultad')
+
+    try {
+      if (origen === '' || destino === '' || horario === '' || asientosDisponibles === '') {
+        setError('Por favor, llene todos los campos necesarios.')
+        return
+      }
+    } catch (error) {
+      setError('Algo salio mal, por favor intentelo de nuevo.')
       return
     }
 
-    const values = {
+    const PostData = {
       origen: origen as string,
       destino: destino as string,
       horario: horario as string,
       asientosDisponibles: asientosDisponibles as string,
       detalles: detalles as string
     }
+    console.log(PostData)
+    console.log(PostData.destino === 'Facultad')
+
+    try {
+      if (PostData.origen === PostData.destino) {
+        setError('El origen y el destino no pueden ser iguales.')
+        return
+      } else if (+PostData.asientosDisponibles < 1) {
+        setError('El numero de asientos no puede ser menor a 1.')
+        return
+      } else if (!horarioRegex.test(PostData.horario)) {
+        setError('El horario debe ser entre 05:00 y 22:00 h')
+        return
+      } else if (PostData.origen !== 'Facultad' && PostData.destino !== 'Facultad') {
+        setError('Origen o destino debe ser Facultad')
+        return
+      }
+    } catch (error) {
+      setError('Algo salio mal, por favor intentelo de nuevo.')
+      return
+    }
 
     // Post data to server
-    console.log(values)
+    console.log(PostData)
 
     /* setSubmittedValues(() => {
       return ({ ...values })
@@ -53,7 +73,7 @@ export const PostForm = (): JSX.Element => {
         <form className=' grid gap-5 w-full' onSubmit={(e) => { handleSubmit(e) }}>
           <div className='flex flex-col gap-2 justify-between items-center h-min'>
             <label htmlFor='origen' className='w-full text-left'>
-              Origen (<span aria-required className='text-red-500'>*</span>):
+              Origen <span aria-required className='text-red-500'>*</span>
             </label>
 
             <select
@@ -70,7 +90,7 @@ export const PostForm = (): JSX.Element => {
 
           <div className='flex flex-col gap-2 justify-between items-center h-min'>
             <label htmlFor='destino' className='w-full text-left'>
-              Destino (<span aria-required className='text-red-500'>*</span>):
+              Destino <span aria-required className='text-red-500'>*</span>
             </label>
 
             <select
@@ -86,26 +106,28 @@ export const PostForm = (): JSX.Element => {
 
           </div>
 
-          <div className='flex flex-col gap-2 justify-between items-center h-min'>
-            <label htmlFor='horario'className='w-full text-left'>
-              Horario<span aria-required className='text-red-500'>*</span>
-            </label>
+          <div className='grid grid-cols-2 gap-5'>
+            <div className='flex flex-col gap-2 justify-between items-center h-min'>
+              <label htmlFor='horario'className='text-left w-full'>
+                Horario <span aria-required className='text-red-500'>*</span>
+              </label>
 
-            <input className="border border-gray-500 rounded-lg pl-5 w-full"
-              type='text' name='horario' id='horario'
-              placeholder='13:30'
-            />
+              <input className="border border-gray-500 rounded-lg pl-5 w-full"
+                type='text' name='horario' id='horario'
+                placeholder='5:00 - 22:00'
+              />
           </div>
 
-          <div className='flex flex-col gap-2 justify-between items-center h-min'>
-            <label htmlFor='asientosDisponibles'className='w-full text-left'>
-              N° de Asientos<span aria-required className='text-red-500'>*</span>
-            </label>
+            <div className='flex flex-col gap-2 justify-between items-center h-min'>
+              <label htmlFor='asientosDisponibles'className='w-full text-left'>
+                N° de Asientos <span aria-required className='text-red-500'>*</span>
+              </label>
 
-            <input className="border border-gray-500 rounded-lg pl-5 w-full"
-              type='number' name='asientosDisponibles' id='asientosDisponibles'
-              placeholder='1, 2, 3, etc.'
-            />
+              <input className="border border-gray-500 rounded-lg pl-5 w-full"
+                type='number' name='asientosDisponibles' id='asientosDisponibles'
+                placeholder='1, 2, 3, etc.'
+              />
+            </div>
           </div>
 
           <div className='flex flex-col gap-2 justify-between items-center h-min'>
@@ -117,6 +139,21 @@ export const PostForm = (): JSX.Element => {
               type='text' name='detalles' id='detalles'
               placeholder='Por Mcal. Lopez'
             />
+          </div>
+
+          <div className='flex flex-col gap-2 justify-between items-center h-min'>
+            <label htmlFor='precio' className='w-full text-left'>
+              Precio <span aria-required className='text-red-500'>*</span>
+            </label>
+            <select
+                className="border border-gray-500 rounded-lg pl-5 w-full"
+                name='precio'
+                id='precio'
+            >
+              <option value="gratis">Gratis</option>
+              <option value="2.300 Gs">2.300 Gs</option>
+              <option value="A convenir" disabled>A convenir</option>
+            </select>
           </div>
 
           {error !== null && <p className='text-red-500 text-center text-sm'>{error}</p>}
