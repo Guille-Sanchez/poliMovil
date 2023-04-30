@@ -1,22 +1,10 @@
+import { type TravelInitialState, type PostInitialState, type AuthenticationInitialState } from './constants'
+
 export type Posts = Post[]
 
-export interface Post {
-  id: string
-  origen: string
-  destino: string
-  horario: string
-  asientosDisponibles: string
-  detalles: string
-  travelId: travel
-  precio: string
-}
+export type Post = typeof PostInitialState
 
-export interface travel {
-  id: string
-  driverId: string
-  passengerId: string[]
-  postId: string
-}
+export type travel = typeof TravelInitialState
 
 export type Users = User[]
 
@@ -30,3 +18,5 @@ export interface User {
   phone: string
   travels: travel[]
 }
+
+export type AuthenticationState = typeof AuthenticationInitialState

@@ -11,7 +11,6 @@ export const Login = (): JSX.Element => {
 
     const formData = new FormData(e.currentTarget)
     const data = Object.fromEntries(formData)
-    console.log(data)
 
     fetch('http://localhost:3000/api/users/login', {
       method: 'POST',
@@ -22,7 +21,6 @@ export const Login = (): JSX.Element => {
     })
       .then(async res => {
         if (res.status === 200) {
-          //  setIsAuthenticated(() => true)
           dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: null }))
         } else if (res.status === 401) {
           setError(() => 'Usuario o contraseña incorrectos')

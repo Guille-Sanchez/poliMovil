@@ -1,27 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { type travel, type Post, type Posts } from '../types'
+import { type Posts } from '../types'
+import { Post } from '../constants'
 
-// Define initial states
-const initialStateTravel: travel = {
-  id: '',
-  driverId: '',
-  passengerId: [''],
-  postId: ''
-}
-
-const intialStatePost: Post = {
-  id: '',
-  origen: '',
-  destino: '',
-  horario: '',
-  asientosDisponibles: '',
-  detalles: '',
-  travelId: initialStateTravel,
-  precio: ''
-}
-
-const initialState: Posts = [intialStatePost]
+const initialState = Post
 
 // Create slice
 export const postsSlice = createSlice({

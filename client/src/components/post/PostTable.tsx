@@ -6,7 +6,7 @@ interface Props {
 
 export const PostTable = ({ post }: Props): JSX.Element => {
   return (
-    <table className='border w-full'>
+    <table className='border w-full text-center'>
       <thead>
         <tr className='border-b'>
           <th className='border-r'>Origen</th>
@@ -17,9 +17,9 @@ export const PostTable = ({ post }: Props): JSX.Element => {
 
       <tbody>
         <tr>
-          <td className='text-center border-r'>{post.origen}</td>
-          <td className='text-center border-r'>{post.destino}</td>
-          <td className='text-center'>{post.horario}</td>
+          <td className='border-r'>{post.origen}</td>
+          <td className='border-r'>{post.destino}</td>
+          <td>{post.horario}</td>
         </tr>
       </tbody>
     </table>

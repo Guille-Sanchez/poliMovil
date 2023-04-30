@@ -1,15 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { AuthenticationInitialState } from '../constants'
+import { type AuthenticationState } from '../types'
 
-export interface AuthenticationState {
-  isAuthenticated: boolean
-  accessToken: string | null
-}
-
-const initialState: AuthenticationState = {
-  isAuthenticated: false,
-  accessToken: null
-}
+const initialState = AuthenticationInitialState
 
 export const AuthenticationSlice = createSlice({
   name: 'authentication',
