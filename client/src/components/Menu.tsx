@@ -17,7 +17,7 @@ export const Menu = (): JSX.Element => {
         {
           links.map((link) => {
             return (
-              <li key={link}>{link}</li>
+              <li key={link}><Link to={link.replace(' ', '-').toLowerCase()}>{link}</Link></li>
             )
           })
         }

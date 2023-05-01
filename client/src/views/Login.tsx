@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
+import { Link } from 'react-router-dom'
+import { InputPasswordType } from '../components/InputPasswordType'
 
 export const Login = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
@@ -38,10 +40,7 @@ export const Login = (): JSX.Element => {
           <input autoComplete="off" autoFocus={true} type="text" className="border border-gray-500 rounded-lg pl-5 w-full" placeholder="poligata@fpuna.edu.py" id="email" name="email"/>
         </div>
 
-        <div className="flex flex-col gap-2 justify-between items-center h-min">
-          <label htmlFor="password" className='w-full text-left'>Contraseña</label>
-          <input type="password" className="border border-gray-500 rounded-lg pl-5 w-full" id="password" name="password"/>
-        </div>
+        <InputPasswordType htmlFor={'password'} />
 
         {error !== null && <p className='text-red-900 text-center'>{error}</p>}
 
@@ -58,9 +57,11 @@ export const Login = (): JSX.Element => {
           <hr className="flex-1 border-blue-900 border-1"/>
         </div>
 
-        <button className='border border-blue-900 text-blue-900 pt-2 pb-2 p-7 pr-7 rounded-lg'>
-          Crear cuenta
-        </button>
+        <Link to={'/signup'}>
+          <button className='border border-blue-900 text-blue-900 pt-2 pb-2 p-7 pr-7 rounded-lg'>
+            Crear cuenta
+          </button>
+        </Link>
       </div>
     </section>
   )

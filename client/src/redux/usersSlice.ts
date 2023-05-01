@@ -1,27 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { type travel, type User, type Users } from '../types'
+import { type Users } from '../types'
+import { UserInitialState } from '../constants'
 
-// Define initial states
-const initialStateTravel: travel[] = [{
-  id: '',
-  driverId: '',
-  passengerId: [''],
-  postId: ''
-}]
-
-const initialStateUser: User = {
-  id: '',
-  name: '',
-  lastName: '',
-  email: '',
-  password: '',
-  isAdmin: false,
-  phone: '',
-  travels: initialStateTravel
-}
-
-const initialState: Users = [initialStateUser]
+const initialState: Users = [UserInitialState]
 
 export const usersSlice = createSlice({
   name: 'users',

@@ -1,4 +1,4 @@
-import { IconAddR, IconCarSide, IconHome } from '../assets/Icons'
+import { IconCarSide, IconHome, IconInformationCircle } from '../assets/Icons'
 import { Link } from 'react-router-dom'
 
 export const Footer = (): JSX.Element => {
@@ -16,7 +16,7 @@ export const Footer = (): JSX.Element => {
       <div>
         <Link to={'/posts'} title='Publicar Viaje'>
           <button className='flex flex-col items-center'>
-            <IconAddR width={'2em'} height={'2em'} viewBox='0 0 25 25' color='whiteSmoke'/>
+            <IconCarSide width={'2em'} height={'2em'} color='whiteSmoke'/>
             <p className='text-slate-200'>Publicar Viaje</p>
           </button>
         </Link>
@@ -25,7 +25,7 @@ export const Footer = (): JSX.Element => {
       <div>
         <Link to={'/'} title='Mis Viajes'>
           <button className='flex flex-col items-center'>
-            <IconCarSide width={'2em'} height={'2em'} color='whiteSmoke'/>
+          <IconInformationCircle width={'2em'} height={'2em'} viewBox='0 0 512 512' color='whiteSmoke'/>
             <p className='text-slate-200'>Mis Viajes</p>
           </button>
         </Link>

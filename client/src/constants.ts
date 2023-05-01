@@ -22,3 +22,14 @@ export const AuthenticationInitialState = {
   isAuthenticated: false,
   accessToken: null
 }
+
+export const UserInitialState = {
+  id: '',
+  name: '',
+  lastName: '',
+  email: '',
+  password: '',
+  isAdmin: false,
+  phone: '',
+  travels: [TravelInitialState]
+}

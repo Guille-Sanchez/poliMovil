@@ -12,6 +12,8 @@ import { UnAuthHeader } from './components/unAuth/UnAuthHeader'
 import { UnAuthFooter } from './components/unAuth/UnAuthFooter'
 import { type RootState } from './redux/store'
 import { useSelector } from 'react-redux'
+import { MyProfile } from './views/MyProfile'
+import { SignUp } from './views/SignUp'
 
 function App (): JSX.Element {
   const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
@@ -29,9 +31,11 @@ function App (): JSX.Element {
                     <Route path='/' element={<Homepage />} />
                     <Route path='/posts' element={<PostForm />} />
                     <Route path='/posts/:id' element={<DetailedPost />} />
+                    <Route path='/mi-perfil' element={<MyProfile />} />
                   </>
                 : <>
                     <Route path='/' element={<Login />} />
+                    <Route path='/signup' element={<SignUp />} />
                     <Route path='*' element={<PageNotFound />} />
                   </>
             }
