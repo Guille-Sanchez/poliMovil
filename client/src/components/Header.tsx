@@ -19,12 +19,12 @@ export const Header = (): JSX.Element => {
       <button onClick={toggleMenu}>
         {
           !showMenu
-            ? <IconMenu height={'1.25em'} width={'1.25em'}/>
-            : <IconClose height={'1.25em'} width={'1.25em'}/>
+            ? <IconMenu height={'1.25em'} width={'1.25em'} />
+            : <IconClose height={'1.25em'} width={'1.25em'} />
         }
       </button>
 
-      {showMenu && <Menu/>}
+      {showMenu && <Menu setShowMenu={setShowMenu}/>}
     </header>
   )
 }

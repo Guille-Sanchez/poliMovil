@@ -2,7 +2,11 @@ import { Link } from 'react-router-dom'
 import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
 import { useDispatch } from 'react-redux'
 
-export const Menu = (): JSX.Element => {
+interface Props {
+  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const Menu = ({ setShowMenu }: Props): JSX.Element => {
   const links = ['Mi perfil', 'Acerca de']
   const dispatch = useDispatch()
 
@@ -17,7 +21,13 @@ export const Menu = (): JSX.Element => {
         {
           links.map((link) => {
             return (
-              <li key={link}><Link to={link.replace(' ', '-').toLowerCase()}>{link}</Link></li>
+              <li key={link}>
+                <Link to={link.replace(' ', '-').toLowerCase()}
+                  onClick={() => { setShowMenu(false) }}
+                >
+                  {link}
+                </Link>
+              </li>
             )
           })
         }

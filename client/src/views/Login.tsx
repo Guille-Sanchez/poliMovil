@@ -11,8 +11,17 @@ export const Login = (): JSX.Element => {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    const formData = new FormData(e.currentTarget)
-    const data = Object.fromEntries(formData)
+    const { email, password } = Object.fromEntries(new FormData(e.currentTarget).entries())
+
+    const data = {
+      email: email as string,
+      password: password as string
+    }
+
+    if (email === '' || password === '') {
+      setError(() => 'Todos los campos son requeridos')
+      return
+    }
 
     fetch('http://localhost:3000/api/users/login', {
       method: 'POST',
