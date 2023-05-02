@@ -3,6 +3,11 @@ import { useDispatch } from 'react-redux'
 import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
 import { Link } from 'react-router-dom'
 import { InputPasswordType } from '../components/InputPasswordType'
+import jwt_decode, { type JwtPayload } from 'jwt-decode'
+
+interface userToken extends JwtPayload {
+  userId: string
+}
 
 export const Login = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
@@ -32,7 +37,11 @@ export const Login = (): JSX.Element => {
     })
       .then(async res => {
         if (res.status === 200) {
-          dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: null }))
+          const { accessToken } = await res.json()
+          localStorage.setItem('accessToken', accessToken)
+
+          const decoded: userToken = jwt_decode(accessToken)
+          dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: decoded?.userId }))
         } else if (res.status === 401) {
           setError(() => 'Usuario o contraseña incorrectos')
           throw new Error('Usuario o contraseña incorrectos')

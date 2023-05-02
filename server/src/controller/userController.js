@@ -1,5 +1,6 @@
 import { User } from '../models/User.js'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 // POST /api/users/Register
 export const createUser = (req, res) => {
@@ -59,7 +60,9 @@ export const logIn = (req, res) => {
               message: 'Ocurrió un error al buscar al usuario'
             })
           } else if (result) {
-            return res.status(200).json(user)
+            const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET)
+
+            res.status(200).json({ accessToken })
           } else {
             return res.status(401).json({
               message: 'Usuario o contraseña incorrectos'

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { IconMenu, IconClose } from '../assets/Icons'
 import { Menu } from './Menu'
 import { usePreventScroll } from '../hooks/usePreventScroll'
+import { Link } from 'react-router-dom'
 
 export const Header = (): JSX.Element => {
   const [showMenu, setShowMenu] = useState(false)
@@ -14,7 +15,9 @@ export const Header = (): JSX.Element => {
 
   return (
     <header className="text-white bg-gradient-to-r from-blue-900 to-indigo-900 text-2xl font-bold p-5 flex justify-between">
-      <h1>PoliMovil <span className='text-xs'>(beta)</span></h1>
+      <Link to='/'>
+        <h1>PoliMovil <span className='text-xs'>(beta)</span></h1>
+      </Link>
 
       <button onClick={toggleMenu}>
         {

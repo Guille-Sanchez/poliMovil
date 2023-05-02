@@ -20,7 +20,7 @@ export const Post = [PostInitialState]
 
 export const AuthenticationInitialState = {
   isAuthenticated: false,
-  accessToken: null
+  accessToken: ''
 }
 
 export const UserInitialState = {

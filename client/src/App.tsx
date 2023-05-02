@@ -11,14 +11,32 @@ import { PageNotFound } from './views/PageNotFound'
 import { UnAuthHeader } from './components/unAuth/UnAuthHeader'
 import { UnAuthFooter } from './components/unAuth/UnAuthFooter'
 import { type RootState } from './redux/store'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { MyProfile } from './views/MyProfile'
 import { SignUp } from './views/SignUp'
+import { useEffect } from 'react'
+import { SET_AUTHENTICATION_DATA } from './redux/AuthenticationSlice'
 
 function App (): JSX.Element {
   const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
+  const dispatch = useDispatch()
   usePostsAPI()
   useUsersAPI()
+
+  useEffect(() => {
+    let subscribed = true
+
+    if (subscribed) {
+      const token = localStorage.getItem('accessToken')
+      if (token !== null && token !== undefined && token !== '') {
+        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: token }))
+      }
+    }
+
+    return () => {
+      subscribed = false
+    }
+  }, [])
 
   return (
     <div className='flex flex-col h-full'>
