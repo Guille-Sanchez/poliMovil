@@ -2,62 +2,52 @@ import { Route, Routes } from 'react-router-dom'
 import { Homepage } from './views/Homepage'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
-import { PostForm } from './views/PostForm'
-import { DetailedPost } from './views/DetailedPost'
 import { usePostsAPI } from './hooks/usePostsAPI'
 import { useUsersAPI } from './hooks/useUsersAPI'
-import { Login } from './views/Login'
 import { PageNotFound } from './views/PageNotFound'
 import { UnAuthHeader } from './components/unAuth/UnAuthHeader'
 import { UnAuthFooter } from './components/unAuth/UnAuthFooter'
 import { type RootState } from './redux/store'
-import { useDispatch, useSelector } from 'react-redux'
-import { MyProfile } from './views/MyProfile'
-import { SignUp } from './views/SignUp'
-import { useEffect } from 'react'
-import { SET_AUTHENTICATION_DATA } from './redux/AuthenticationSlice'
+import { useSelector } from 'react-redux'
+import { lazy, Suspense } from 'react'
+import { LoadingSPinner } from './components/LoadingSPinner'
+import { useTokenFromStorage } from './hooks/useTokenFromStorage'
+
+const PostForm = lazy(async () => await import('./views/PostForm').then(module => ({ default: module.PostForm })))
+const DetailedPost = lazy(async () => await import('./views/DetailedPost').then(module => ({ default: module.DetailedPost })))
+const Login = lazy(async () => await import('./views/Login').then(module => ({ default: module.Login })))
+const MyProfile = lazy(async () => await import('./views/MyProfile').then(module => ({ default: module.MyProfile })))
+const SignUp = lazy(async () => await import('./views/SignUp').then(module => ({ default: module.SignUp })))
 
 function App (): JSX.Element {
   const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
-  const dispatch = useDispatch()
+
   usePostsAPI()
   useUsersAPI()
-
-  useEffect(() => {
-    let subscribed = true
-
-    if (subscribed) {
-      const token = localStorage.getItem('accessToken')
-      if (token !== null && token !== undefined && token !== '') {
-        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: token }))
-      }
-    }
-
-    return () => {
-      subscribed = false
-    }
-  }, [])
+  useTokenFromStorage()
 
   return (
     <div className='flex flex-col h-full'>
       {isAuthenticated ? <Header /> : <UnAuthHeader />}
         <main className='flex-grow'>
-          <Routes>
-            {
-              isAuthenticated
-                ? <>
-                    <Route path='/' element={<Homepage />} />
-                    <Route path='/posts' element={<PostForm />} />
-                    <Route path='/posts/:id' element={<DetailedPost />} />
-                    <Route path='/mi-perfil' element={<MyProfile />} />
-                  </>
-                : <>
-                    <Route path='/' element={<Login />} />
-                    <Route path='/signup' element={<SignUp />} />
-                    <Route path='*' element={<PageNotFound />} />
-                  </>
-            }
-          </Routes>
+          <Suspense fallback={<LoadingSPinner/>}>
+            <Routes>
+              {
+                isAuthenticated
+                  ? <>
+                      <Route path='/' element={<Homepage />} />
+                      <Route path='/posts' element={<PostForm />} />
+                      <Route path='/posts/:id' element={<DetailedPost />} />
+                      <Route path='/mi-perfil' element={<MyProfile />} />
+                    </>
+                  : <>
+                      <Route path='/' element={<Login />} />
+                      <Route path='/signup' element={<SignUp />} />
+                      <Route path='*' element={<PageNotFound />} />
+                    </>
+              }
+            </Routes>
+          </Suspense>
         </main>
       {isAuthenticated ? <Footer/> : <UnAuthFooter/>}
     </div>
