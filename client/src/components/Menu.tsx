@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
 import { useDispatch } from 'react-redux'
+import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
 
 interface Props {
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
@@ -10,10 +10,10 @@ export const Menu = ({ setShowMenu }: Props): JSX.Element => {
   const links = ['Mi perfil', 'Acerca de']
   const dispatch = useDispatch()
 
-  const logOut = (): void => {
+  const handleLogout = (): void => {
     localStorage.removeItem('accessToken')
     dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: false, accessToken: '' }))
-    setShowMenu(false)
+    setShowMenu(() => false)
   }
 
   return (
@@ -33,7 +33,11 @@ export const Menu = ({ setShowMenu }: Props): JSX.Element => {
             )
           })
         }
-        <li><Link to={'/'} onClick={logOut}>Cerrar sesión</Link></li>
+        <li>
+          <Link to={'/'} onClick={() => { handleLogout() }}>
+            Cerrar sesión
+          </Link>
+        </li>
       </ul>
     </nav>
   )

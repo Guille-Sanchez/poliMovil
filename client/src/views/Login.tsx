@@ -1,58 +1,16 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
 import { Link } from 'react-router-dom'
 import { InputPasswordType } from '../components/InputPasswordType'
-import jwt_decode, { type JwtPayload } from 'jwt-decode'
-
-interface userToken extends JwtPayload {
-  userId: string
-}
+import { handleLogin } from '../logic/handleLogin'
+import { useDispatch } from 'react-redux'
 
 export const Login = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
   const dispatch = useDispatch()
 
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault()
-
-    const { email, password } = Object.fromEntries(new FormData(e.currentTarget).entries())
-
-    const data = {
-      email: email as string,
-      password: password as string
-    }
-
-    if (email === '' || password === '') {
-      setError(() => 'Todos los campos son requeridos')
-      return
-    }
-
-    fetch('http://localhost:3000/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then(async res => {
-        if (res.status === 200) {
-          const { accessToken } = await res.json()
-          localStorage.setItem('accessToken', accessToken)
-
-          const decoded: userToken = jwt_decode(accessToken)
-          dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: decoded?.userId }))
-        } else if (res.status === 401) {
-          setError(() => 'Usuario o contraseña incorrectos')
-          throw new Error('Usuario o contraseña incorrectos')
-        }
-      })
-      .catch(err => { console.log(err) })
-  }
-
   return (
     <section className="bg-white w-full h-full">
-      <form className='p-5 grid gap-6 w-full' onSubmit={e => { handleOnSubmit(e) }}>
+      <form className='p-5 grid gap-6 w-full' onSubmit={e => { handleLogin({ e, setError, dispatch }) }}>
         <div className="flex flex-col gap-2 justify-between items-center h-min">
           <label htmlFor="email" className='w-full text-left'>Email</label>
           <input autoComplete="off" autoFocus={true} type="text" className="border border-gray-500 rounded-lg pl-5 w-full" placeholder="poligata@fpuna.edu.py" id="email" name="email"/>

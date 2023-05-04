@@ -4,13 +4,7 @@ import { formatUsers } from '../logic/formatUsers'
 import { getUsers } from '../redux/usersSlice'
 import { useDispatch } from 'react-redux'
 
-/* interface returnProps {
-  users: Users | null
-  setUsers: React.Dispatch<React.SetStateAction<Users | null>>
-} */
-
 export const useUsersAPI = (): void => {
-  // const [users, setUsers] = useState<Users | null>(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -20,7 +14,6 @@ export const useUsersAPI = (): void => {
       fetch('http://localhost:3000/api/users')
         .then(async (response) => await response.json())
         .then((data: Users) => {
-          // setUsers(() => formatUsers(data))
           dispatch(getUsers(formatUsers(data)))
         })
         .catch((error) => {
@@ -32,5 +25,4 @@ export const useUsersAPI = (): void => {
       subscribed = false
     }
   }, [])
-  // return ({ users, setUsers })
 }

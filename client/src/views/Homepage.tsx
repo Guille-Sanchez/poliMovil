@@ -8,7 +8,7 @@ export const Homepage = (): JSX.Element => {
   const posts = useSelector((state: RootState) => state.posts)
 
   return (
-    <section className="bg-white w-full h-full pt-5">
+    <section className="bg-white w-full h-full pt-5 pb-5">
       <ul>
         {
           posts?.map((post, index) => {
