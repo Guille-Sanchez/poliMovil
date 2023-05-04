@@ -1,16 +1,11 @@
 import { useSelector } from 'react-redux'
 import { InputPasswordType } from '../components/InputPasswordType'
 import { type RootState } from '../redux/store'
-import jwt_decode, { type JwtPayload } from 'jwt-decode'
 import { useState } from 'react'
-
-interface accessToken extends JwtPayload {
-  userId: string
-}
 
 export const MyProfile = (): JSX.Element => {
   const { accessToken } = useSelector((state: RootState) => state.authentication)
-  const userId = jwt_decode<accessToken>(accessToken).userId
+  const userId = accessToken
   const users = useSelector((state: RootState) => state.users)
   const [personalInfoCurrentView, setPersonalInfoCurrentView] = useState(true)
   const primaryButtonClass = 'bg-gradient-to-r from-blue-900 to-indigo-900 text-white'
@@ -79,17 +74,17 @@ export const MyProfile = (): JSX.Element => {
         </form>)
 
         : (<form className='pl-5 pr-5 grid gap-6 w-full' onSubmit={(e) => { handleOnSubmit(e) }}>
-        <fieldset className='grid gap-3 w-full'>
-            <legend className='text-xl font-semibold text-left w-full pb-3'>Actualizar Contraseña</legend>
-            <InputPasswordType htmlFor='oldPassword' />
-            <InputPasswordType htmlFor='newPassword' />
-            <InputPasswordType htmlFor='confirmPassword' />
-          </fieldset>
+            <fieldset className='grid gap-3 w-full'>
+              <legend className='text-xl font-semibold text-left w-full pb-3'>Actualizar Contraseña</legend>
+              <InputPasswordType htmlFor='oldPassword' />
+              <InputPasswordType htmlFor='newPassword' />
+              <InputPasswordType htmlFor='confirmPassword' />
+            </fieldset>
 
-          <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg' type="submit">
-            Actualizar
-          </button>
-        </form>)
+            <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg' type="submit">
+              Actualizar
+            </button>
+          </form>)
       }
     </div>
   )

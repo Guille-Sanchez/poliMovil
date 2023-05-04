@@ -7,6 +7,8 @@ import { postFormValidator } from '../logic/postFormValidator'
 import { type Post } from '../types'
 import { InputPostForm } from '../components/post/InputPostForm'
 import { PostInitialState } from '../constants'
+import { useDispatch } from 'react-redux'
+import { addPost } from '../redux/postsSlice'
 
 interface submittedValues extends Post {
   setNext: boolean
@@ -15,6 +17,14 @@ interface submittedValues extends Post {
 export const PostForm = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
   const [submittedValues, setSubmittedValues] = useState<submittedValues>({ ...PostInitialState, setNext: false })
+  const dispatch = useDispatch()
+
+  const handleOnSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    // TODO: send to api
+    e.preventDefault()
+    dispatch(addPost(submittedValues))
+    setSubmittedValues({ ...PostInitialState, setNext: false })
+  }
 
   return (
     !submittedValues.setNext
@@ -56,7 +66,7 @@ export const PostForm = (): JSX.Element => {
                 </div>
               </form>
             }
-          </section>
+        </section>
 
       : <section className='bg-white w-full h-full p-5 flex flex-col gap-3'>
           <PostHeader post={submittedValues} />
@@ -71,9 +81,9 @@ export const PostForm = (): JSX.Element => {
             </button>
 
             <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'
-              onClick={() => { console.log(setSubmittedValues) }}
+              onClick={(e) => { handleOnSubmit(e) }}
             >
-              Enviar
+              Publicar
             </button>
           </div>
         </section>

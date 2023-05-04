@@ -18,6 +18,7 @@ const DetailedPost = lazy(async () => await import('./views/DetailedPost').then(
 const Login = lazy(async () => await import('./views/Login').then(module => ({ default: module.Login })))
 const MyProfile = lazy(async () => await import('./views/MyProfile').then(module => ({ default: module.MyProfile })))
 const SignUp = lazy(async () => await import('./views/SignUp').then(module => ({ default: module.SignUp })))
+const About = lazy(async () => await import('./views/About').then(module => ({ default: module.About })))
 
 function App (): JSX.Element {
   const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
@@ -43,9 +44,10 @@ function App (): JSX.Element {
                   : <>
                       <Route path='/' element={<Login />} />
                       <Route path='/signup' element={<SignUp />} />
-                      <Route path='*' element={<PageNotFound />} />
                     </>
               }
+              <Route path='/acerca-de' element={<About />} />
+              <Route path='*' element={<PageNotFound />} />
             </Routes>
           </Suspense>
         </main>

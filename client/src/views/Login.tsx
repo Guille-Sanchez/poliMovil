@@ -51,7 +51,7 @@ export const Login = (): JSX.Element => {
   }
 
   return (
-    <section className="bg-white w-full h-full pt-5">
+    <section className="bg-white w-full h-full">
       <form className='p-5 grid gap-6 w-full' onSubmit={e => { handleOnSubmit(e) }}>
         <div className="flex flex-col gap-2 justify-between items-center h-min">
           <label htmlFor="email" className='w-full text-left'>Email</label>
@@ -68,7 +68,6 @@ export const Login = (): JSX.Element => {
       </form>
 
       <div className="flex flex-col gap-2 justify-between items-center h-min">
-
         <div className="flex items-center w-full">
           <hr className="flex-1 border-blue-900 border-1"/>
           <span className="mx-3 text-blue-900 text-xl">o</span>
