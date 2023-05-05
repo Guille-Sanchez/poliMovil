@@ -20,18 +20,24 @@ export const DetailedPost = (): JSX.Element => {
         <div className='grid gap-3 pb-5'>
           <PostHeader post={detailedPost}/>
           <PostTable post={detailedPost}/>
-          {detailedPost.detalles !== '' && <p><span className='font-bold'>Detalles:&nbsp;</span>{detailedPost.detalles}</p>}
+          {
+            detailedPost.detalles !== '' &&
+              <p><span className='font-bold'>Detalles:&nbsp;</span>{detailedPost.detalles}</p>
+          }
           <div className='flex justify-between items-center'>
             <p>Asientos Disponibles: {detailedPost.asientosDisponibles}</p>
           </div>
         </div>
       }
 
-      <div className='flex justify-evenly items-center w-full'>
-        <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'>
-          Reservar
-        </button>
-      </div>
+      {
+        (detailedPost != null && +detailedPost.asientosDisponibles - detailedPost.travelId.passengerId.length > 0) &&
+        <div className='flex justify-evenly items-center w-full'>
+          <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'>
+            Reservar
+          </button>
+        </div>
+      }
 
       <PassangerList detailedPost={detailedPost} />
     </section>

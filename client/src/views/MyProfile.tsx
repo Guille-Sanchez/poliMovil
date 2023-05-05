@@ -4,15 +4,14 @@ import { type RootState } from '../redux/store'
 import { useState } from 'react'
 
 export const MyProfile = (): JSX.Element => {
+  const [personalInfoCurrentView, setPersonalInfoCurrentView] = useState(true)
   const { accessToken } = useSelector((state: RootState) => state.authentication)
   const userId = accessToken
   const users = useSelector((state: RootState) => state.users)
-  const [personalInfoCurrentView, setPersonalInfoCurrentView] = useState(true)
   const primaryButtonClass = 'bg-gradient-to-r from-blue-900 to-indigo-900 text-white'
   const secondaryButtonClass = 'border border-blue-900 text-blue-900 pt-2 pb-2 p-7 pr-7 rounded-lg'
 
   const userInfo = users.find(user => user.id === userId)
-  console.log(userId)
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     const { name, lastName, email, phone, password, confirmPassword } = Object.fromEntries(new FormData(e.currentTarget).entries())

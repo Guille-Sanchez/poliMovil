@@ -2,9 +2,10 @@ interface Props {
   inputLabel: string
   required: boolean
   placeholder: string
+  defaultValue: string
 }
 
-export const InputPostForm = ({ inputLabel, required, placeholder }: Props): JSX.Element => {
+export const InputPostForm = ({ inputLabel, required, placeholder, defaultValue }: Props): JSX.Element => {
   let capitalizedLabel = inputLabel.charAt(0).toUpperCase() + inputLabel.slice(1)
 
   if (capitalizedLabel === 'AsientosDisponibles') {
@@ -19,7 +20,7 @@ export const InputPostForm = ({ inputLabel, required, placeholder }: Props): JSX
 
       <input className="border border-gray-500 rounded-lg pl-5 w-full"
         type='text' name={inputLabel} id={inputLabel}
-        placeholder={placeholder}
+        placeholder={placeholder} defaultValue={defaultValue}
       />
     </div>
   )
