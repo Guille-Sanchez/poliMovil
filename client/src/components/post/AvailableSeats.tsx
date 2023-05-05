@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { type RootState } from '../../redux/store'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { type Post } from '../../types'
+import { deletePost } from '../../redux/postsSlice'
 
 interface Props {
   post: Post
@@ -10,6 +11,7 @@ interface Props {
 export const AvailableSeats = ({ post }: Props): JSX.Element => {
   const navigate = useNavigate()
   const userId = useSelector((state: RootState) => state.authentication).accessToken
+  const dispatch = useDispatch()
   const numberOfPassengers = post.travelId.passengerId.filter(value => value !== '').length
   const asientosDisponibles = +post.asientosDisponibles - numberOfPassengers
 
@@ -21,10 +23,13 @@ export const AvailableSeats = ({ post }: Props): JSX.Element => {
         navigate(`/posts/${post.id}`)
         break
       case 'editar':
+        // TODO: editar post from API
         navigate(`/posts/editar/${post.id}`)
         break
       case 'eliminar':
-        // TODO: eliminar post
+        // TODO: eliminar post from API
+        dispatch(deletePost(post.id))
+        navigate('/')
         break
       default:
         break

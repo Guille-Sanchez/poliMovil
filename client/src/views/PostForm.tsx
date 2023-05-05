@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import LocationSelector from '../components/post/LocationSelector'
 import { postFormValidator } from '../logic/postFormValidator'
-import { type Post } from '../types'
+import { type submittedValues } from '../types'
 import { InputPostForm } from '../components/post/InputPostForm'
 import { PostInitialState } from '../constants'
 import { LoadingSPinner } from '../components/LoadingSPinner'
@@ -10,10 +10,6 @@ import { usePostEditing } from '../hooks/usePostEditing'
 import { PostPreview } from './PostPreview'
 import { type RootState } from '../redux/store'
 import { useSelector } from 'react-redux'
-
-interface submittedValues extends Post {
-  setNext: boolean
-}
 
 export const PostForm = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
@@ -25,7 +21,7 @@ export const PostForm = (): JSX.Element => {
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     setError(null)
-    const { error, valuesToSubmit } = postFormValidator({ e, userId })
+    const { error, valuesToSubmit } = postFormValidator({ e, userId, submittedValues })
     error !== '' ? setError(error) : setSubmittedValues(valuesToSubmit)
   }
 

@@ -15,10 +15,17 @@ export const postsSlice = createSlice({
     },
     addPost: (state, action: PayloadAction<typeof PostInitialState>) => {
       state.push(action.payload)
+    },
+    updatePost: (state, action: PayloadAction<typeof PostInitialState>) => {
+      const index = state.findIndex(post => post.id === action.payload.id)
+      state[index] = action.payload
+    },
+    deletePost: (state, action: PayloadAction<string>) => {
+      return state.filter(post => post.id !== action.payload)
     }
   }
 })
 
 // Export action creators and reducer
-export const { getPosts, addPost } = postsSlice.actions
+export const { getPosts, addPost, updatePost, deletePost } = postsSlice.actions
 export default postsSlice.reducer

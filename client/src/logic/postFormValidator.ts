@@ -1,13 +1,10 @@
-import { type Post } from '../types'
-import { PostInitialState, TravelInitialState } from '../constants'
-
-interface submittedValues extends Post {
-  setNext: boolean
-}
+import { type submittedValues } from '../types'
+import { TravelInitialState } from '../constants'
 
 interface Props {
   e: React.FormEvent<HTMLFormElement>
   userId: string
+  submittedValues: submittedValues
 }
 
 interface returnProps {
@@ -15,10 +12,10 @@ interface returnProps {
   valuesToSubmit: submittedValues
 }
 
-export const postFormValidator = ({ e, userId }: Props): returnProps => {
+export const postFormValidator = ({ e, userId, submittedValues }: Props): returnProps => {
   e.preventDefault()
   let error = ''
-  let valuesToSubmit = { ...PostInitialState, setNext: false }
+  let valuesToSubmit = { ...submittedValues }
   const travelState = { ...TravelInitialState, driverId: userId }
 
   const horarioRegex = /^(?:[5-9]|0[5-9]|1[0-9]|2[0-1]):[0-5][0-9]$|^(22:00)$/
@@ -46,7 +43,7 @@ export const postFormValidator = ({ e, userId }: Props): returnProps => {
   }
 
   valuesToSubmit = {
-    id: '', // Id is obtain from API
+    ...valuesToSubmit,
     origen: origen as string,
     destino: destino as string,
     horario: horario as string,
