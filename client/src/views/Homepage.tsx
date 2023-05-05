@@ -1,7 +1,7 @@
 import { PostTable } from '../components/post/PostTable'
 import { useSelector } from 'react-redux'
 import { type RootState } from '../redux/store'
-import { AvailableSeats } from '../components/post/AvailableSeats'
+import { PostFooter } from '../components/post/PostFooter'
 import { PostHeader } from '../components/post/PostHeader'
 
 export const Homepage = (): JSX.Element => {
@@ -14,12 +14,12 @@ export const Homepage = (): JSX.Element => {
           posts?.map((post, index) => {
             return (
               <li key={post.id} className='grid gap-3'>
-                <div className='grid gap-3 pr-5 pl-5'>
+                <article className='grid gap-3 pr-5 pl-5'>
                   <PostHeader post={post}/>
                   <PostTable post={post}/>
                   {post.detalles !== '' && <p><span className='font-bold'>Detalles:&nbsp;</span>{post.detalles}</p>}
-                  <AvailableSeats post={post} />
-                </ div>
+                  <PostFooter post={post} />
+                </article>
 
                 {(index < posts.length - 1) && <hr className='w-full mt-4 mb-4'/>}
               </li>

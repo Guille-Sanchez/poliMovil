@@ -2,42 +2,22 @@ import { Link, useNavigate } from 'react-router-dom'
 import { type RootState } from '../../redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { type Post } from '../../types'
-import { deletePost } from '../../redux/postsSlice'
+import { handleOptionSelected } from '../../logic/handleOptionSelected'
 
 interface Props {
   post: Post
 }
 
-export const AvailableSeats = ({ post }: Props): JSX.Element => {
+export const PostFooter = ({ post }: Props): JSX.Element => {
   const navigate = useNavigate()
   const userId = useSelector((state: RootState) => state.authentication).accessToken
   const dispatch = useDispatch()
   const numberOfPassengers = post.travelId.passengerId.filter(value => value !== '').length
   const asientosDisponibles = +post.asientosDisponibles - numberOfPassengers
-
-  const handleOptionSelected = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    const option = e.target.value
-    // TODO: Handle options
-    switch (option) {
-      case 'ver-mas':
-        navigate(`/posts/${post.id}`)
-        break
-      case 'editar':
-        // TODO: editar post from API
-        navigate(`/posts/editar/${post.id}`)
-        break
-      case 'eliminar':
-        // TODO: eliminar post from API
-        dispatch(deletePost(post.id))
-        navigate('/')
-        break
-      default:
-        break
-    }
-  }
+  const postId = post.id
 
   return (
-    <div className='flex justify-between items-center'>
+    <footer className='flex justify-between items-center'>
       <p>Asientos Disponibles: {asientosDisponibles}</p>
 
       {
@@ -45,8 +25,8 @@ export const AvailableSeats = ({ post }: Props): JSX.Element => {
           ? (
               <div>
                 <select name="userOptions" id="userOptions"
-                  className='flex gap-5 w-full justify-center bg-gradient-to-r from-blue-900 to-indigo-900 text-white font-semibold pl-1 pr-1 pt-1 pb-1 rounded-lg'
-                  onChange={handleOptionSelected}
+                  className='block bg-gradient-to-r from-blue-900 to-indigo-900 text-white font-semibold p-1 rounded-lg'
+                  onChange={(e) => { handleOptionSelected({ e, navigate, dispatch, postId }) }}
                 >
                   <option value="">Opciones</option>
                   <option value="ver-mas" className='bg-indigo-900 text-white'>Ver más</option>
@@ -63,6 +43,6 @@ export const AvailableSeats = ({ post }: Props): JSX.Element => {
               </Link>
             )
       }
-    </div>
+    </footer>
   )
 }

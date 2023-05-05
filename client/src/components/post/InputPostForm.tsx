@@ -19,7 +19,7 @@ export const InputPostForm = ({ inputLabel, required, placeholder, defaultValue 
       </label>
 
       <input className="border border-gray-500 rounded-lg pl-5 w-full"
-        type='text' name={inputLabel} id={inputLabel}
+        type='text' name={inputLabel} id={inputLabel} autoComplete="off"
         placeholder={placeholder} defaultValue={defaultValue}
       />
     </div>

@@ -19,6 +19,7 @@ const Login = lazy(async () => await import('./views/Login').then(module => ({ d
 const MyProfile = lazy(async () => await import('./views/MyProfile').then(module => ({ default: module.MyProfile })))
 const SignUp = lazy(async () => await import('./views/SignUp').then(module => ({ default: module.SignUp })))
 const About = lazy(async () => await import('./views/About').then(module => ({ default: module.About })))
+const Success = lazy(async () => await import('./views/Success').then(module => ({ default: module.Success })))
 
 function App (): JSX.Element {
   const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
@@ -30,7 +31,7 @@ function App (): JSX.Element {
   return (
     <div className='flex flex-col h-full'>
       {isAuthenticated ? <Header /> : <UnAuthHeader />}
-        <main className='flex-grow'>
+        <main className='flex-grow relative'>
           <Suspense fallback={<LoadingSPinner/>}>
             <Routes>
               {
@@ -41,6 +42,7 @@ function App (): JSX.Element {
                       <Route path='/posts/:id' element={<DetailedPost />} />
                       <Route path='/mi-perfil' element={<MyProfile />} />
                       <Route path='/posts/editar/:id' element={<PostForm />} />
+                      <Route path='/success' element={<Success/>} />
                     </>
                   : <>
                       <Route path='/' element={<Login />} />
