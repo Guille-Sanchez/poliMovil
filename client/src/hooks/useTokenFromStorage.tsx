@@ -16,7 +16,7 @@ export const useTokenFromStorage = (): void => {
       const token = localStorage.getItem('accessToken')
       if (token !== null && token !== undefined && token !== '') {
         const decoded: userToken = jwt_decode(token)
-        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: decoded.userId }))
+        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: token, userId: decoded.userId }))
       }
     }
 

@@ -16,11 +16,23 @@ export const PostInitialState = {
   precio: ''
 }
 
+export const PostToSendToDataBase = {
+  id: '',
+  origen: '',
+  destino: '',
+  horario: '',
+  asientosDisponibles: '',
+  detalles: '',
+  travelId: '',
+  precio: ''
+}
+
 export const Post = [PostInitialState]
 
 export const AuthenticationInitialState = {
   isAuthenticated: false,
-  accessToken: ''
+  accessToken: '',
+  userId: ''
 }
 
 export const UserInitialState = {

@@ -12,6 +12,10 @@ interface userToken extends JwtPayload {
   userId: string
 }
 
+interface accessTokenInterface {
+  accessToken: string
+}
+
 export const handleLogin = ({ e, setError, dispatch }: Props): void => {
   e.preventDefault()
 
@@ -34,11 +38,11 @@ export const handleLogin = ({ e, setError, dispatch }: Props): void => {
   })
     .then(async res => {
       if (res.status === 200) {
-        const { accessToken } = await res.json()
+        const { accessToken }: accessTokenInterface = await res.json()
         localStorage.setItem('accessToken', accessToken)
 
         const decoded: userToken = jwt_decode(accessToken)
-        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: decoded?.userId }))
+        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken, userId: decoded?.userId }))
       } else if (res.status === 401) {
         setError('Usuario o contraseña incorrectos')
       }

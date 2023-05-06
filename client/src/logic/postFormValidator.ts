@@ -16,7 +16,7 @@ export const postFormValidator = ({ e, userId, submittedValues }: Props): return
   e.preventDefault()
   let error = ''
   let valuesToSubmit = { ...submittedValues }
-  const travelState = { ...TravelInitialState, driverId: userId }
+  const travelState = submittedValues.travelId.id !== '' ? { ...submittedValues.travelId } : { ...TravelInitialState, driverId: userId }
 
   const horarioRegex = /^(?:[5-9]|0[5-9]|1[0-9]|2[0-1]):[0-5][0-9]$|^(22:00)$/
 

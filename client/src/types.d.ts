@@ -1,8 +1,10 @@
-import { type TravelInitialState, type PostInitialState, type AuthenticationInitialState, type UserInitialState } from './constants'
+import { type TravelInitialState, type PostInitialState, type AuthenticationInitialState, type UserInitialState, type PostToSendToDataBase } from './constants'
 
 export type Posts = Post[]
 
 export type Post = typeof PostInitialState
+
+export type DataBasePost = typeof PostToSendToDataBase
 
 export interface submittedValues extends Post {
   setNext: boolean

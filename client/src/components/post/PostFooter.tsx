@@ -10,7 +10,7 @@ interface Props {
 
 export const PostFooter = ({ post }: Props): JSX.Element => {
   const navigate = useNavigate()
-  const userId = useSelector((state: RootState) => state.authentication).accessToken
+  const userId = useSelector((state: RootState) => state.authentication).userId
   const dispatch = useDispatch()
   const numberOfPassengers = post.travelId.passengerId.filter(value => value !== '').length
   const asientosDisponibles = +post.asientosDisponibles - numberOfPassengers

@@ -1,10 +1,12 @@
-import { useDispatch } from 'react-redux'
-import { addPost, updatePost } from '../redux/postsSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import { PostHeader } from '../components/post/PostHeader'
 import { PostTable } from '../components/post/PostTable'
-import { PostInitialState } from '../constants'
 import { type submittedValues } from '../types'
 import { useNavigate } from 'react-router-dom'
+import { type RootState } from '../redux/store'
+import { handleEditPost } from '../logic/handleEditPost'
+import { handleCreatePost } from '../logic/handleCreatePost'
+
 interface Props {
   submittedValues: submittedValues
   setSubmittedValues: React.Dispatch<React.SetStateAction<submittedValues>>
@@ -13,18 +15,20 @@ interface Props {
 export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX.Element => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const accessToken = useSelector((state: RootState) => state.authentication.accessToken)
 
-  const handleOnSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-    // TODO: send to api
-    e.preventDefault()
-    if (submittedValues.id === '') {
-      dispatch(addPost(submittedValues)) // Guardar id de post from API
-      navigate('/success', { state: { message: 'Post creado correctamente', type: 'success' } })
+  const handleOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    if (submittedValues.id !== '') {
+      handleEditPost({ e, submittedValues, setSubmittedValues, accessToken, navigate, dispatch })
+        .catch((error) => {
+          console.log(error)
+        })
     } else {
-      navigate('/success', { state: { message: 'Post editado correctamente', type: 'success' } })
-      dispatch(updatePost(submittedValues))
+      handleCreatePost({ e, submittedValues, setSubmittedValues, accessToken, navigate, dispatch })
+        .catch((error) => {
+          console.log(error)
+        })
     }
-    setSubmittedValues({ ...PostInitialState, setNext: false })
   }
 
   return (
@@ -41,7 +45,7 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
         </button>
 
         <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'
-          onClick={(e) => { handleOnSubmit(e) }}
+          onClick={(e) => { handleOnClick(e) }}
         >
         {submittedValues.id === '' ? 'Crear post' : 'Editar post'}
         </button>

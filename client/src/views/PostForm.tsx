@@ -15,7 +15,7 @@ import { PriceSelector } from '../components/post/PriceSelector'
 export const PostForm = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
-  const userId = useSelector((state: RootState) => state.authentication.accessToken)
+  const userId = useSelector((state: RootState) => state.authentication.userId)
   const [submittedValues, setSubmittedValues] = useState<submittedValues>({ ...PostInitialState, setNext: false })
 
   usePostEditing({ setSubmittedValues, setLoading })

@@ -40,9 +40,27 @@ export const getPosts = (req, res) => {
 
 export const getPost = (req, res) => {
   const postId = req.params.id
-  console.log(postId)
   Post.findById(postId).populate('travelId')
     .then((post) => {
+      res.status(200).json(post)
+    })
+    .catch((error) => {
+      res.status(400).send({
+        message: error.message
+      })
+    })
+}
+
+export const updatePost = (req, res) => {
+  const postId = req.params.id
+
+  Post.findByIdAndUpdate(postId, { ...req.body }, { new: true })
+    .then((post) => {
+      if (!post) {
+        return res.status(400).send({
+          message: 'El post buscado no existe'
+        })
+      }
       res.status(200).json(post)
     })
     .catch((error) => {

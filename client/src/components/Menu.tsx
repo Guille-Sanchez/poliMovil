@@ -12,7 +12,7 @@ export const Menu = ({ setShowMenu }: Props): JSX.Element => {
 
   const handleLogout = (): void => {
     localStorage.removeItem('accessToken')
-    dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: false, accessToken: '' }))
+    dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: false, accessToken: '', userId: '' }))
     setShowMenu(() => false)
   }
 
