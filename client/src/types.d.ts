@@ -1,4 +1,4 @@
-import { type TravelInitialState, type PostInitialState, type AuthenticationInitialState, type UserInitialState, type PostToSendToDataBase } from './constants'
+import { type TravelInitialState, type PostInitialState, type AuthenticationInitialState, type UserInitialState, type PostToSendToDataBase, type MessageInitialState } from './constants'
 
 export type Posts = Post[]
 
@@ -17,3 +17,5 @@ export type Users = User[]
 export type User = typeof UserInitialState
 
 export type AuthenticationState = typeof AuthenticationInitialState
+
+export type messageType = typeof MessageInitialState

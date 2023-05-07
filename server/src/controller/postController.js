@@ -3,7 +3,7 @@ import { Travel } from '../models/Travels.js'
 import { User } from '../models/User.js'
 
 export const createPost = async (req, res) => {
-  const userId = req.params.id
+  const userId = req.userId
   const { origen, destino, horario, asientosDisponibles } = req.body
 
   if (origen === '' || destino === '' || horario === '' || asientosDisponibles === '') {

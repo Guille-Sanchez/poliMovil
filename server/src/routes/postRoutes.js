@@ -6,7 +6,7 @@ import { checkPostOwnershipMiddleware } from '../middleware/checkPostOwnershipMi
 const router = express.Router()
 
 // POST /api/posts/:id
-router.post('/:id', createPost)
+router.post('/', authMiddleware, createPost)
 
 // GET /api/posts/
 router.get('/', getPosts)

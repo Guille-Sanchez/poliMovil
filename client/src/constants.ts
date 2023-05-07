@@ -45,3 +45,8 @@ export const UserInitialState = {
   phone: '',
   travels: [TravelInitialState]
 }
+
+export const MessageInitialState = {
+  mensaje: '',
+  type: ''
+}

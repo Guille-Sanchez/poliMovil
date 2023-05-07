@@ -1,22 +1,17 @@
-import { type DataBasePost } from '../types'
+import { handleErrors } from '../logic/handleErrors'
+import { type messageType, type DataBasePost } from '../types'
 
 interface Props {
   updateOldPost: DataBasePost
   accessToken: string
 }
 
-interface message {
-  mensaje: string
-  type: string
-}
-
 interface returnProps {
-  message: message
+  message: messageType
 }
 
 export const updatePostService = async ({ updateOldPost, accessToken }: Props): Promise<returnProps> => {
   const postId = updateOldPost.id
-
   const message = {
     mensaje: '',
     type: ''
@@ -33,25 +28,12 @@ export const updatePostService = async ({ updateOldPost, accessToken }: Props): 
         body: JSON.stringify(updateOldPost)
       })
       .then(async (res) => {
-        if (res.status === 200) {
-          message.type = 'success'
-          message.mensaje = 'Post editado correctamente'
-        } else if (res.status === 401) {
-          message.type = 'error'
-          message.mensaje = 'No se encuentra autorizado para realizar esta acción'
-        } else if (res.status === 404) {
-          message.type = 'error'
-          message.mensaje = 'No se encuentra el post'
-        } else if (res.status === 500) {
-          message.type = 'error'
-          message.mensaje = 'Error interno del servidor'
-        }
-        return await res.json()
-      }).then((_data) => {
+        const { message } = handleErrors({ res })
         resolve({ message })
       })
-      .catch((err) => {
-        console.log(err)
+      .catch((_err) => {
+        message.mensaje = 'Un error ocurrión, intenta más tarde'
+        message.type = 'error'
         resolve({ message })
       })
   })

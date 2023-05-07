@@ -1,21 +1,22 @@
 import type React from 'react'
 import { updatePost } from '../redux/postsSlice'
-import { PostInitialState } from '../constants'
-import { type DataBasePost, type submittedValues } from '../types'
+import { type messageType, type DataBasePost, type submittedValues } from '../types'
 import { updatePostService } from '../services/updatePostService'
-import { type NavigateFunction } from 'react-router-dom'
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
 
 interface Props {
   submittedValues: submittedValues
-  setSubmittedValues: React.Dispatch<React.SetStateAction<submittedValues>>
   accessToken: string
-  navigate: NavigateFunction
   dispatch: Dispatch<AnyAction>
   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const handleEditPost = async ({ e, submittedValues, setSubmittedValues, accessToken, navigate, dispatch }: Props): Promise<void> => {
+interface returnProps {
+  message: messageType
+}
+
+export const handleEditPost = async ({ e, submittedValues, accessToken, dispatch, setOpenDialog }: Props): Promise<returnProps> => {
   e.preventDefault()
 
   const { setNext, travelId, ...newPost } = submittedValues
@@ -25,14 +26,11 @@ export const handleEditPost = async ({ e, submittedValues, setSubmittedValues, a
   }
 
   const { message } = await updatePostService({ updateOldPost, accessToken })
+  setOpenDialog(() => true)
 
-  if (message.type === 'error') {
-    setSubmittedValues({ ...PostInitialState, setNext: false })
-    navigate('/error', { state: { message: message.mensaje, type: message.type } })
-  } else if (message.type === 'success') {
-    navigate('/success', { state: { message: message.mensaje, type: message.type } })
+  if (message.type === '¡Exito!') {
     dispatch(updatePost({ ...newPost, travelId }))
   }
 
-  setSubmittedValues({ ...PostInitialState, setNext: false })
+  return ({ message })
 }

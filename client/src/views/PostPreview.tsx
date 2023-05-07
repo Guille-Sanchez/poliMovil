@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { PostHeader } from '../components/post/PostHeader'
 import { PostTable } from '../components/post/PostTable'
-import { type submittedValues } from '../types'
-import { useNavigate } from 'react-router-dom'
+import { type messageType, type submittedValues } from '../types'
 import { type RootState } from '../redux/store'
 import { handleEditPost } from '../logic/handleEditPost'
 import { handleCreatePost } from '../logic/handleCreatePost'
+import { useState } from 'react'
+import { MessageInitialState } from '../constants'
+import { MessageDialog } from '../components/post/MessageDialog'
 
 interface Props {
   submittedValues: submittedValues
@@ -14,17 +16,21 @@ interface Props {
 
 export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX.Element => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [message, setMessage] = useState<messageType>(MessageInitialState)
+  const [openDialog, setOpenDialog] = useState(false)
   const accessToken = useSelector((state: RootState) => state.authentication.accessToken)
 
-  const handleOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+  const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
     if (submittedValues.id !== '') {
-      handleEditPost({ e, submittedValues, setSubmittedValues, accessToken, navigate, dispatch })
+      handleEditPost({ e, submittedValues, accessToken, dispatch, setOpenDialog })
+        .then(({ message }) => {
+          setMessage(() => { return ({ ...message }) })
+        })
         .catch((error) => {
           console.log(error)
         })
     } else {
-      handleCreatePost({ e, submittedValues, setSubmittedValues, accessToken, navigate, dispatch })
+      handleCreatePost({ e, submittedValues, setSubmittedValues, accessToken, dispatch })
         .catch((error) => {
           console.log(error)
         })
@@ -32,7 +38,7 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
   }
 
   return (
-    <section className='bg-white w-full h-full p-5 flex flex-col gap-3'>
+    <section className='bg-white w-full h-full p-5 flex flex-col gap-3 relative'>
       <PostHeader post={submittedValues} />
       <PostTable post={submittedValues} />
       <p>Asientos Disponibles: {submittedValues.asientosDisponibles}</p>
@@ -45,11 +51,18 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
         </button>
 
         <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'
-          onClick={(e) => { handleOnClick(e) }}
+          onClick={ (e) => {
+            handleOnClick(e)
+              .catch((error) => {
+                console.log(error)
+              })
+          }}
         >
-        {submittedValues.id === '' ? 'Crear post' : 'Editar post'}
+          {submittedValues.id === '' ? 'Crear post' : 'Editar post'}
         </button>
       </div>
+
+      { openDialog && <MessageDialog message={message} /> }
     </section>
   )
 }
