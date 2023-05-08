@@ -1,35 +1,30 @@
 import { handleErrors } from '../logic/handleErrors'
 import { type messageType, type DataBasePost } from '../types'
 
-interface updateDataBasePost extends DataBasePost {
-  travelId: string
-}
-
 interface Props {
-  updateOldPost: updateDataBasePost
   accessToken: string
+  newPostInformation: DataBasePost
 }
 
 interface returnProps {
   message: messageType
 }
 
-export const updatePostService = async ({ updateOldPost, accessToken }: Props): Promise<returnProps> => {
-  const postId = updateOldPost.id
+export const createPostService = async ({ accessToken, newPostInformation }: Props): Promise<returnProps> => {
   const message = {
     mensaje: '',
     type: ''
   }
 
   return await new Promise<returnProps>((resolve) => {
-    fetch(`http://localhost:3000/api/posts/${postId}`,
+    fetch('http://localhost:3000/api/posts',
       {
-        method: 'PATCH',
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(updateOldPost)
+        body: JSON.stringify(newPostInformation)
       })
       .then((res) => {
         const { message } = handleErrors({ res })

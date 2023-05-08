@@ -21,8 +21,10 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
   const accessToken = useSelector((state: RootState) => state.authentication.accessToken)
 
   const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
+    e.preventDefault()
+
     if (submittedValues.id !== '') {
-      handleEditPost({ e, submittedValues, accessToken, dispatch, setOpenDialog })
+      handleEditPost({ submittedValues, accessToken, dispatch, setOpenDialog })
         .then(({ message }) => {
           setMessage(() => { return ({ ...message }) })
         })
@@ -30,7 +32,10 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
           console.log(error)
         })
     } else {
-      handleCreatePost({ e, submittedValues, setSubmittedValues, accessToken, dispatch })
+      handleCreatePost({ submittedValues, setOpenDialog, accessToken, dispatch })
+        .then(({ message }) => {
+          setMessage(() => { return ({ ...message }) })
+        })
         .catch((error) => {
           console.log(error)
         })

@@ -23,7 +23,6 @@ export const PostToSendToDataBase = {
   horario: '',
   asientosDisponibles: '',
   detalles: '',
-  travelId: '',
   precio: ''
 }
 

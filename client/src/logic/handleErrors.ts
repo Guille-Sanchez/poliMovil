@@ -19,6 +19,10 @@ export const handleErrors = ({ res }: Props): returnProps => {
       message.type = '¡Exito!'
       message.mensaje = 'El archivo se ha editado correctamente.'
       break
+    case 201:
+      message.type = '¡Exito!'
+      message.mensaje = 'El archivo se ha creado correctamente.'
+      break
     case 400:
       message.type = 'Un error ha ocurrido.'
       message.mensaje = 'Error en la petición.'

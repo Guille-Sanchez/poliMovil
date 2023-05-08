@@ -69,3 +69,29 @@ export const updatePost = (req, res) => {
       })
     })
 }
+
+export const deletePost = (req, res) => {
+  const postId = req.params.id
+
+  Post.findByIdAndDelete(postId)
+    .then((post) => {
+      if (!post) {
+        return res.status(400).send({
+          message: 'El post buscado no existe'
+        })
+      }
+    })
+    .catch((error) => {
+      res.status(400).send({
+        message: error.message
+      })
+    })
+
+  Travel.findByIdAndDelete(postId)
+    .catch((error) => {
+      res.status(400).send({
+        message: error.message
+      })
+    })
+  res.status(200)
+}

@@ -1,32 +1,30 @@
 import type React from 'react'
 import { addPost } from '../redux/postsSlice'
-import { PostInitialState } from '../constants'
-import { type submittedValues } from '../types'
+import { type messageType, type submittedValues } from '../types'
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
+import { createPostService } from '../services/createPostService'
 
 interface Props {
   submittedValues: submittedValues
-  setSubmittedValues: React.Dispatch<React.SetStateAction<submittedValues>>
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>
   accessToken: string
   dispatch: Dispatch<AnyAction>
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
 }
 
-export const handleCreatePost = async ({ e, submittedValues, setSubmittedValues, accessToken, dispatch }: Props): Promise<void> => {
-  e.preventDefault()
-  // TODO: send to api
-  const { setNext, travelId, ...newPost } = submittedValues
-  fetch('http://localhost:3000/api/posts', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newPost)
-  }).then(async res => await res.json())
-    .then(res => { console.log(res) })
-    .catch(err => { console.log(err) })
+interface returnProps {
+  message: messageType
+}
 
-  dispatch(addPost({ ...newPost, travelId })) // Guardar id de post from API
-  setSubmittedValues({ ...PostInitialState, setNext: false })
+export const handleCreatePost = async ({ submittedValues, setOpenDialog, accessToken, dispatch }: Props): Promise<returnProps> => {
+  // TODO: send to api
+  const { setNext, travelId, ...newPostInformation } = submittedValues
+  const { message } = await createPostService({ accessToken, newPostInformation })
+
+  setOpenDialog(() => true)
+
+  if (message.type === '¡Exito!') {
+    dispatch(addPost({ ...newPostInformation, travelId })) // Guardar id de post from API
+  }
+
+  return ({ message })
 }

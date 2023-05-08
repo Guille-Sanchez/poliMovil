@@ -8,7 +8,6 @@ interface Props {
   submittedValues: submittedValues
   accessToken: string
   dispatch: Dispatch<AnyAction>
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -16,11 +15,13 @@ interface returnProps {
   message: messageType
 }
 
-export const handleEditPost = async ({ e, submittedValues, accessToken, dispatch, setOpenDialog }: Props): Promise<returnProps> => {
-  e.preventDefault()
+interface updateDataBasePost extends DataBasePost {
+  travelId: string
+}
 
+export const handleEditPost = async ({ submittedValues, accessToken, dispatch, setOpenDialog }: Props): Promise<returnProps> => {
   const { setNext, travelId, ...newPost } = submittedValues
-  const updateOldPost: DataBasePost = {
+  const updateOldPost: updateDataBasePost = {
     ...newPost,
     travelId: travelId.id
   }
