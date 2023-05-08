@@ -18,12 +18,12 @@ interface returnProps {
 export const handleCreatePost = async ({ submittedValues, setOpenDialog, accessToken, dispatch }: Props): Promise<returnProps> => {
   // TODO: send to api
   const { setNext, travelId, ...newPostInformation } = submittedValues
-  const { message } = await createPostService({ accessToken, newPostInformation })
+  const { message, response } = await createPostService({ accessToken, newPostInformation })
 
   setOpenDialog(() => true)
 
-  if (message.type === '¡Exito!') {
-    dispatch(addPost({ ...newPostInformation, travelId })) // Guardar id de post from API
+  if (message.type === '¡Exito!' && response !== undefined) {
+    dispatch(addPost({ ...response }))
   }
 
   return ({ message })

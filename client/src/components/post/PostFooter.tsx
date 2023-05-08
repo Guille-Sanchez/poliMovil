@@ -3,6 +3,7 @@ import { type RootState } from '../../redux/store'
 import { useSelector } from 'react-redux'
 import { type Post } from '../../types'
 import { handleOptionSelected } from '../../logic/handleOptionSelected'
+import { getAvailableSeats } from '../../logic/getAvailableSeats'
 interface Props {
   post: Post
 }
@@ -10,8 +11,7 @@ interface Props {
 export const PostFooter = ({ post }: Props): JSX.Element => {
   const navigate = useNavigate()
   const userId = useSelector((state: RootState) => state.authentication).userId
-  const numberOfPassengers = post.travelId.passengerId.filter(value => value !== '').length
-  const asientosDisponibles = +post.asientosDisponibles - numberOfPassengers
+  const { asientosDisponibles } = getAvailableSeats({ post })
   const postId = post.id
 
   return (

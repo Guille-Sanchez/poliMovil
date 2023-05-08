@@ -19,11 +19,13 @@ export const createPost = async (req, res) => {
   })
 
   await travel.save()
-
-  await Post.findByIdAndUpdate(post._id, { travelId: travel._id })
   await User.findByIdAndUpdate(userId, { $push: { travels: travel._id } })
 
-  res.status(201).json(post)
+  Post.findByIdAndUpdate(post._id, { travelId: travel._id }, { new: true }).populate('travelId')
+    .then((post) => {
+      console.log(post)
+      res.status(201).json(post)
+    })
 }
 
 export const getPosts = (req, res) => {

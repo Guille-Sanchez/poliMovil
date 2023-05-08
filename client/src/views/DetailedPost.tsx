@@ -10,6 +10,7 @@ import { deletePostService } from '../services/deletePostService'
 import { useState } from 'react'
 import { MessageInitialState } from '../constants'
 import { MessageDialog } from '../components/post/MessageDialog'
+import { getAvailableSeats } from '../logic/getAvailableSeats'
 
 export const DetailedPost = (): JSX.Element => {
   const posts = useSelector((state: RootState) => state.posts)
@@ -24,27 +25,29 @@ export const DetailedPost = (): JSX.Element => {
   const dispatch = useDispatch()
 
   // Find the post with matching ID
-  const detailedPost = posts.find((post: Post) => post.id === id)
+  const post = posts.find((post: Post) => post.id === id)
+
+  const { asientosDisponibles } = post !== undefined ? getAvailableSeats({ post }) : { asientosDisponibles: 0 }
 
   return (
     <section className="bg-white pr-5 pl-5 w-full h-full pt-5 relative">
       {
-        (detailedPost != null) &&
+        (post != null) &&
         <div className='grid gap-3 pb-5'>
-          <PostHeader post={detailedPost}/>
-          <PostTable post={detailedPost}/>
+          <PostHeader post={post}/>
+          <PostTable post={post}/>
           {
-            detailedPost.detalles !== '' &&
-              <p><span className='font-bold'>Detalles:&nbsp;</span>{detailedPost.detalles}</p>
+            post.detalles !== '' &&
+              <p><span className='font-bold'>Detalles:&nbsp;</span>{post.detalles}</p>
           }
           <div className='flex justify-between items-center'>
-            <p>Asientos Disponibles: {detailedPost.asientosDisponibles}</p>
+            <p>Asientos Disponibles: {post.asientosDisponibles}</p>
           </div>
         </div>
       }
 
       { !eliminar
-        ? (detailedPost != null && +detailedPost.asientosDisponibles - detailedPost.travelId.passengerId.length > 0) &&
+        ? (post != null && asientosDisponibles > 0) &&
             <div className='flex justify-evenly items-center w-full'>
               <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'>
                 Reservar
@@ -81,7 +84,7 @@ export const DetailedPost = (): JSX.Element => {
           )
       }
 
-      <PassangerList detailedPost={detailedPost} />
+      <PassangerList post={post} />
       {openDialog && <MessageDialog message={message}/>}
     </section>
   )

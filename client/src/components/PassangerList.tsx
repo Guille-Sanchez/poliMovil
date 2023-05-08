@@ -3,14 +3,14 @@ import type { RootState } from '../redux/store'
 import { type Post } from '../types'
 
 interface Props {
-  detailedPost?: Post
+  post?: Post
 }
 
-export const PassangerList = ({ detailedPost }: Props): JSX.Element => {
+export const PassangerList = ({ post }: Props): JSX.Element => {
   const users = useSelector((state: RootState) => state.users)
 
   // get passenger IDs from the detailed post && find user info for each passenger
-  const passengerIds = detailedPost?.travelId.passengerId ?? []
+  const passengerIds = post?.travelId.passengerId ?? []
   const passengerInfoList = passengerIds.map((id) => users.find(user => user.id === id))
 
   return (

@@ -52,9 +52,11 @@ export const PostForm = (): JSX.Element => {
 
               <div className='flex justify-evenly items-center w-full'>
                 <Link to={'/'}>
-                  <button className='bg-[#990000] text-white pt-2 pb-2 p-5 pr-5 rounded-lg'>Cancelar</button>
+                  <button className='bg-[#990000] text-white pt-2 pb-2 p-5 pr-5 rounded-lg' type='button'>Cancelar</button>
                 </Link>
-                <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'>Enviar</button>
+                <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg' type='submit'>
+                  {submittedValues.id === '' ? 'Crear post' : 'Editar post'}
+                </button>
               </div>
             </form>
           }
