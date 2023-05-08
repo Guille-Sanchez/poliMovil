@@ -2,13 +2,14 @@ import { type messageType } from '../types'
 
 interface Props {
   res: Response
+  action: string
 }
 
 interface returnProps {
   message: messageType
 }
 
-export const handleErrors = ({ res }: Props): returnProps => {
+export const handleErrors = ({ res, action }: Props): returnProps => {
   const message = {
     mensaje: '',
     type: ''
@@ -17,11 +18,11 @@ export const handleErrors = ({ res }: Props): returnProps => {
   switch (res.status) {
     case 200:
       message.type = '¡Exito!'
-      message.mensaje = 'El archivo se ha editado correctamente.'
+      message.mensaje = `El archivo se ha ${action} correctamente.`
       break
     case 201:
       message.type = '¡Exito!'
-      message.mensaje = 'El archivo se ha creado correctamente.'
+      message.mensaje = `El archivo se ha ${action} correctamente.`
       break
     case 400:
       message.type = 'Un error ha ocurrido.'

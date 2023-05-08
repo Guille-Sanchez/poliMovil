@@ -46,6 +46,10 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
     <section className='bg-white w-full h-full p-5 flex flex-col gap-3 relative'>
       <PostHeader post={submittedValues} />
       <PostTable post={submittedValues} />
+      {
+        submittedValues.detalles !== '' &&
+          <p><span className='font-bold'>Detalles:&nbsp;</span>{submittedValues.detalles}</p>
+      }
       <p>Asientos Disponibles: {submittedValues.asientosDisponibles}</p>
 
       <div className='flex justify-evenly items-center w-full'>

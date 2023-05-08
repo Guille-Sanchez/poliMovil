@@ -15,6 +15,7 @@ export const createPostService = async ({ accessToken, newPostInformation }: Pro
     mensaje: '',
     type: ''
   }
+  const action = 'creado'
 
   return await new Promise<returnProps>((resolve) => {
     fetch('http://localhost:3000/api/posts',
@@ -27,7 +28,7 @@ export const createPostService = async ({ accessToken, newPostInformation }: Pro
         body: JSON.stringify(newPostInformation)
       })
       .then((res) => {
-        const { message } = handleErrors({ res })
+        const { message } = handleErrors({ res, action })
         resolve({ message })
       })
       .catch((_err) => {

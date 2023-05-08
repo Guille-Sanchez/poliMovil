@@ -29,3 +29,9 @@ authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDRhO
   "origen": "Facultad",
   "destino": "Mariano Roque Alonso"
 }
+
+// Update post
+###
+DELETE http://localhost:3000/api/posts/64578f38c0fe24daa0ccf2e4 HTTP/1.1
+Content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDRhOTU4NDIzODZhNTU4MDA1NTljZmIiLCJpYXQiOjE2ODM1NTU3NTV9.YjS9p1LPjIM05vl6Et9wIbVvRnjnb-b0er4zwOg-JmI

@@ -1,4 +1,4 @@
-import { createPost, getPosts, getPost, updatePost } from '../controller/postController.js'
+import { createPost, getPosts, getPost, updatePost, deletePost } from '../controller/postController.js'
 import express from 'express'
 import { authMiddleware } from '../middleware/authMiddleware.js'
 import { checkPostOwnershipMiddleware } from '../middleware/checkPostOwnershipMiddleware.js'
@@ -14,7 +14,10 @@ router.get('/', getPosts)
 // GET /api/posts/
 router.get('/:id', getPost)
 
-// GET /api/posts/
+// PATCH /api/posts/
 router.patch('/:id', authMiddleware, checkPostOwnershipMiddleware, updatePost)
+
+// DELETE /api/posts/
+router.delete('/:id', authMiddleware, checkPostOwnershipMiddleware, deletePost)
 
 export default router

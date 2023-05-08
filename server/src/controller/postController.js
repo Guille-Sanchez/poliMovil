@@ -70,28 +70,25 @@ export const updatePost = (req, res) => {
     })
 }
 
-export const deletePost = (req, res) => {
-  const postId = req.params.id
+export const deletePost = async (req, res) => {
+  try {
+    const postId = req.params.id
 
-  Post.findByIdAndDelete(postId)
-    .then((post) => {
-      if (!post) {
-        return res.status(400).send({
-          message: 'El post buscado no existe'
-        })
-      }
-    })
-    .catch((error) => {
-      res.status(400).send({
-        message: error.message
-      })
-    })
+    // Find and delete the post
+    const post = await Post.findByIdAndDelete(postId)
+    if (!post) {
+      return res.status(404).send({ message: 'Post not found' })
+    }
 
-  Travel.findByIdAndDelete(postId)
-    .catch((error) => {
-      res.status(400).send({
-        message: error.message
-      })
-    })
-  res.status(200)
+    // Delete the associated travel
+    const travel = await Travel.findByIdAndDelete(post.travelId)
+    if (!travel) {
+      return res.status(404).send({ message: 'Travel not found' })
+    }
+
+    // Return a success message
+    return res.status(200).send({ message: 'Post and travel deleted successfully' })
+  } catch (error) {
+    return res.status(500).send({ message: 'An error occurred while deleting the post and travel' })
+  }
 }
