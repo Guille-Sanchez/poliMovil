@@ -1,6 +1,7 @@
 import jwt_decode, { type JwtPayload } from 'jwt-decode'
 import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
 import { type useDispatch } from 'react-redux'
+import { loginService } from '../services/users/loginService'
 
 interface Props {
   e: React.FormEvent<HTMLFormElement>
@@ -10,10 +11,6 @@ interface Props {
 
 interface userToken extends JwtPayload {
   userId: string
-}
-
-interface accessTokenInterface {
-  accessToken: string
 }
 
 export const handleLogin = ({ e, setError, dispatch }: Props): void => {
@@ -29,23 +26,17 @@ export const handleLogin = ({ e, setError, dispatch }: Props): void => {
     setError('Todos los campos son requeridos')
   }
 
-  fetch('http://localhost:3000/api/users/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(authData)
-  })
-    .then(async res => {
-      if (res.status === 200) {
-        const { accessToken }: accessTokenInterface = await res.json()
-        localStorage.setItem('accessToken', accessToken)
-
-        const decoded: userToken = jwt_decode(accessToken)
-        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken, userId: decoded?.userId }))
-      } else if (res.status === 401) {
+  loginService({ authData })
+    .then(res => {
+      if (res.message.type === '¡Exito!') {
+        localStorage.setItem('accessToken', res.accessToken)
+        const decoded: userToken = jwt_decode(res.accessToken)
+        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: res.accessToken, userId: decoded?.userId }))
+      } else {
         setError('Usuario o contraseña incorrectos')
       }
     })
-    .catch(err => { console.log(err) })
+    .catch(err => {
+      console.log(err)
+    })
 }

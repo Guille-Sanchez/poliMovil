@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { InputPasswordType } from '../components/InputPasswordType'
+import { createUser } from '../services/users/createUser'
+import { MessageDialog } from '../components/post/MessageDialog'
+import { MessageInitialState } from '../constants'
 
 export const SignUp = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
+  const [openDialog, setOpenDialog] = useState(false)
+  const [message, setMessage] = useState(MessageInitialState)
+
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
@@ -22,13 +28,20 @@ export const SignUp = (): JSX.Element => {
       return
     }
 
-    const PostData = {
+    const postData = {
       email: email as string,
-      password: password as string,
-      showConfirmPassword: confirmPassword as string
+      password: password as string
     }
 
-    console.log(PostData)
+    createUser({ postData })
+      .then((res) => {
+        console.log(res)
+        setMessage(() => { return { ...res.message } })
+        setOpenDialog(true)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -57,6 +70,8 @@ export const SignUp = (): JSX.Element => {
           </button>
         </div>
       </form>
+
+      {openDialog && <MessageDialog message={message}/>}
     </section>
   )
 }

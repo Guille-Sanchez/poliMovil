@@ -1,7 +1,7 @@
 // Create a new Post and sending in params usuarioID
 POST http://localhost:3000/api/posts/ HTTP/1.1
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDRhOTU4NDIzODZhNTU4MDA1NTljZmIiLCJpYXQiOjE2ODM1NzY5Mjd9.w8DiUrYcQG9NFHyo7d89x0mG7jkvgJAyeze8gfqfKEc
+authorization: Bearer 
 
 {
   "origen": "Centro",
@@ -24,7 +24,7 @@ GET http://localhost:3000/api/posts/6449aa7af336f1a93cf1c6d7
 ###
 PATCH http://localhost:3000/api/posts/644a95b42386a55800559d03 HTTP/1.1
 Content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDRhOTU4NDIzODZhNTU4MDA1NTljZmIiLCJpYXQiOjE2ODMzMjEzMjV9.5LdaL1YXSVqvOTNlD33goh48x7hw8WUKHBHAQA88lII
+authorization: Bearer 
 
 {
   "origen": "Facultad",
@@ -35,4 +35,4 @@ authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDRhO
 ###
 DELETE http://localhost:3000/api/posts/645905d7ec9306aa28394a49 HTTP/1.1
 Content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDRhOTU4NDIzODZhNTU4MDA1NTljZmIiLCJpYXQiOjE2ODM1NTU3NTV9.YjS9p1LPjIM05vl6Et9wIbVvRnjnb-b0er4zwOg-JmI
+authorization: Bearer 

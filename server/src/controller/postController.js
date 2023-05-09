@@ -82,6 +82,13 @@ export const deletePost = async (req, res) => {
       return res.status(404).send({ message: 'Post not found' })
     }
 
+    // Delte travelId from User model
+    await User.findByIdAndUpdate(post.driverId, { $pull: { travels: post.travelId } })
+    const passangers = await User.find({ travels: post.travelId })
+    if (passangers.length > 0) {
+      await User.updateMany({ travels: post.travelId }, { $pull: { travels: post.travelId } })
+    }
+
     // Delete the associated travel
     const travel = await Travel.findByIdAndDelete(post.travelId)
     if (!travel) {

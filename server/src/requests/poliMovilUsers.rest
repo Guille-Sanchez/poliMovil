@@ -21,6 +21,6 @@ POST http://localhost:3000/api/users/login HTTP/1.1
 content-type: application/json
 
 {
-  "email": "IAE@gmail.com",
-  "password": "IAE123"
+  "email": "gsanz1997@fpuna.edu.py",
+  "password": "ABC123"
 }
