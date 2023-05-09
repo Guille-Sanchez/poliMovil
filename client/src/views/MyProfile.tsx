@@ -31,7 +31,7 @@ export const MyProfile = (): JSX.Element => {
 
       {
        personalInfoCurrentView
-         ? <UpdatePersonalInformationForm />
+         ? <UpdatePersonalInformationForm formLegend={'Información Personal'}/>
          : <UpdatePasswordForm />
       }
     </section>

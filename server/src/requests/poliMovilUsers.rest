@@ -21,6 +21,16 @@ POST http://localhost:3000/api/users/login HTTP/1.1
 content-type: application/json
 
 {
-  "email": "gsanz1997@fpuna.edu.py",
-  "password": "ABC123"
+  "email": "IAE@gmail.com",
+  "password": "IAE123"
+}
+
+// Update
+###
+PATCH http://localhost:3000/api/users/ HTTP/1.1
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVhNDA2OTExNWI0OGExOTI5NDIwN2QiLCJpc1Byb2ZpbGVDb21wbGV0ZWQiOmZhbHNlLCJpYXQiOjE2ODM2NDg5NDZ9.XAa8dNH2a7b01UoGZ6GqxdLbs6p0oWihwR4azLqdabY
+
+{
+  "name": "Chicho"
 }

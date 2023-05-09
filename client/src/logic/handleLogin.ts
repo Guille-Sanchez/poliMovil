@@ -11,6 +11,7 @@ interface Props {
 
 interface userToken extends JwtPayload {
   userId: string
+  isProfileCompleted: boolean
 }
 
 export const handleLogin = ({ e, setError, dispatch }: Props): void => {
@@ -31,7 +32,7 @@ export const handleLogin = ({ e, setError, dispatch }: Props): void => {
       if (res.message.type === '¡Exito!') {
         localStorage.setItem('accessToken', res.accessToken)
         const decoded: userToken = jwt_decode(res.accessToken)
-        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: res.accessToken, userId: decoded?.userId }))
+        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: res.accessToken, userId: decoded?.userId, isProfileCompleted: decoded?.isProfileCompleted }))
       } else {
         setError('Usuario o contraseña incorrectos')
       }

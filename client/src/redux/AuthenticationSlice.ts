@@ -13,6 +13,7 @@ export const AuthenticationSlice = createSlice({
       state.isAuthenticated = action.payload.isAuthenticated
       state.accessToken = action.payload.accessToken
       state.userId = action.payload.userId
+      state.isProfileCompleted = action.payload.isProfileCompleted
     }
   }
 })

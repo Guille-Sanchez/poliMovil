@@ -60,7 +60,7 @@ export const SignUp = (): JSX.Element => {
 
         <div className='flex w-full gap-5 justify-center'>
           <Link to={'/'}>
-            <button className='border border-blue-900 text-blue-900 pt-2 pb-2 p-7 pr-7 rounded-lg'>
+            <button className='border border-blue-900 text-blue-900 pt-2 pb-2 p-7 pr-7 rounded-lg' type='button'>
               Atras
             </button>
           </Link>

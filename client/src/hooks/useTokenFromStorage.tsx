@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import jwt_decode, { type JwtPayload } from 'jwt-decode'
 interface userToken extends JwtPayload {
   userId: string
+  isProfileCompleted: boolean
 }
 
 export const useTokenFromStorage = (): void => {
@@ -16,7 +17,7 @@ export const useTokenFromStorage = (): void => {
       const token = localStorage.getItem('accessToken')
       if (token !== null && token !== undefined && token !== '') {
         const decoded: userToken = jwt_decode(token)
-        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: token, userId: decoded.userId }))
+        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: token, userId: decoded?.userId, isProfileCompleted: decoded?.isProfileCompleted }))
       }
     }
 

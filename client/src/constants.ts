@@ -31,7 +31,8 @@ export const Post = [PostInitialState]
 export const AuthenticationInitialState = {
   isAuthenticated: false,
   accessToken: '',
-  userId: ''
+  userId: '',
+  isProfileCompleted: false
 }
 
 export const UserInitialState = {

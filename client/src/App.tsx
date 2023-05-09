@@ -19,9 +19,11 @@ const Login = lazy(async () => await import('./views/Login').then(module => ({ d
 const MyProfile = lazy(async () => await import('./views/MyProfile').then(module => ({ default: module.MyProfile })))
 const SignUp = lazy(async () => await import('./views/SignUp').then(module => ({ default: module.SignUp })))
 const About = lazy(async () => await import('./views/About').then(module => ({ default: module.About })))
+const CompleteProfile = lazy(async () => await import('./views/CompleteProfile').then(module => ({ default: module.CompleteProfile })))
 
 function App (): JSX.Element {
   const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
+  const isProfileCompleted = useSelector((state: RootState) => state.authentication.isProfileCompleted)
 
   usePostsAPI()
   useUsersAPI()
@@ -34,7 +36,7 @@ function App (): JSX.Element {
           <Suspense fallback={<LoadingSPinner/>}>
             <Routes>
               {
-                isAuthenticated
+                isAuthenticated && isProfileCompleted
                   ? <>
                       <Route path='/' element={<Homepage />} />
                       <Route path='/posts' element={<PostForm />} />
@@ -44,8 +46,14 @@ function App (): JSX.Element {
                       <Route path='/posts/eliminar/:id' element={<DetailedPost />} />
                     </>
                   : <>
-                      <Route path='/' element={<Login />} />
-                      <Route path='/signup' element={<SignUp />} />
+                      { (isAuthenticated && !isProfileCompleted) && <Route path='*' element={<CompleteProfile />} />}
+                      {
+                        !isAuthenticated &&
+                          <>
+                          <Route path='/' element={<Login />} />
+                          <Route path='/signup' element={<SignUp />} />
+                          </>
+                      }
                     </>
               }
               <Route path='/acerca-de' element={<About />} />
