@@ -12,11 +12,7 @@ interface userToken extends JwtPayload {
   isProfileCompleted: boolean
 }
 
-interface Props {
-  accessToken: string
-}
-
-export const useTokenFromStorage = ({ accessToken }: Props): void => {
+export const useTokenFromStorage = (): void => {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -34,5 +30,5 @@ export const useTokenFromStorage = ({ accessToken }: Props): void => {
     return () => {
       subscribed = false
     }
-  }, [accessToken])
+  }, [])
 }

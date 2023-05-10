@@ -1,6 +1,6 @@
-import { handleErrors } from '../logic/handleErrors'
-import { type messageType } from '../types'
-import { MessageInitialState } from '../constants'
+import { handleErrors } from '../../logic/handleErrors'
+import { type messageType } from '../../types'
+import { MessageInitialState } from '../../constants'
 
 interface Props {
   e: React.MouseEvent<HTMLButtonElement, MouseEvent>

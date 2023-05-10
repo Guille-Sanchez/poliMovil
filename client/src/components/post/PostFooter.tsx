@@ -10,7 +10,7 @@ interface Props {
 
 export const PostFooter = ({ post }: Props): JSX.Element => {
   const navigate = useNavigate()
-  const userId = useSelector((state: RootState) => state.authentication).userId
+  const { userId } = useSelector((state: RootState) => state.authentication.userInformation)
   const { asientosDisponibles } = getAvailableSeats({ post })
   const postId = post.id
 

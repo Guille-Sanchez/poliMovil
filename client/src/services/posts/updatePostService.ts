@@ -1,5 +1,5 @@
-import { handleErrors } from '../logic/handleErrors'
-import { type messageType, type DataBasePost } from '../types'
+import { handleErrors } from '../../logic/handleErrors'
+import { type messageType, type DataBasePost } from '../../types'
 
 interface updateDataBasePost extends DataBasePost {
   travelId: string

@@ -3,6 +3,7 @@ import { type RootState } from '../redux/store'
 import { updatePersonalInformationService } from '../services/users/updatePersonalInformationService'
 import { useState } from 'react'
 import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
+import { updateUsers } from '../redux/usersSlice'
 import { MessageDialog } from './post/MessageDialog'
 import { MessageInitialState } from '../constants'
 interface Props {
@@ -38,8 +39,11 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
     updatePersonalInformationService({ updateProfile, accessToken })
       .then((res) => {
         if (res.message.type === '¡Exito!') {
+          // Update token and information from token
           localStorage.setItem('accessToken', res.accessToken)
           dispatch(SET_AUTHENTICATION_DATA({ accessToken: res.accessToken, isAuthenticated: true, userInformation: { userId, name: updateProfile.name, lastName: updateProfile.lastName, email: updateProfile.email, phone: updateProfile.phone, isProfileCompleted: true } }))
+          // Update user information
+          dispatch(updateUsers({ userId, updateProfile }))
           setOpenDialog(() => true)
           setMessage(() => res.message)
         } else {

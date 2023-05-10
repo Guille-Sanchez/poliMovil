@@ -1,7 +1,7 @@
 import type React from 'react'
 import { updatePost } from '../redux/postsSlice'
 import { type messageType, type DataBasePost, type submittedValues } from '../types'
-import { updatePostService } from '../services/updatePostService'
+import { updatePostService } from '../services/posts/updatePostService'
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
 
 interface Props {

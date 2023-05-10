@@ -1,5 +1,5 @@
-import { handleErrors } from '../logic/handleErrors'
-import { type messageType, type DataBasePost, type Post } from '../types'
+import { handleErrors } from '../../logic/handleErrors'
+import { type messageType, type DataBasePost, type Post } from '../../types'
 
 interface Props {
   accessToken: string

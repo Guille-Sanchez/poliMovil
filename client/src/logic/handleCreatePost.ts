@@ -2,7 +2,7 @@ import type React from 'react'
 import { addPost } from '../redux/postsSlice'
 import { type messageType, type submittedValues } from '../types'
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
-import { createPostService } from '../services/createPostService'
+import { createPostService } from '../services/posts/createPostService'
 
 interface Props {
   submittedValues: submittedValues
