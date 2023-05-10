@@ -23,11 +23,12 @@ const CompleteProfile = lazy(async () => await import('./views/CompleteProfile')
 
 function App (): JSX.Element {
   const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
-  const isProfileCompleted = useSelector((state: RootState) => state.authentication.isProfileCompleted)
+  const { isProfileCompleted } = useSelector((state: RootState) => state.authentication.userInformation)
+  const { accessToken } = useSelector((state: RootState) => state.authentication)
 
   usePostsAPI()
   useUsersAPI()
-  useTokenFromStorage()
+  useTokenFromStorage({ accessToken })
 
   return (
     <div className='flex flex-col h-full'>

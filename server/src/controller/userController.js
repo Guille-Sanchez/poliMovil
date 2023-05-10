@@ -67,9 +67,9 @@ export const logIn = (req, res) => {
             const lastName = user.lastName
             const phone = user.phone
             if (name === undefined || name === '' || lastName === undefined || lastName === '' || phone === undefined || phone === '') {
-              accessToken = jwt.sign({ userId: user._id, isProfileCompleted: false }, process.env.JWT_SECRET)
+              accessToken = jwt.sign({ userId: user._id, isProfileCompleted: false, email }, process.env.JWT_SECRET)
             } else {
-              accessToken = jwt.sign({ userId: user._id, isProfileCompleted: true }, process.env.JWT_SECRET)
+              accessToken = jwt.sign({ userId: user._id, isProfileCompleted: true, name, lastName, email, phone }, process.env.JWT_SECRET)
             }
             res.status(200).json({ accessToken })
           } else {
@@ -125,7 +125,7 @@ export const updateUser = (req, res) => {
   // Update personal information
   User.findByIdAndUpdate(userId, req.body, { new: true })
     .then((user) => {
-      const accessToken = jwt.sign({ userId: user._id, isProfileCompleted: true }, process.env.JWT_SECRET)
+      const accessToken = jwt.sign({ userId: user._id, isProfileCompleted: true, name: user.name, lastName: user.lastName, email: user.email, phone: user.phone }, process.env.JWT_SECRET)
 
       res.status(200).json({ accessToken })
     })

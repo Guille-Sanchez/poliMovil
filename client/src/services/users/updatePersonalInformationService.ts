@@ -20,7 +20,6 @@ interface returnProps {
 export const updatePersonalInformationService = async ({ updateProfile, accessToken }: Props): Promise<returnProps> => {
   const message = MessageInitialState
   const action = 'actualizado'
-  console.log({ updateProfile })
 
   return await new Promise<returnProps>(resolve => {
     fetch('http://localhost:3000/api/users', {

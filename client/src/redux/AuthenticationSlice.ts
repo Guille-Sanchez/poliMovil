@@ -12,8 +12,7 @@ export const AuthenticationSlice = createSlice({
     SET_AUTHENTICATION_DATA: (state, action: PayloadAction<AuthenticationState>) => {
       state.isAuthenticated = action.payload.isAuthenticated
       state.accessToken = action.payload.accessToken
-      state.userId = action.payload.userId
-      state.isProfileCompleted = action.payload.isProfileCompleted
+      state.userInformation = action.payload.userInformation
     }
   }
 })

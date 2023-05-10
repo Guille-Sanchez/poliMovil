@@ -28,11 +28,19 @@ export const PostToSendToDataBase = {
 
 export const Post = [PostInitialState]
 
+export const currentUserInformation = {
+  userId: '',
+  name: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  isProfileCompleted: false
+}
+
 export const AuthenticationInitialState = {
   isAuthenticated: false,
   accessToken: '',
-  userId: '',
-  isProfileCompleted: false
+  userInformation: currentUserInformation
 }
 
 export const UserInitialState = {

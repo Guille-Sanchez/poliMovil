@@ -23,7 +23,6 @@ export const createPost = async (req, res) => {
 
   Post.findByIdAndUpdate(post._id, { travelId: travel._id }, { new: true }).populate('travelId')
     .then((post) => {
-      console.log(post)
       res.status(201).json(post)
     })
 }

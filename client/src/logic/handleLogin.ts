@@ -2,6 +2,7 @@ import jwt_decode, { type JwtPayload } from 'jwt-decode'
 import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
 import { type useDispatch } from 'react-redux'
 import { loginService } from '../services/users/loginService'
+import { type currentUserInformationType } from '../types'
 
 interface Props {
   e: React.FormEvent<HTMLFormElement>
@@ -11,6 +12,10 @@ interface Props {
 
 interface userToken extends JwtPayload {
   userId: string
+  name: string
+  lastName: string
+  email: string
+  phone: string
   isProfileCompleted: boolean
 }
 
@@ -32,7 +37,8 @@ export const handleLogin = ({ e, setError, dispatch }: Props): void => {
       if (res.message.type === '¡Exito!') {
         localStorage.setItem('accessToken', res.accessToken)
         const decoded: userToken = jwt_decode(res.accessToken)
-        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: res.accessToken, userId: decoded?.userId, isProfileCompleted: decoded?.isProfileCompleted }))
+        const userInformation: currentUserInformationType = { userId: decoded.userId, isProfileCompleted: decoded.isProfileCompleted, name: decoded.name, lastName: decoded.lastName, email: decoded.email, phone: decoded.phone }
+        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: res.accessToken, userInformation }))
       } else {
         setError('Usuario o contraseña incorrectos')
       }
