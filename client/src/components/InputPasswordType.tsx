@@ -10,9 +10,9 @@ export const InputPasswordType = ({ htmlFor }: Props): JSX.Element => {
 
   const formattedHtmlFor = {
     password: { name: 'password', label: 'Contraseña' },
-    confirmPassword: { name: 'confirmPassword', label: 'Confirmar contraseña' },
-    newPassword: { name: 'password', label: 'Nueva contraseña' },
-    oldPassword: { name: 'oldpassword', label: 'Contraseña actual' }
+    confirmPassword: { name: 'confirmNewPassword', label: 'Confirmar contraseña' },
+    newPassword: { name: 'newPassword', label: 'Nueva contraseña' },
+    oldPassword: { name: 'oldPassword', label: 'Contraseña actual' }
   } as const
 
   const toggleButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {

@@ -91,10 +91,11 @@ export const logIn = (req, res) => {
 // PACTH /api/users/
 export const updateUser = (req, res) => {
   const userId = req.userId
-  const password = req.body.password
+  const password = req.body.oldPassword
+  const newPassword = req.body.newPassword
 
   // Update password
-  if (password !== undefined && password !== '') {
+  if (password !== undefined && password !== '' && newPassword !== undefined && newPassword !== '') {
     User.findById(userId)
       .then((user) => {
         bcrypt.compare(password, user.password, (err, result) => {
@@ -104,33 +105,38 @@ export const updateUser = (req, res) => {
             })
           } else if (result) {
             const bcryptSalt = parseInt(process.env.bcryptSalt)
-            const hashPassword = bcrypt.hashSync(password, bcryptSalt)
+            const hashPassword = bcrypt.hashSync(newPassword, bcryptSalt)
             User.findByIdAndUpdate(userId, { ...req.body, password: hashPassword }, { new: true })
               .then((user) => {
-                res.status(200).json(user)
+                return res.status(200).json(user)
               })
               .catch((error) => {
                 console.log(error)
-                res.status(400)
+                return res.status(400)
               })
           } else {
+            console.log('Contraseña incorrecta')
             return res.status(401).json({
               message: 'Contraseña incorrecta'
             })
           }
         })
       })
+      .catch((error) => {
+        console.log(error)
+        res.status(400)
+      })
+  } else {
+    // Update personal information
+    User.findByIdAndUpdate(userId, req.body, { new: true })
+      .then((user) => {
+        const accessToken = jwt.sign({ userId: user._id, isProfileCompleted: true, name: user.name, lastName: user.lastName, email: user.email, phone: user.phone }, process.env.JWT_SECRET)
+
+        res.status(200).json({ accessToken })
+      })
+      .catch((error) => {
+        console.log(error)
+        res.status(400)
+      })
   }
-
-  // Update personal information
-  User.findByIdAndUpdate(userId, req.body, { new: true })
-    .then((user) => {
-      const accessToken = jwt.sign({ userId: user._id, isProfileCompleted: true, name: user.name, lastName: user.lastName, email: user.email, phone: user.phone }, process.env.JWT_SECRET)
-
-      res.status(200).json({ accessToken })
-    })
-    .catch((error) => {
-      console.log(error)
-      res.status(400)
-    })
 }
