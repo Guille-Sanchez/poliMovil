@@ -8,7 +8,7 @@ export const UnAuthFooter = (): JSX.Element => {
           <p className='text-center text-gray-500 text-sm'>Acerca de</p>
         </Link>
 
-        <Link to={'/'}>
+        <Link to={'/terminos-y-condiciones'}>
           <p className='text-center text-gray-500 text-sm'>Terminos y<br/>condiciones</p>
         </Link>
 
@@ -17,7 +17,7 @@ export const UnAuthFooter = (): JSX.Element => {
         </Link>
       </div>
 
-      <p className="text-center text-gray-500 text-sm">Beta - Abril 2023</p>
+      <p className="text-center text-gray-500 text-sm">Beta - Mayo 2023</p>
     </footer>
   )
 }

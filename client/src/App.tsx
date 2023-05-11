@@ -20,6 +20,7 @@ const MyProfile = lazy(async () => await import('./views/MyProfile').then(module
 const SignUp = lazy(async () => await import('./views/SignUp').then(module => ({ default: module.SignUp })))
 const About = lazy(async () => await import('./views/About').then(module => ({ default: module.About })))
 const CompleteProfile = lazy(async () => await import('./views/CompleteProfile').then(module => ({ default: module.CompleteProfile })))
+const TermsOfService = lazy(async () => await import('./views/TermsOfService').then(module => ({ default: module.TermsOfService })))
 
 function App (): JSX.Element {
   const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
@@ -57,6 +58,7 @@ function App (): JSX.Element {
                     </>
               }
               <Route path='/acerca-de' element={<About />} />
+              <Route path='/terminos-y-condiciones' element={<TermsOfService />} />
               <Route path='*' element={<PageNotFound />} />
             </Routes>
           </Suspense>
