@@ -44,7 +44,6 @@ function App (): JSX.Element {
                       <Route path='/posts/:id' element={<DetailedPost />} />
                       <Route path='/mi-perfil' element={<MyProfile />} />
                       <Route path='/posts/editar/:id' element={<PostForm />} />
-                      <Route path='/posts/eliminar/:id' element={<DetailedPost />} />
                     </>
                   : <>
                       { (isAuthenticated && !isProfileCompleted) && <Route path='*' element={<CompleteProfile />} />}

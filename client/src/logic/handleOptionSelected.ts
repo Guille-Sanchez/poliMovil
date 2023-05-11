@@ -17,7 +17,7 @@ export const handleOptionSelected = ({ e, navigate, postId }: Props): void => {
       navigate(`/posts/editar/${postId}`)
       break
     case 'eliminar':
-      navigate(`/posts/eliminar/${postId}`, { state: { eliminar: true } })
+      navigate(`/posts/${postId}`)
       break
     default:
       break
