@@ -30,12 +30,14 @@ export const usersSlice = createSlice({
         }
         return user
       })
+    },
+    addNewUser: (state, action: PayloadAction<typeof UserInitialState>) => {
+      state.push(action.payload)
     }
-
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { getUsers, updateUsers } = usersSlice.actions
+export const { getUsers, updateUsers, addNewUser } = usersSlice.actions
 
 export default usersSlice.reducer

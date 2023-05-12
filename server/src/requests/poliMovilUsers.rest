@@ -3,12 +3,8 @@ POST http://localhost:3000/api/users/register HTTP/1.1
 content-type: application/json
 
 {
-  "name": "Carrera",
-  "lastName": "Equivocada",
-  "email": "IAE@gmail.com",
-  "password": "IAE123",
-  "isAdmin": false,
-  "phone": "0972224458"
+  "email": "jovi@fpuna.edu.py",
+  "password": "123"
 }
 
 // Get Users

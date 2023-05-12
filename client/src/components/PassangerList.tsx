@@ -15,7 +15,7 @@ export const PassangerList = ({ post }: Props): JSX.Element => {
 
   return (
     <div>
-      <p className='font-bold'>Pasajeros</p>
+      <p className='font-bold text-xl pr-5 pl-5 pb-2'>Pasajeros</p>
       {
         (passengerInfoList?.length !== 0 && passengerInfoList !== undefined)
           ? (
@@ -24,9 +24,21 @@ export const PassangerList = ({ post }: Props): JSX.Element => {
                   passengerInfoList.map((user, index) => {
                     return (
                       <li key={user?.id}>
-                        <p>{user?.name} {user?.lastName}</p>
-                        <p>{user?.email}</p>
-                        <p>{user?.phone}</p>
+                        <div className='flex gap-2 pr-5 pl-5 items-center'>
+                          <p className='font-bold text-xl'>{index + 1}- </p>
+                          <div className='flex gap-2'>
+                            <div className='flex flex-col gap-2 w-max'>
+                              <span>Usuario:</span>
+                              <span>Email:</span>
+                              <span>Celular:</span>
+                            </div>
+                            <div className='flex flex-col gap-2 w-max'>
+                              <p>{user?.name} {user?.lastName}</p>
+                              <p>{user?.email}</p>
+                              <p>{user?.phone}</p>
+                            </div>
+                          </div>
+                        </div>
                         {(index < passengerInfoList.length - 1) && <hr className='w-full mt-4 mb-4'/>}
                       </li>
                     )
@@ -34,7 +46,7 @@ export const PassangerList = ({ post }: Props): JSX.Element => {
                 }
               </ul>
             )
-          : <p>Sin pasajeros</p>
+          : <p className='pl-5'>Sin pasajeros</p>
         }
     </div>
   )

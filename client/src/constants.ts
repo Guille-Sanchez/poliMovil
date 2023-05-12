@@ -48,7 +48,6 @@ export const UserInitialState = {
   name: '',
   lastName: '',
   email: '',
-  password: '',
   isAdmin: false,
   phone: '',
   travels: [TravelInitialState]

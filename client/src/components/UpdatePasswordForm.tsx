@@ -15,15 +15,15 @@ export const UpdatePasswordForm = (): JSX.Element => {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     setError(() => '')
-    const { oldPassword, newPassword, confirmNewPassword } = Object.fromEntries(new FormData(e.currentTarget).entries())
+    const { oldPassword, newPassword, confirmPassword } = Object.fromEntries(new FormData(e.currentTarget).entries())
 
-    if (oldPassword === '' || newPassword === '' || confirmNewPassword === '') {
+    if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
       setError('Todos los campos son obligatorios')
       return
     } else if (oldPassword === newPassword) {
       setError('La nueva contraseña no puede ser igual a la anterior')
       return
-    } else if (newPassword !== confirmNewPassword) {
+    } else if (newPassword !== confirmPassword) {
       setError('Las contraseñas no coinciden')
       return
     }

@@ -9,7 +9,7 @@ interface returnProps {
 }
 
 export const getAvailableSeats = ({ post }: Props): returnProps => {
-  const numberOfPassengers = post.travelId.passengerId.filter(value => value !== '').length
+  const numberOfPassengers = post.travelId.passengerId.filter(value => value !== '')?.length ?? 0
   const asientosDisponibles = +post.asientosDisponibles - numberOfPassengers
   return ({ asientosDisponibles })
 }
