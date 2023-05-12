@@ -6,7 +6,7 @@ interface Props {
   post?: Post
 }
 
-export const PassangerList = ({ post }: Props): JSX.Element => {
+export const PassengerList = ({ post }: Props): JSX.Element => {
   const users = useSelector((state: RootState) => state.users)
 
   // get passenger IDs from the detailed post && find user info for each passenger
