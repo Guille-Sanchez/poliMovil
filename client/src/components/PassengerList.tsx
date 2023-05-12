@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import type { RootState } from '../redux/store'
 import { type Post } from '../types'
 import { IconCloseCircle } from '../assets/Icons'
 import { useState } from 'react'
-import { updatePost } from '../redux/postsSlice'
-import { removePassenger } from '../services/removePassenger'
+import { ConfirmationDialog } from './ConfirmationDialog'
+import { useDeleteReservation } from '../hooks/useDeleteReservation'
 import { MessageDialog } from './post/MessageDialog'
-import { MessageInitialState } from '../constants'
 interface Props {
   post: Post
 }
@@ -19,33 +18,11 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
   const passengerInfoList = passengerIds.map((id) => users.find(user => user.id === id))
 
   // Get UserInformation to allow user to cancel trip
-  const [openDialog, setOpenDialog] = useState(false)
+  const [continueAction, setContinueAction] = useState(false)
   const [openConfirmation, setOpenConfirmation] = useState(false)
-  const [message, setMessage] = useState(MessageInitialState)
-  const { accessToken } = useSelector((state: RootState) => state.authentication)
-  const dispatch = useDispatch()
   const { userId } = useSelector((state: RootState) => state.authentication.userInformation)
 
-  const handleOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-    e.preventDefault()
-    setOpenConfirmation(true)
-  }
-
-  const handleOnRemovePassenger = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-    e.preventDefault()
-    removePassenger({ accessToken, post })
-      .then((data) => {
-        const { message, updatedPost } = data
-        if (message.type === '¡Exito!') {
-          dispatch(updatePost(updatedPost))
-        }
-        setMessage(message)
-        setOpenDialog(true)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
+  const { message, openDialog } = useDeleteReservation({ continueAction, post })
 
   return (
     <div>
@@ -67,15 +44,14 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
                               <span>Email:</span>
                               <span>Celular:</span>
                             </div>
+
                             <div className='flex flex-col gap-1 w-max'>
                               <div className='flex gap-2'>
                                 <p>{user?.name} {user?.lastName}</p>
                                 {
                                   userId === user?.id &&
                                   <button className='absolute -right-4 -top-4'
-                                    onClick={(e) => {
-                                      handleOnClick(e)
-                                    }}
+                                    onClick={() => { setOpenConfirmation(true) }}
                                   >
                                     <IconCloseCircle fill={'#990000'} height={'2rem'} width={'2rem'}/>
                                   </button>
@@ -95,28 +71,9 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
           : <p className='pl-5'>Sin pasajeros</p>
       }
 
-      {
-        openConfirmation &&
-        <dialog className="absolute inset-0 h-full w-full z-50 overflow-auto bg-gray-500 bg-opacity-75 flex items-center justify-center">
-          <div className="p-4 flex justify-center items-center flex-col gap-5 bg-white rounded-md shadow-lg w-3/4 outline-none focus:outline-none">
-            <p className='text-center text-lg'>Estas seguro que quieres eliminar tu reserva</p>
-            <div className='flex gap-5'>
-              <button
-                className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white px-5 py-2 rounded-lg'
-                onClick={() => { setOpenConfirmation(false) }}>
-                Atras
-              </button>
-              <button
-                className='bg-[#990000] text-white px-5 py-2 rounded-lg'
-                onClick={(e) => { handleOnRemovePassenger(e) }}
-              >
-                Eliminar
-              </button>
-            </div>
-          </div>
-        </dialog>
-      }
-      {openDialog && <MessageDialog message={message} />}
+      {openConfirmation && <ConfirmationDialog setOpenConfirmation={setOpenConfirmation} setContinueAction={setContinueAction} />}
+
+      {openDialog && <MessageDialog message={message}/>}
     </div>
   )
 }
