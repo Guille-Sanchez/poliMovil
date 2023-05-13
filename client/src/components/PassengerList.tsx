@@ -11,24 +11,36 @@ interface Props {
 }
 
 export const PassengerList = ({ post }: Props): JSX.Element => {
-  const users = useSelector((state: RootState) => state.users)
+  const { users, authentication } = useSelector((state: RootState) => state)
+  const { userId } = authentication.userInformation
 
   // Get passenger IDs from the detailed post && find user info for each passenger
   const passengerIds = post.travelId.passengerId
   const passengerInfoList = passengerIds.map((id) => users.find(user => user.id === id))
+  const hasPassengers = passengerInfoList?.length > 0
 
   // Get UserInformation to allow user to cancel trip
   const [continueAction, setContinueAction] = useState(false)
   const [openConfirmation, setOpenConfirmation] = useState(false)
-  const { userId } = useSelector((state: RootState) => state.authentication.userInformation)
-
   const { message, openDialog } = useDeleteReservation({ continueAction, post })
+  const messageConfirmation = {
+    title: '¿Está seguro que desea cancelar esta reserva?',
+    buttonAction: 'Cancelar'
+  }
+
+  const handleConfirmationClose = (): void => {
+    setOpenConfirmation(false)
+  }
+
+  const handleConfirmationConfirm = (): void => {
+    setContinueAction(true)
+  }
 
   return (
     <div>
       <p className='font-bold text-xl pr-5 pl-5 pb-2'>Pasajeros</p>
       {
-        (passengerInfoList?.length !== 0 && passengerInfoList !== undefined)
+        (hasPassengers)
           ? (
               <ul>
                 {
@@ -71,7 +83,13 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
           : <p className='pl-5'>Sin pasajeros</p>
       }
 
-      {openConfirmation && <ConfirmationDialog setOpenConfirmation={setOpenConfirmation} setContinueAction={setContinueAction} />}
+      {openConfirmation && (
+        <ConfirmationDialog
+          onClose={handleConfirmationClose}
+          onConfirm={handleConfirmationConfirm}
+          messageConfirmation={messageConfirmation}
+        />
+      )}
 
       {openDialog && <MessageDialog message={message}/>}
     </div>

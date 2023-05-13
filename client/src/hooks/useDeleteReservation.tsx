@@ -24,7 +24,6 @@ export const useDeleteReservation = ({ continueAction, post }: Props): returnPro
 
   useEffect(() => {
     let subscribed = true
-    console.log(continueAction)
 
     if (subscribed && continueAction) {
       removePassenger({ accessToken, post })

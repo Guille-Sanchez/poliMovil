@@ -68,6 +68,7 @@ export const DetailedPost = (): JSX.Element => {
   }
 
   const { asientosDisponibles } = getAvailableSeats({ post })
+  const isUserPassanger = post.travelId.passengerId.find((passengerId) => passengerId === userId) === userId
 
   return (
     <section className="bg-white w-full h-full pt-5 relative">
@@ -82,7 +83,7 @@ export const DetailedPost = (): JSX.Element => {
 
       {!isUserPost
         ? (
-            asientosDisponibles > 0 && (
+            (asientosDisponibles > 0 && !isUserPassanger) && (
               <div className='flex gap-5 items-center justify-center pr-5 pl-5 pb-5 w-full'>
                 <button
                   className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'
@@ -94,17 +95,18 @@ export const DetailedPost = (): JSX.Element => {
             )
           )
         : (
-        <div className='flex gap-5 items-center justify-center pr-5 pl-5 pb-5 w-full'>
-          <div>
-            <button
-              className='bg-[#990000] text-white pt-2 pb-2 p-7 pr-7 rounded-lg'
-              onClick={(e) => { handleOnClickDelete(e) }}
-            >
-              Eliminar
-            </button>
-          </div>
-        </div>
-          )}
+            <div className='flex gap-5 items-center justify-center pr-5 pl-5 pb-5 w-full'>
+              <div>
+                <button
+                  className='bg-[#990000] text-white pt-2 pb-2 p-7 pr-7 rounded-lg'
+                  onClick={(e) => { handleOnClickDelete(e) }}
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          )
+      }
 
       <PassengerList post={post} />
       {openDialog && <MessageDialog message={message} />}

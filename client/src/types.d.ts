@@ -21,3 +21,8 @@ export type AuthenticationState = typeof AuthenticationInitialState
 export type currentUserInformationType = typeof currentUserInformation
 
 export type messageType = typeof MessageInitialState
+
+export interface messageConfirmationInterface {
+  title: string
+  buttonAction: string
+}
