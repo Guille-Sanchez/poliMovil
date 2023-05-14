@@ -1,12 +1,8 @@
 import { handleErrors } from '../../logic/handleErrors'
-import { type messageType, type DataBasePost } from '../../types'
-
-interface updateDataBasePost extends DataBasePost {
-  travelId: string
-}
+import { type DataBasePost, type messageType } from '../../types'
 
 interface Props {
-  updateOldPost: updateDataBasePost
+  newPostInformation: DataBasePost
   accessToken: string
 }
 
@@ -14,8 +10,7 @@ interface returnProps {
   message: messageType
 }
 
-export const updatePostService = async ({ updateOldPost, accessToken }: Props): Promise<returnProps> => {
-  const postId = updateOldPost.id
+export const updatePostService = async ({ newPostInformation, accessToken }: Props): Promise<returnProps> => {
   const message = {
     mensaje: '',
     type: ''
@@ -23,14 +18,14 @@ export const updatePostService = async ({ updateOldPost, accessToken }: Props): 
   const action = 'editado'
 
   return await new Promise<returnProps>((resolve) => {
-    fetch(`http://localhost:3000/api/posts/${postId}`,
+    fetch(`http://localhost:3000/api/posts/${newPostInformation.id}`,
       {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(updateOldPost)
+        body: JSON.stringify(newPostInformation)
       })
       .then((res) => {
         const { message } = handleErrors({ res, action })

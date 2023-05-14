@@ -16,7 +16,7 @@ export const PostForm = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const { userId } = useSelector((state: RootState) => state.authentication.userInformation)
-  const [submittedValues, setSubmittedValues] = useState<submittedValues>({ ...PostInitialState, setNext: false })
+  const [submittedValues, setSubmittedValues] = useState<submittedValues>({ newPost: PostInitialState, setNext: false })
 
   usePostEditing({ setSubmittedValues, setLoading })
 
@@ -37,15 +37,15 @@ export const PostForm = (): JSX.Element => {
       ? <section className='bg-white w-full h-full p-5'>
           {
             <form className=' grid gap-5 w-full' onSubmit={(e) => { handleOnSubmit(e) }}>
-              <LocationSelector location={'origen'} defaultValue={submittedValues.origen}/>
-              <LocationSelector location={'destino'} defaultValue={submittedValues.destino}/>
+              <LocationSelector location={'origen'} defaultValue={submittedValues.newPost.origen}/>
+              <LocationSelector location={'destino'} defaultValue={submittedValues.newPost.destino}/>
 
               <div className='grid grid-cols-2 gap-5'>
-                <InputPostForm inputLabel={'horario'} required={true} placeholder={'5:00 - 22:00'} defaultValue={submittedValues.horario}/>
-                <InputPostForm inputLabel={'asientosDisponibles'} required={true} placeholder={'1, 2, 3, etc.'} defaultValue={submittedValues.asientosDisponibles}/>
+                <InputPostForm inputLabel={'horario'} required={true} placeholder={'5:00 - 22:00'} defaultValue={submittedValues.newPost.horario}/>
+                <InputPostForm inputLabel={'asientosDisponibles'} required={true} placeholder={'1, 2, 3, etc.'} defaultValue={submittedValues.newPost.asientosDisponibles}/>
               </div>
 
-              <InputPostForm inputLabel={'detalles'} required={false} placeholder={'Por Mcal. Lopez'} defaultValue={submittedValues.detalles}/>
+              <InputPostForm inputLabel={'detalles'} required={false} placeholder={'Por Mcal. Lopez'} defaultValue={submittedValues.newPost.detalles}/>
               <PriceSelector />
 
               {error !== null && <p className='text-red-500 text-center text-sm'>{error}</p>}
@@ -55,7 +55,7 @@ export const PostForm = (): JSX.Element => {
                   <button className='bg-[#990000] text-white pt-2 pb-2 p-5 pr-5 rounded-lg' type='button'>Cancelar</button>
                 </Link>
                 <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg' type='submit'>
-                  {submittedValues.id === '' ? 'Crear post' : 'Editar post'}
+                  {submittedValues.newPost.id === '' ? 'Crear post' : 'Editar post'}
                 </button>
               </div>
             </form>

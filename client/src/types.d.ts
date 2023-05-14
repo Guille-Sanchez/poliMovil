@@ -6,7 +6,8 @@ export type Post = typeof PostInitialState
 
 export type DataBasePost = typeof PostToSendToDataBase
 
-export interface submittedValues extends Post {
+export interface submittedValues {
+  newPost: Post
   setNext: boolean
 }
 

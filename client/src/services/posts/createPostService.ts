@@ -1,3 +1,4 @@
+import { PostInitialState } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 import { type messageType, type DataBasePost, type Post } from '../../types'
 
@@ -8,7 +9,7 @@ interface Props {
 
 interface returnProps {
   message: messageType
-  response?: Post
+  post: Post
 }
 
 export const createPostService = async ({ accessToken, newPostInformation }: Props): Promise<returnProps> => {
@@ -17,6 +18,7 @@ export const createPostService = async ({ accessToken, newPostInformation }: Pro
     type: ''
   }
   const action = 'creado'
+  const post = PostInitialState
 
   return await new Promise<returnProps>((resolve) => {
     fetch('http://localhost:3000/api/posts',
@@ -29,15 +31,19 @@ export const createPostService = async ({ accessToken, newPostInformation }: Pro
         body: JSON.stringify(newPostInformation)
       })
       .then(async (res) => {
-        await res.json().then((response: Post) => {
+        await res.json().then((post: Post) => {
           const { message } = handleErrors({ res, action })
-          resolve({ message, response })
+          resolve({ message, post })
+        }).catch((_err) => {
+          message.mensaje = 'Un error ocurrión, intenta más tarde'
+          message.type = 'error'
+          resolve({ message, post })
         })
       })
       .catch((_err) => {
         message.mensaje = 'Un error ocurrión, intenta más tarde'
         message.type = 'error'
-        resolve({ message, response: undefined })
+        resolve({ message, post })
       })
   })
 }

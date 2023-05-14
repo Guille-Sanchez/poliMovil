@@ -2,11 +2,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { type RootState } from '../redux/store'
 import { useParams } from 'react-router-dom'
-import { type Post } from '../types'
-
-interface submittedValues extends Post {
-  setNext: boolean
-}
+import { type submittedValues } from '../types'
 
 interface Props {
   setSubmittedValues: React.Dispatch<React.SetStateAction<submittedValues>>
@@ -23,7 +19,7 @@ export const usePostEditing = ({ setSubmittedValues, setLoading }: Props): void 
       if (id !== undefined) {
         const post = posts.find(post => post.id === id)
         if (post !== undefined) {
-          setSubmittedValues({ ...post, setNext: false })
+          setSubmittedValues({ newPost: { ...post }, setNext: false })
         }
       }
       setLoading(false)

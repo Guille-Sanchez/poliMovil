@@ -55,7 +55,7 @@ export const getPost = (req, res) => {
 export const updatePost = (req, res) => {
   const postId = req.params.id
 
-  Post.findByIdAndUpdate(postId, { ...req.body }, { new: true })
+  Post.findByIdAndUpdate(postId, { ...req.body }, { new: true }).populate('travelId')
     .then((post) => {
       if (!post) {
         return res.status(400).send({
