@@ -5,7 +5,7 @@ import { UserInitialState } from '../constants'
 
 const initialState: Users = [UserInitialState]
 
-interface updateProfile {
+export interface updateProfile {
   name: string
   lastName: string
   email: string

@@ -1,20 +1,22 @@
-import { useEffect/*, useState */ } from 'react'
-import { type Users } from '../types'
-import { formatUsers } from '../logic/formatUsers'
-import { getUsers } from '../redux/usersSlice'
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useUserActions } from '../redux/hooks/useUserActions'
+import { getUsersService } from '../services/users/getUsersService'
 
 export const useUsersAPI = (): void => {
-  const dispatch = useDispatch()
+  const { saveUsersInStore } = useUserActions()
 
   useEffect(() => {
     let subscribed = true
 
     if (subscribed) {
-      fetch('http://localhost:3000/api/users')
-        .then(async (response) => await response.json())
-        .then((data: Users) => {
-          dispatch(getUsers(formatUsers(data)))
+      getUsersService()
+        .then((data) => {
+          const { message, users } = data
+          if (message.type === '¡Exito!') {
+            saveUsersInStore({ users })
+          } else {
+            alert(message.mensaje)
+          }
         })
         .catch((error) => {
           console.log(error)
