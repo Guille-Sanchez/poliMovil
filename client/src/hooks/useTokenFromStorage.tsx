@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
-import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
-import { useDispatch } from 'react-redux'
 import jwt_decode, { type JwtPayload } from 'jwt-decode'
 import { type currentUserInformationType } from '../types'
+import { useAuthenticatonActions } from '../redux/hooks/useAuthenticationActions'
 interface userToken extends JwtPayload {
   userId: string
   name: string
@@ -13,7 +12,7 @@ interface userToken extends JwtPayload {
 }
 
 export const useTokenFromStorage = (): void => {
-  const dispatch = useDispatch()
+  const { saveAuthenticationDataInStore } = useAuthenticatonActions()
 
   useEffect(() => {
     let subscribed = true
@@ -23,7 +22,7 @@ export const useTokenFromStorage = (): void => {
       if (token !== null && token !== undefined && token !== '') {
         const decoded: userToken = jwt_decode(token)
         const userInformation: currentUserInformationType = { userId: decoded.userId, isProfileCompleted: decoded.isProfileCompleted, name: decoded.name, lastName: decoded.lastName, email: decoded.email, phone: decoded.phone }
-        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: token, userInformation }))
+        saveAuthenticationDataInStore({ isAuthenticated: true, accessToken: token, userInformation })
       }
     }
 

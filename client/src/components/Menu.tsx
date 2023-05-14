@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
 import { currentUserInformation } from '../constants'
+import { useAuthenticatonActions } from '../redux/hooks/useAuthenticationActions'
 
 interface Props {
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
@@ -9,11 +8,11 @@ interface Props {
 
 export const Menu = ({ setShowMenu }: Props): JSX.Element => {
   const links = ['Mi perfil', 'Acerca de']
-  const dispatch = useDispatch()
+  const { saveAuthenticationDataInStore } = useAuthenticatonActions()
 
   const handleLogout = (): void => {
     localStorage.removeItem('accessToken')
-    dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: false, accessToken: '', userInformation: currentUserInformation }))
+    saveAuthenticationDataInStore({ isAuthenticated: false, accessToken: '', userInformation: currentUserInformation })
     setShowMenu(() => false)
   }
 

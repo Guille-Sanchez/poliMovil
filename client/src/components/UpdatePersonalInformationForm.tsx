@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { type RootState } from '../redux/store'
 import { updatePersonalInformationService } from '../services/users/updatePersonalInformationService'
 import { useState } from 'react'
-import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
-import { updateUsers } from '../redux/usersSlice'
 import { MessageDialog } from './post/MessageDialog'
 import { MessageInitialState } from '../constants'
+import { useUserActions } from '../redux/hooks/useUserActions'
+import { useAuthenticatonActions } from '../redux/hooks/useAuthenticationActions'
 interface Props {
   formLegend: string
 }
@@ -13,7 +13,8 @@ interface Props {
 export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Element => {
   const { name, lastName, email, phone, userId } = useSelector((state: RootState) => state.authentication.userInformation)
   const { accessToken } = useSelector((state: RootState) => state.authentication)
-  const dispatch = useDispatch()
+  const { saveAuthenticationDataInStore } = useAuthenticatonActions()
+  const { updateUsersInStore } = useUserActions()
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState(MessageInitialState)
 
@@ -41,9 +42,11 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
         if (res.message.type === '¡Exito!') {
           // Update token and information from token
           localStorage.setItem('accessToken', res.accessToken)
-          dispatch(SET_AUTHENTICATION_DATA({ accessToken: res.accessToken, isAuthenticated: true, userInformation: { userId, name: updateProfile.name, lastName: updateProfile.lastName, email: updateProfile.email, phone: updateProfile.phone, isProfileCompleted: true } }))
+          const userInformation = { userId, ...updateProfile, isProfileCompleted: true }
+          saveAuthenticationDataInStore({ isAuthenticated: true, accessToken: res.accessToken, userInformation })
+
           // Update user information
-          dispatch(updateUsers({ userId, updateProfile }))
+          updateUsersInStore({ userId, updateProfile })
           setOpenDialog(() => true)
           setMessage(() => res.message)
         } else {

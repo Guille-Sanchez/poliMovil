@@ -1,13 +1,11 @@
 import jwt_decode, { type JwtPayload } from 'jwt-decode'
-import { SET_AUTHENTICATION_DATA } from '../redux/AuthenticationSlice'
-import { type useDispatch } from 'react-redux'
 import { loginService } from '../services/users/loginService'
-import { type currentUserInformationType } from '../types'
+import { type AuthenticationState, type currentUserInformationType } from '../types'
 
 interface Props {
   e: React.FormEvent<HTMLFormElement>
   setError: React.Dispatch<React.SetStateAction<string | null>>
-  dispatch: ReturnType<typeof useDispatch>
+  saveAuthenticationDataInStore: ({ isAuthenticated, accessToken, userInformation }: AuthenticationState) => void
 }
 
 interface userToken extends JwtPayload {
@@ -19,7 +17,7 @@ interface userToken extends JwtPayload {
   isProfileCompleted: boolean
 }
 
-export const handleLogin = ({ e, setError, dispatch }: Props): void => {
+export const handleLogin = ({ e, setError, saveAuthenticationDataInStore }: Props): void => {
   e.preventDefault()
 
   const { email, password } = Object.fromEntries(new FormData(e.currentTarget).entries())
@@ -38,7 +36,7 @@ export const handleLogin = ({ e, setError, dispatch }: Props): void => {
         localStorage.setItem('accessToken', res.accessToken)
         const decoded: userToken = jwt_decode(res.accessToken)
         const userInformation: currentUserInformationType = { userId: decoded.userId, isProfileCompleted: decoded.isProfileCompleted, name: decoded.name, lastName: decoded.lastName, email: decoded.email, phone: decoded.phone }
-        dispatch(SET_AUTHENTICATION_DATA({ isAuthenticated: true, accessToken: res.accessToken, userInformation }))
+        saveAuthenticationDataInStore({ isAuthenticated: true, accessToken: res.accessToken, userInformation })
       } else {
         setError('Usuario o contraseña incorrectos')
       }

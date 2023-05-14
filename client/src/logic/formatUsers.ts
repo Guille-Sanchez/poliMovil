@@ -7,7 +7,6 @@ export const formatUsers = (users: Users): Users => {
       name: user.name,
       lastName: user.lastName,
       email: user.email,
-      password: user.password,
       isAdmin: user.isAdmin,
       phone: user.phone,
       travels: user.travels

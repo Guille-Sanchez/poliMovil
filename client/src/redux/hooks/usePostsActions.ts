@@ -1,12 +1,13 @@
 import { useDispatch } from 'react-redux'
 import { formatPosts } from '../../logic/formatPosts'
-import { addPost, getPosts, updatePost } from '../postsSlice'
+import { addPost, deletePost, getPosts, updatePost } from '../postsSlice'
 import { type Post, type Posts } from '../../types'
 
 interface returnProps {
   savePostsInStore: ({ posts }: { posts: Posts }) => void
   addNewPostInStore: ({ post }: { post: Post }) => void
   editPostInStore: ({ newPost }: { newPost: Post }) => void
+  deletePostInStore: ({ id }: { id: string }) => void
 }
 
 export const usePostsActions = (): returnProps => {
@@ -24,5 +25,8 @@ export const usePostsActions = (): returnProps => {
     dispatch(updatePost(newPost))
   }
 
-  return { savePostsInStore, addNewPostInStore, editPostInStore }
+  const deletePostInStore = ({ id }: { id: string }): void => {
+    dispatch(deletePost(id ?? ''))
+  }
+  return { savePostsInStore, addNewPostInStore, editPostInStore, deletePostInStore }
 }

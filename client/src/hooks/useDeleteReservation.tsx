@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { MessageInitialState } from '../constants'
 import { type RootState } from '../redux/store'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { removePassenger } from '../services/removePassenger'
-import { updatePost } from '../redux/postsSlice'
 import { type messageType, type Post } from '../types'
+import { usePostsActions } from '../redux/hooks/usePostsActions'
 
 interface Props {
   continueAction: boolean
@@ -20,7 +20,7 @@ export const useDeleteReservation = ({ continueAction, post }: Props): returnPro
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState(MessageInitialState)
   const { accessToken } = useSelector((state: RootState) => state.authentication)
-  const dispatch = useDispatch()
+  const { editPostInStore } = usePostsActions()
 
   useEffect(() => {
     let subscribed = true
@@ -28,9 +28,9 @@ export const useDeleteReservation = ({ continueAction, post }: Props): returnPro
     if (subscribed && continueAction) {
       removePassenger({ accessToken, post })
         .then((data) => {
-          const { message, updatedPost } = data
+          const { message, newPost } = data
           if (message.type === '¡Exito!') {
-            dispatch(updatePost(updatedPost))
+            editPostInStore({ newPost })
           }
           setMessage(message)
           setOpenDialog(true)

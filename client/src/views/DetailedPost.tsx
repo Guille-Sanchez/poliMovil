@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { deletePost, updatePost } from '../redux/postsSlice'
+import { useSelector } from 'react-redux'
 import { deletePostService } from '../services/posts/deletePostService'
 import { handleReservedSeat } from '../logic/handleReservedSeat'
 import { useState } from 'react'
@@ -12,11 +11,13 @@ import { PostTable } from '../components/post/PostTable'
 import { PassengerList } from '../components/PassengerList'
 import { type RootState } from '../redux/store'
 import { type Post } from '../types'
+import { usePostsActions } from '../redux/hooks/usePostsActions'
 
 export const DetailedPost = (): JSX.Element => {
   const posts = useSelector((state: RootState) => state.posts)
   const { id } = useParams<{ id: string }>()
   const { userId } = useSelector((state: RootState) => state.authentication.userInformation)
+  const { deletePostInStore, editPostInStore } = usePostsActions()
 
   // Find the post with matching ID
   const post = posts.find((post: Post) => post.id === id) ?? PostInitialState
@@ -27,14 +28,13 @@ export const DetailedPost = (): JSX.Element => {
   const accessToken = useSelector((state: RootState) => state.authentication.accessToken)
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState(MessageInitialState)
-  const dispatch = useDispatch()
 
   const handleOnClickDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     deletePostService({ e, id, accessToken })
       .then((responseMessage) => {
         setOpenDialog(true)
-        if (responseMessage.type === '¡Exito!') {
-          dispatch(deletePost(id ?? ''))
+        if (responseMessage.type === '¡Exito!' && id !== undefined) {
+          deletePostInStore({ id })
         }
         setMessage(() => responseMessage)
       })
@@ -56,7 +56,8 @@ export const DetailedPost = (): JSX.Element => {
         if (message.type === '¡Exito!' && post !== undefined) {
           setMessage(() => message)
           setOpenDialog(true)
-          dispatch(updatePost({ ...post, travelId: { ...travelId } }))
+          const newPost = { ...post, travelId: { ...travelId } }
+          editPostInStore({ newPost })
         }
       })
       .catch((_error) => {
