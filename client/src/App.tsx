@@ -21,6 +21,7 @@ const SignUp = lazy(async () => await import('./views/SignUp').then(module => ({
 const About = lazy(async () => await import('./views/About').then(module => ({ default: module.About })))
 const CompleteProfile = lazy(async () => await import('./views/CompleteProfile').then(module => ({ default: module.CompleteProfile })))
 const TermsOfService = lazy(async () => await import('./views/TermsOfService').then(module => ({ default: module.TermsOfService })))
+const UserTravels = lazy(async () => await import('./views/UserTravels').then(module => ({ default: module.UserTravels })))
 
 function App (): JSX.Element {
   const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
@@ -44,6 +45,7 @@ function App (): JSX.Element {
                       <Route path='/posts/:id' element={<DetailedPost />} />
                       <Route path='/mi-perfil' element={<MyProfile />} />
                       <Route path='/posts/editar/:id' element={<PostForm />} />
+                      <Route path='/travels' element={<UserTravels />} />
                     </>
                   : <>
                       { (isAuthenticated && !isProfileCompleted) && <Route path='*' element={<CompleteProfile />} />}

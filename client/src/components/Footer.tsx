@@ -23,7 +23,7 @@ export const Footer = (): JSX.Element => {
       </div>
 
       <div>
-        <Link to={'/'} title='Mis Viajes'>
+        <Link to={'/travels'} title='Mis Viajes'>
           <button className='flex flex-col items-center'>
           <IconInformationCircle width={'2em'} height={'2em'} viewBox='0 0 512 512' color='whiteSmoke'/>
             <p className='text-slate-200'>Mis Viajes</p>
