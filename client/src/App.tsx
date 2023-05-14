@@ -7,8 +7,7 @@ import { useUsersAPI } from './hooks/useUsersAPI'
 import { PageNotFound } from './views/PageNotFound'
 import { UnAuthHeader } from './components/unAuth/UnAuthHeader'
 import { UnAuthFooter } from './components/unAuth/UnAuthFooter'
-import { type RootState } from './redux/store'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from './redux/hooks/useStore'
 import { lazy, Suspense } from 'react'
 import { LoadingSPinner } from './components/LoadingSPinner'
 import { useTokenFromStorage } from './hooks/useTokenFromStorage'
@@ -24,8 +23,8 @@ const TermsOfService = lazy(async () => await import('./views/TermsOfService').t
 const UserTravels = lazy(async () => await import('./views/UserTravels').then(module => ({ default: module.UserTravels })))
 
 function App (): JSX.Element {
-  const isAuthenticated = useSelector((state: RootState) => state.authentication.isAuthenticated)
-  const { isProfileCompleted } = useSelector((state: RootState) => state.authentication.userInformation)
+  const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated)
+  const { isProfileCompleted } = useAppSelector((state) => state.authentication.userInformation)
 
   usePostsAPI()
   useUsersAPI()

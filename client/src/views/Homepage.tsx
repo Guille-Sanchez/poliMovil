@@ -1,11 +1,10 @@
 import { PostTable } from '../components/post/PostTable'
-import { useSelector } from 'react-redux'
-import { type RootState } from '../redux/store'
 import { PostFooter } from '../components/post/PostFooter'
 import { PostHeader } from '../components/post/PostHeader'
+import { useAppSelector } from '../redux/hooks/useStore'
 
 export const Homepage = (): JSX.Element => {
-  const posts = useSelector((state: RootState) => state.posts)
+  const posts = useAppSelector((state) => state.posts)
 
   return (
     <section className="bg-white w-full h-full pt-5 pb-5">

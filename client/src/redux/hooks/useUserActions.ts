@@ -1,7 +1,7 @@
-import { useDispatch } from 'react-redux'
 import { getUsers, type updateProfile, updateUsers, addNewUser } from '../usersSlice'
 import { formatUsers } from '../../logic/formatUsers'
 import { type User, type Users } from '../../types'
+import { useAppDispatch } from './useStore'
 
 interface returnProps {
   saveUsersInStore: ({ users }: { users: Users }) => void
@@ -10,7 +10,7 @@ interface returnProps {
 }
 
 export const useUserActions = (): returnProps => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const saveUsersInStore = ({ users }: { users: Users }): void => {
     dispatch(getUsers(formatUsers(users)))

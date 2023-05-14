@@ -1,16 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { type RootState } from '../../redux/store'
-import { useSelector } from 'react-redux'
 import { type Post } from '../../types'
 import { handleOptionSelected } from '../../logic/handleOptionSelected'
 import { getAvailableSeats } from '../../logic/getAvailableSeats'
+import { useAppSelector } from '../../redux/hooks/useStore'
 interface Props {
   post: Post
 }
 
 export const PostFooter = ({ post }: Props): JSX.Element => {
   const navigate = useNavigate()
-  const { userId } = useSelector((state: RootState) => state.authentication.userInformation)
+  const { userId } = useAppSelector((state) => state.authentication.userInformation)
   const { asientosDisponibles } = getAvailableSeats({ post })
   const postId = post.id
 

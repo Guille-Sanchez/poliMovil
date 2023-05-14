@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { MessageInitialState } from '../constants'
-import { type RootState } from '../redux/store'
-import { useSelector } from 'react-redux'
 import { removePassenger } from '../services/removePassenger'
 import { type messageType, type Post } from '../types'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
+import { useAppSelector } from '../redux/hooks/useStore'
 
 interface Props {
   continueAction: boolean
@@ -19,7 +18,7 @@ interface returnProps {
 export const useDeleteReservation = ({ continueAction, post }: Props): returnProps => {
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState(MessageInitialState)
-  const { accessToken } = useSelector((state: RootState) => state.authentication)
+  const { accessToken } = useAppSelector((state) => state.authentication)
   const { editPostInStore } = usePostsActions()
 
   useEffect(() => {

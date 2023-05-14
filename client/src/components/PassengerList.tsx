@@ -1,17 +1,16 @@
-import { useSelector } from 'react-redux'
-import type { RootState } from '../redux/store'
 import { type Post } from '../types'
 import { IconCloseCircle } from '../assets/Icons'
 import { useState } from 'react'
 import { ConfirmationDialog } from './ConfirmationDialog'
 import { useDeleteReservation } from '../hooks/useDeleteReservation'
 import { MessageDialog } from './post/MessageDialog'
+import { useAppSelector } from '../redux/hooks/useStore'
 interface Props {
   post: Post
 }
 
 export const PassengerList = ({ post }: Props): JSX.Element => {
-  const { users, authentication } = useSelector((state: RootState) => state)
+  const { users, authentication } = useAppSelector((state) => state)
   const { userId } = authentication.userInformation
 
   // Get passenger IDs from the detailed post && find user info for each passenger

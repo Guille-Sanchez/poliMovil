@@ -1,13 +1,12 @@
-import { useSelector } from 'react-redux'
 import { type Post } from '../../types'
-import { type RootState } from '../../redux/store'
+import { useAppSelector } from '../../redux/hooks/useStore'
 
 interface Props {
   post: Post
 }
 
 export const PostHeader = ({ post }: Props): JSX.Element => {
-  const users = useSelector((state: RootState) => state.users)
+  const users = useAppSelector((state) => state.users)
 
   // Find information of user who posted the trip
   const user = users?.find((user) => {

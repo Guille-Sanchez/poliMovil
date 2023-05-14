@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { InputPasswordType } from './InputPasswordType'
 import { updatePasswordService } from '../services/users/updatePasswordService'
-import { useSelector } from 'react-redux'
-import { type RootState } from '../redux/store'
 import { MessageInitialState } from '../constants'
 import { MessageDialog } from './post/MessageDialog'
+import { useAppSelector } from '../redux/hooks/useStore'
 
 export const UpdatePasswordForm = (): JSX.Element => {
   const [error, setError] = useState('')
-  const accessToken = useSelector((state: RootState) => state.authentication.accessToken)
+  const accessToken = useAppSelector((state) => state.authentication.accessToken)
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState(MessageInitialState)
 

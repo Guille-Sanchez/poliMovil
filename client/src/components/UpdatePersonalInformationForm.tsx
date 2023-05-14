@@ -1,18 +1,17 @@
-import { useSelector } from 'react-redux'
-import { type RootState } from '../redux/store'
 import { updatePersonalInformationService } from '../services/users/updatePersonalInformationService'
 import { useState } from 'react'
 import { MessageDialog } from './post/MessageDialog'
 import { MessageInitialState } from '../constants'
 import { useUserActions } from '../redux/hooks/useUserActions'
 import { useAuthenticatonActions } from '../redux/hooks/useAuthenticationActions'
+import { useAppSelector } from '../redux/hooks/useStore'
 interface Props {
   formLegend: string
 }
 
 export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Element => {
-  const { name, lastName, email, phone, userId } = useSelector((state: RootState) => state.authentication.userInformation)
-  const { accessToken } = useSelector((state: RootState) => state.authentication)
+  const { accessToken, userInformation } = useAppSelector((state) => state.authentication)
+  const { name, lastName, email, phone, userId } = userInformation
   const { saveAuthenticationDataInStore } = useAuthenticatonActions()
   const { updateUsersInStore } = useUserActions()
   const [openDialog, setOpenDialog] = useState(false)

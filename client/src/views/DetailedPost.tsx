@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { deletePostService } from '../services/posts/deletePostService'
 import { handleReservedSeat } from '../logic/handleReservedSeat'
 import { useState } from 'react'
@@ -9,14 +8,14 @@ import { getAvailableSeats } from '../logic/getAvailableSeats'
 import { PostHeader } from '../components/post/PostHeader'
 import { PostTable } from '../components/post/PostTable'
 import { PassengerList } from '../components/PassengerList'
-import { type RootState } from '../redux/store'
 import { type Post } from '../types'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
+import { useAppSelector } from '../redux/hooks/useStore'
 
 export const DetailedPost = (): JSX.Element => {
-  const posts = useSelector((state: RootState) => state.posts)
+  const posts = useAppSelector((state) => state.posts)
   const { id } = useParams<{ id: string }>()
-  const { userId } = useSelector((state: RootState) => state.authentication.userInformation)
+  const { userId } = useAppSelector((state) => state.authentication.userInformation)
   const { deletePostInStore, editPostInStore } = usePostsActions()
 
   // Find the post with matching ID
@@ -25,7 +24,7 @@ export const DetailedPost = (): JSX.Element => {
   const isUserPost = post.travelId.driverId === userId
 
   // Handle delete of post
-  const accessToken = useSelector((state: RootState) => state.authentication.accessToken)
+  const accessToken = useAppSelector((state) => state.authentication.accessToken)
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState(MessageInitialState)
 

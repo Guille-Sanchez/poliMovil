@@ -18,7 +18,6 @@ export const createUser = (req, res) => {
 
   user.save()
     .then((savedUser) => {
-      console.log(savedUser)
       res.status(201).json(savedUser)
     })
     .catch((error) => {

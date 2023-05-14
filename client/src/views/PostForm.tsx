@@ -8,14 +8,13 @@ import { PostInitialState } from '../constants'
 import { LoadingSPinner } from '../components/LoadingSPinner'
 import { usePostEditing } from '../hooks/usePostEditing'
 import { PostPreview } from './PostPreview'
-import { type RootState } from '../redux/store'
-import { useSelector } from 'react-redux'
 import { PriceSelector } from '../components/post/PriceSelector'
+import { useAppSelector } from '../redux/hooks/useStore'
 
 export const PostForm = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
-  const { userId } = useSelector((state: RootState) => state.authentication.userInformation)
+  const { userId } = useAppSelector((state) => state.authentication.userInformation)
   const [submittedValues, setSubmittedValues] = useState<submittedValues>({ newPost: PostInitialState, setNext: false })
 
   usePostEditing({ setSubmittedValues, setLoading })

@@ -1,14 +1,13 @@
-import { useSelector } from 'react-redux'
 import { PostHeader } from '../components/post/PostHeader'
 import { PostTable } from '../components/post/PostTable'
 import { type messageType, type submittedValues } from '../types'
-import { type RootState } from '../redux/store'
 import { useState } from 'react'
 import { MessageInitialState } from '../constants'
 import { MessageDialog } from '../components/post/MessageDialog'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
 import { createPostService } from '../services/posts/createPostService'
 import { updatePostService } from '../services/posts/updatePostService'
+import { useAppSelector } from '../redux/hooks/useStore'
 
 interface Props {
   submittedValues: submittedValues
@@ -19,7 +18,7 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
   const { addNewPostInStore, editPostInStore } = usePostsActions()
   const [message, setMessage] = useState<messageType>(MessageInitialState)
   const [openDialog, setOpenDialog] = useState(false)
-  const accessToken = useSelector((state: RootState) => state.authentication.accessToken)
+  const accessToken = useAppSelector((state) => state.authentication.accessToken)
 
   const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
     e.preventDefault()

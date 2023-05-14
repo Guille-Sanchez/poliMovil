@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { type RootState } from '../redux/store'
 import { useParams } from 'react-router-dom'
 import { type submittedValues } from '../types'
+import { useAppSelector } from '../redux/hooks/useStore'
 
 interface Props {
   setSubmittedValues: React.Dispatch<React.SetStateAction<submittedValues>>
@@ -10,7 +9,7 @@ interface Props {
 }
 
 export const usePostEditing = ({ setSubmittedValues, setLoading }: Props): void => {
-  const posts = useSelector((state: RootState) => state.posts)
+  const posts = useAppSelector((state) => state.posts)
   const { id } = useParams()
 
   useEffect(() => {

@@ -1,7 +1,7 @@
-import { useDispatch } from 'react-redux'
 import { formatPosts } from '../../logic/formatPosts'
 import { addPost, deletePost, getPosts, updatePost } from '../postsSlice'
 import { type Post, type Posts } from '../../types'
+import { useAppDispatch } from './useStore'
 
 interface returnProps {
   savePostsInStore: ({ posts }: { posts: Posts }) => void
@@ -11,7 +11,7 @@ interface returnProps {
 }
 
 export const usePostsActions = (): returnProps => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const savePostsInStore = ({ posts }: { posts: Posts }): void => {
     dispatch(getPosts(formatPosts(posts)))

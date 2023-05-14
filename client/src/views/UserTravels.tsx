@@ -1,11 +1,10 @@
-import { useSelector } from 'react-redux'
-import { type RootState } from '../redux/store'
 import { PostHeader } from '../components/post/PostHeader'
 import { PostTable } from '../components/post/PostTable'
 import { PostFooter } from '../components/post/PostFooter'
+import { useAppSelector } from '../redux/hooks/useStore'
 
 export const UserTravels = (): JSX.Element => {
-  const { posts, authentication } = useSelector((state: RootState) => state)
+  const { posts, authentication } = useAppSelector((state) => state)
   const { userId } = authentication.userInformation
 
   const userInPosts = posts.filter((post) => { return (post.travelId.driverId === userId || post.travelId.passengerId.includes(userId)) })
