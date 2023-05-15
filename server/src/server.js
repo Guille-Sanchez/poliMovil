@@ -5,9 +5,11 @@ import { connectDB } from './mongoose.js'
 import userRoutes from './routes/userRoutes.js'
 import postRoutes from './routes/postRoutes.js'
 import travelRoutes from './routes/travelRoutes.js'
+import compression from 'compression'
 
 const app = express()
 dotenv.config()
+app.use(compression())
 app.use(express.json())
 app.use(cors())
 

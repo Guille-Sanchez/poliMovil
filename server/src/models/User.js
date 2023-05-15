@@ -9,10 +9,10 @@ const UserSchema = new Schema({
   password: String,
   isAdmin: Boolean,
   phone: String,
-  travels: {
-    type: [Schema.Types.ObjectId],
+  travels: [{
+    type: Schema.Types.ObjectId,
     ref: 'Travel'
-  }
+  }]
 },
 {
   timestamps: true

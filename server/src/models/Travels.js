@@ -7,10 +7,10 @@ const TravelSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  passengerId: {
-    type: [Schema.Types.ObjectId],
+  passengerId: [{
+    type: Schema.Types.ObjectId,
     ref: 'User'
-  },
+  }],
   postId: {
     type: Schema.Types.ObjectId,
     ref: 'Post'
