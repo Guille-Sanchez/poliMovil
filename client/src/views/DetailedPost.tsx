@@ -2,15 +2,15 @@ import { useParams } from 'react-router-dom'
 import { deletePostService } from '../services/posts/deletePostService'
 import { handleReservedSeat } from '../logic/handleReservedSeat'
 import { useState } from 'react'
-import { MessageInitialState, PostInitialState } from '../constants'
+import { MessageInitialState } from '../constants'
 import { MessageDialog } from '../components/post/MessageDialog'
-import { getAvailableSeats } from '../logic/getAvailableSeats'
 import { PostHeader } from '../components/post/PostHeader'
 import { PostTable } from '../components/post/PostTable'
 import { PassengerList } from '../components/PassengerList'
 import { type Post } from '../types'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
 import { useAppSelector } from '../redux/hooks/useStore'
+import { LoadingSPinner } from '../components/LoadingSPinner'
 
 export const DetailedPost = (): JSX.Element => {
   const posts = useAppSelector((state) => state.posts)
@@ -19,23 +19,32 @@ export const DetailedPost = (): JSX.Element => {
   const { deletePostInStore, editPostInStore } = usePostsActions()
 
   // Find the post with matching ID
-  const post = posts.find((post: Post) => post.id === id) ?? PostInitialState
-
-  const isUserPost = post.travelId.driverId === userId
+  const post = posts.find((post: Post) => post.id === id) ?? null
 
   // Handle delete of post
   const accessToken = useAppSelector((state) => state.authentication.accessToken)
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState(MessageInitialState)
 
+  if (post === null) {
+    return (
+      !openDialog
+        ? <LoadingSPinner />
+        : <MessageDialog message={message} />
+    )
+  }
+
+  const isUserPost = post.travelId.driverId.id === userId
+
   const handleOnClickDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     deletePostService({ e, id, accessToken })
       .then((responseMessage) => {
-        setOpenDialog(true)
-        if (responseMessage.type === '¡Exito!' && id !== undefined) {
+        const { message } = responseMessage
+        if (message.type === '¡Exito!' && id !== undefined) {
+          setMessage(() => message)
+          setOpenDialog(true)
           deletePostInStore({ id })
         }
-        setMessage(() => responseMessage)
       })
       .catch((_error) => {
         message.type = 'Error'
@@ -52,11 +61,12 @@ export const DetailedPost = (): JSX.Element => {
     handleReservedSeat({ e, accessToken, travelId })
       .then((data) => {
         const { message, travelId } = data
-        if (message.type === '¡Exito!' && post !== undefined) {
+        if (message.type === '¡Exito!') {
+          const asientosDisponibles = (+post.asientosDisponibles - 1).toString()
+          const newPost = { ...post, asientosDisponibles, travelId }
+          editPostInStore({ newPost })
           setMessage(() => message)
           setOpenDialog(true)
-          const newPost = { ...post, travelId: { ...travelId } }
-          editPostInStore({ newPost })
         }
       })
       .catch((_error) => {
@@ -67,8 +77,7 @@ export const DetailedPost = (): JSX.Element => {
       })
   }
 
-  const { asientosDisponibles } = getAvailableSeats({ post })
-  const isUserPassanger = post.travelId.passengerId.find((passengerId) => passengerId === userId) === userId
+  const isUserPassanger = post?.travelId.passengerId.find((passengerId) => passengerId.id === userId)?.id === userId
 
   return (
     <section className="bg-white w-full h-full pt-5 relative">
@@ -77,13 +86,13 @@ export const DetailedPost = (): JSX.Element => {
         <PostTable post={post} />
         {post.detalles !== '' && <p><span className='font-bold'>Detalles:&nbsp;</span>{post.detalles}</p>}
         <div className='flex justify-between items-center'>
-          <p>Asientos Disponibles: {+post.asientosDisponibles - post.travelId.passengerId.length}</p>
+          <p>Asientos Disponibles: {post.asientosDisponibles}</p>
         </div>
       </div>
 
       {!isUserPost
         ? (
-            (asientosDisponibles > 0 && !isUserPassanger) && (
+            (+post.asientosDisponibles > 0 && !isUserPassanger) && (
               <div className='flex gap-5 items-center justify-center pr-5 pl-5 pb-5 w-full'>
                 <button
                   className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'

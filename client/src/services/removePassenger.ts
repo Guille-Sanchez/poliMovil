@@ -29,8 +29,9 @@ export const removePassenger = async ({ accessToken, post }: Props): Promise<ret
       .then(async res => {
         const { message } = handleErrors({ res, action })
         if (message.type === '¡Exito!') {
-          await res.json().then((data: travel) => {
-            newPost = { ...post, travelId: data }
+          await res.json().then((travelId: travel) => {
+            const asientosDisponibles = (+post.asientosDisponibles + 1).toString()
+            newPost = { ...post, asientosDisponibles, travelId }
             resolve({ message, newPost })
           })
             .catch(() => {

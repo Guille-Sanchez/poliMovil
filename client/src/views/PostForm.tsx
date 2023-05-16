@@ -14,14 +14,15 @@ import { useAppSelector } from '../redux/hooks/useStore'
 export const PostForm = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
-  const { userId } = useAppSelector((state) => state.authentication.userInformation)
+  const { name, lastName, email, phone, userId } = useAppSelector((state) => state.authentication.userInformation)
+  const driverId = { name, lastName, email, phone, id: userId }
   const [submittedValues, setSubmittedValues] = useState<submittedValues>({ newPost: PostInitialState, setNext: false })
 
   usePostEditing({ setSubmittedValues, setLoading })
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     setError(null)
-    const { error, valuesToSubmit } = postFormValidator({ e, userId, submittedValues })
+    const { error, valuesToSubmit } = postFormValidator({ e, driverId, submittedValues })
     error !== '' ? setError(error) : setSubmittedValues(valuesToSubmit)
   }
 

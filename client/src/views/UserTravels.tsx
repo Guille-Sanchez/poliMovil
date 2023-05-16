@@ -7,10 +7,13 @@ export const UserTravels = (): JSX.Element => {
   const { posts, authentication } = useAppSelector((state) => state)
   const { userId } = authentication.userInformation
 
-  const userInPosts = posts.filter((post) => { return (post.travelId.driverId === userId || post.travelId.passengerId.includes(userId)) })
+  const userInPosts = posts.filter((post) => {
+    return (post.travelId.driverId.id === userId || post.travelId.passengerId.find(passanger => passanger.id === userId))
+  })
+
   const userHasTravels = userInPosts.length > 0
   return (
-    <section className="bg-white h-full w-full">
+    <section className="bg-white h-full w-full pt-5">
       {userHasTravels
         ? <ul>
           {

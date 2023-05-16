@@ -5,18 +5,17 @@ import { ConfirmationDialog } from './ConfirmationDialog'
 import { useDeleteReservation } from '../hooks/useDeleteReservation'
 import { MessageDialog } from './post/MessageDialog'
 import { useAppSelector } from '../redux/hooks/useStore'
+
 interface Props {
   post: Post
 }
 
 export const PassengerList = ({ post }: Props): JSX.Element => {
-  const { users, authentication } = useAppSelector((state) => state)
+  const { authentication } = useAppSelector((state) => state)
   const { userId } = authentication.userInformation
 
-  // Get passenger IDs from the detailed post && find user info for each passenger
-  const passengerIds = post.travelId.passengerId
-  const passengerInfoList = passengerIds.map((id) => users.find(user => user.id === id))
-  const hasPassengers = passengerInfoList?.length > 0
+  const passengerInfoList = post.travelId.passengerId
+  const hasPassengers = passengerInfoList.length > 0
 
   // Get UserInformation to allow user to cancel trip
   const [continueAction, setContinueAction] = useState(false)
@@ -45,7 +44,7 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
                 {
                   passengerInfoList.map((user, index) => {
                     return (
-                      <li key={user?.id} className='border mr-5 ml-5 mb-5 p-1'>
+                      <li key={user.id} className='border mr-5 ml-5 mb-5 p-1'>
                         <div className='flex gap-2 pr-5 pl-5 items-center relative'>
                           <p className='font-bold text-xl'>{index + 1}- </p>
 
@@ -60,7 +59,7 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
                               <div className='flex gap-2'>
                                 <p>{user?.name} {user?.lastName}</p>
                                 {
-                                  userId === user?.id &&
+                                  userId === user.id &&
                                   <button className='absolute -right-4 -top-4'
                                     onClick={() => { setOpenConfirmation(true) }}
                                   >

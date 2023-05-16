@@ -3,7 +3,13 @@ import { TravelInitialState } from '../constants'
 
 interface Props {
   e: React.FormEvent<HTMLFormElement>
-  userId: string
+  driverId: {
+    name: string
+    lastName: string
+    email: string
+    phone: string
+    id: string
+  }
   submittedValues: submittedValues
 }
 
@@ -12,11 +18,14 @@ interface returnProps {
   valuesToSubmit: submittedValues
 }
 
-export const postFormValidator = ({ e, userId, submittedValues }: Props): returnProps => {
+export const postFormValidator = ({ e, driverId, submittedValues }: Props): returnProps => {
   e.preventDefault()
   let error = ''
   let valuesToSubmit = { ...submittedValues }
-  const travelState = submittedValues.newPost.travelId.id !== '' ? { ...submittedValues.newPost.travelId } : { ...TravelInitialState, driverId: userId }
+  const travelState =
+    submittedValues.newPost.travelId.id !== ''
+      ? { ...submittedValues.newPost.travelId }
+      : { ...TravelInitialState, driverId }
 
   const horarioRegex = /^(?:[5-9]|0[5-9]|1[0-9]|2[0-1]):[0-5][0-9]$|^(22:00)$/
 

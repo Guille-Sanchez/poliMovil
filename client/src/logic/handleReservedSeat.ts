@@ -28,8 +28,7 @@ export const handleReservedSeat = async ({ e, accessToken, travelId }: Props): P
       .then(async res => {
         const { message } = handleErrors({ res, action })
         res.json()
-          .then((data: travel) => {
-            const travelId = { ...data }
+          .then((travelId: travel) => {
             resolve({ message, travelId })
           })
           .catch(err => {

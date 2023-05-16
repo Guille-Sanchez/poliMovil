@@ -1,7 +1,15 @@
+export const User = {
+  email: '',
+  id: '',
+  lastName: '',
+  name: '',
+  phone: ''
+}
+
 export const TravelInitialState = {
   id: '',
-  driverId: '',
-  passengerId: [''],
+  driverId: User,
+  passengerId: [User],
   postId: ''
 }
 

@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { type Post } from '../../types'
 import { handleOptionSelected } from '../../logic/handleOptionSelected'
-import { getAvailableSeats } from '../../logic/getAvailableSeats'
 import { useAppSelector } from '../../redux/hooks/useStore'
 interface Props {
   post: Post
@@ -10,15 +9,14 @@ interface Props {
 export const PostFooter = ({ post }: Props): JSX.Element => {
   const navigate = useNavigate()
   const { userId } = useAppSelector((state) => state.authentication.userInformation)
-  const { asientosDisponibles } = getAvailableSeats({ post })
   const postId = post.id
 
   return (
     <footer className='flex justify-between items-center'>
-      <p>Asientos Disponibles: {asientosDisponibles}</p>
+      <p>Asientos Disponibles: {post.asientosDisponibles}</p>
 
       {
-        post.travelId.driverId === userId
+        post.travelId.driverId.id === userId
           ? (
               <div>
                 <select name="userOptions" id="userOptions"
