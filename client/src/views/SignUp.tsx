@@ -4,13 +4,11 @@ import { InputPasswordType } from '../components/InputPasswordType'
 import { createUser } from '../services/users/createUser'
 import { MessageDialog } from '../components/post/MessageDialog'
 import { MessageInitialState } from '../constants'
-import { useUserActions } from '../redux/hooks/useUserActions'
 
 export const SignUp = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState(MessageInitialState)
-  const { saveNewUserInStore } = useUserActions()
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -37,8 +35,7 @@ export const SignUp = (): JSX.Element => {
 
     createUser({ postData })
       .then((res) => {
-        const { message, newUser } = res
-        saveNewUserInStore({ newUser })
+        const { message } = res
         setMessage(() => { return { ...message } })
         setOpenDialog(true)
       })

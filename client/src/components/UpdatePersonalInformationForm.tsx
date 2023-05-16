@@ -2,7 +2,6 @@ import { updatePersonalInformationService } from '../services/users/updatePerson
 import { useState } from 'react'
 import { MessageDialog } from './post/MessageDialog'
 import { MessageInitialState } from '../constants'
-import { useUserActions } from '../redux/hooks/useUserActions'
 import { useAuthenticatonActions } from '../redux/hooks/useAuthenticationActions'
 import { useAppSelector } from '../redux/hooks/useStore'
 interface Props {
@@ -13,7 +12,6 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
   const { accessToken, userInformation } = useAppSelector((state) => state.authentication)
   const { name, lastName, email, phone, userId } = userInformation
   const { saveAuthenticationDataInStore } = useAuthenticatonActions()
-  const { updateUsersInStore } = useUserActions()
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState(MessageInitialState)
 
@@ -45,7 +43,6 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
           saveAuthenticationDataInStore({ isAuthenticated: true, accessToken: res.accessToken, userInformation })
 
           // Update user information
-          updateUsersInStore({ userId, updateProfile })
           setOpenDialog(() => true)
           setMessage(() => res.message)
         } else {
