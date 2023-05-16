@@ -1,6 +1,6 @@
 import { type TravelInitialState, type PostInitialState, type AuthenticationInitialState, type UserInitialState, type PostToSendToDataBase, type MessageInitialState, type currentUserInformation } from './constants'
 
-export type Posts = Post[]
+export type Posts = PostInitialState[]
 
 export type Post = typeof PostInitialState
 

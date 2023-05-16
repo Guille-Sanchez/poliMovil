@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { type Posts } from '../types'
-import { Post, type PostInitialState } from '../constants'
+import { type Posts, type Post } from '../types'
+import { PostInitialState } from '../constants'
 
-const initialState = Post
+const initialState = [PostInitialState]
 
 // Create slice
 export const postsSlice = createSlice({
@@ -13,10 +13,10 @@ export const postsSlice = createSlice({
     getPosts: (_state, action: PayloadAction<Posts>) => {
       return action.payload
     },
-    addPost: (state, action: PayloadAction<typeof PostInitialState>) => {
+    addPost: (state, action: PayloadAction<Post>) => {
       state.push(action.payload)
     },
-    updatePost: (state, action: PayloadAction<typeof PostInitialState>) => {
+    updatePost: (state, action: PayloadAction<Post>) => {
       const index = state.findIndex(post => post.id === action.payload.id)
       state[index] = action.payload
     },

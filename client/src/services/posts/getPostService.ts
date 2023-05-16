@@ -19,8 +19,7 @@ export const getPostService = async ({ signal }: Props): Promise<returnProps> =>
       .then((res) => {
         const { message } = handleErrors({ res, action })
         if (message.type === '¡Exito!') {
-          res.json().then((data) => {
-            const posts = data
+          res.json().then((posts: Posts) => {
             resolve({ message, posts })
           }).catch((error) => {
             console.log(error)

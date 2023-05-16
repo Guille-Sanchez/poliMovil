@@ -34,8 +34,6 @@ export const PostToSendToDataBase = {
   precio: ''
 }
 
-export const Post = [PostInitialState]
-
 export const currentUserInformation = {
   userId: '',
   name: '',

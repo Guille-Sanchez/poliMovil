@@ -26,8 +26,8 @@ function App (): JSX.Element {
   const { isProfileCompleted } = useAppSelector((state) => state.authentication.userInformation)
   const [areLoadingPosts, setAreLoadingPosts] = useState(true)
 
-  usePostsAPI({ setAreLoadingPosts })
   useTokenFromStorage()
+  usePostsAPI({ setAreLoadingPosts })
 
   return (
     <div className='flex flex-col h-full'>

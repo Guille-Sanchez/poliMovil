@@ -9,12 +9,12 @@ export const Homepage = (): JSX.Element => {
   return (
     <section className="bg-white w-full h-full pt-5 pb-5">
       {
-        posts.length === 0
+        posts.length > 0
           ? <ul>
               {posts.map((post, index) => {
                 return (
                   <li key={post.id} className='grid gap-3'>
-                    <article className='grid gap-3 pr-5 pl-5'>
+                    <article className='grid gap-3 px-5'>
                       <PostHeader post={post} />
                       <PostTable post={post} />
                       {post.detalles !== '' && (
@@ -31,7 +31,9 @@ export const Homepage = (): JSX.Element => {
                 )
               })}
             </ul>
-          : <p>Aun no se han realizado posts</p>
+          : <div className='flex h-full justify-center items-center'>
+              <p className='text-center text-2xl font-semibold px-5'>No hay publicaciones que mostrar.</p>
+            </div>
       }
     </section>
   )
