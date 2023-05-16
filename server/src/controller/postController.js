@@ -21,15 +21,29 @@ export const createPost = async (req, res) => {
   await travel.save()
   await User.findByIdAndUpdate(userId, { $push: { travels: travel._id } })
 
-  Post.findByIdAndUpdate(post._id, { travelId: travel._id }, { new: true }).populate('travelId')
+  Post.findByIdAndUpdate(post._id, { travelId: travel._id }, { new: true }).populate({
+    path: 'travelId',
+    populate: {
+      path: 'driverId passengerId',
+      model: 'User',
+      select: '-password -isAdmin -travels'
+    }
+  })
     .then((post) => {
       res.status(201).json(post)
     })
 }
 
 export const getPosts = (req, res) => {
-  Post.find().populate('travelId')
-    .then((posts) => {
+  Post.find()
+    .populate({
+      path: 'travelId',
+      populate: {
+        path: 'driverId passengerId',
+        model: 'User',
+        select: '-password -isAdmin -travels'
+      }
+    }).then((posts) => {
       res.status(200).json(posts)
     })
     .catch((error) => {
@@ -55,7 +69,15 @@ export const getPost = (req, res) => {
 export const updatePost = (req, res) => {
   const postId = req.params.id
 
-  Post.findByIdAndUpdate(postId, { ...req.body }, { new: true }).populate('travelId')
+  Post.findByIdAndUpdate(postId, { ...req.body }, { new: true })
+    .populate({
+      path: 'travelId',
+      populate: {
+        path: 'driverId passengerId',
+        model: 'User',
+        select: '-password -isAdmin -travels'
+      }
+    })
     .then((post) => {
       if (!post) {
         return res.status(400).send({
