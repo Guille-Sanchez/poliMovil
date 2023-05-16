@@ -11,15 +11,15 @@ import { useTokenFromStorage } from './hooks/useTokenFromStorage'
 import { usePostsAPI } from './hooks/usePostsAPI'
 
 const About = lazy(async () => await import('./views/About').then(module => ({ default: module.About })))
-const CompleteProfile = lazy(async () => await import('./views/CompleteProfile').then(module => ({ default: module.CompleteProfile })))
+const CompleteProfile = lazy(async () => await import('./views/user/CompleteProfile').then(module => ({ default: module.CompleteProfile })))
 const DetailedPost = lazy(async () => await import('./views/DetailedPost').then(module => ({ default: module.DetailedPost })))
 const Homepage = lazy(async () => await import('./views/Homepage').then(module => ({ default: module.Homepage })))
-const Login = lazy(async () => await import('./views/Login').then(module => ({ default: module.Login })))
-const MyProfile = lazy(async () => await import('./views/MyProfile').then(module => ({ default: module.MyProfile })))
+const Login = lazy(async () => await import('./views/user/Login').then(module => ({ default: module.Login })))
+const MyProfile = lazy(async () => await import('./views/user/MyProfile').then(module => ({ default: module.MyProfile })))
 const PostForm = lazy(async () => await import('./views/PostForm').then(module => ({ default: module.PostForm })))
-const SignUp = lazy(async () => await import('./views/SignUp').then(module => ({ default: module.SignUp })))
+const SignUp = lazy(async () => await import('./views/user/SignUp').then(module => ({ default: module.SignUp })))
 const TermsOfService = lazy(async () => await import('./views/TermsOfService').then(module => ({ default: module.TermsOfService })))
-const UserTravels = lazy(async () => await import('./views/UserTravels').then(module => ({ default: module.UserTravels })))
+const UserTravels = lazy(async () => await import('./views/user/UserTravels').then(module => ({ default: module.UserTravels })))
 
 function App (): JSX.Element {
   const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated)

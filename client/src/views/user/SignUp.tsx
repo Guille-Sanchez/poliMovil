@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { InputPasswordType } from '../components/InputPasswordType'
-import { createUser } from '../services/users/createUser'
-import { MessageDialog } from '../components/post/MessageDialog'
-import { MessageInitialState } from '../constants'
+import { InputPasswordType } from '../../components/InputPasswordType'
+import { createUser } from '../../services/users/createUser'
+import { MessageDialog } from '../../components/post/MessageDialog'
+import { MessageInitialState } from '../../constants'
 
 export const SignUp = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)

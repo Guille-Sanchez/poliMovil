@@ -1,4 +1,4 @@
-import { UpdatePersonalInformationForm } from '../components/UpdatePersonalInformationForm'
+import { UpdatePersonalInformationForm } from '../../components/UpdatePersonalInformationForm'
 
 export const CompleteProfile = (): JSX.Element => {
   return (

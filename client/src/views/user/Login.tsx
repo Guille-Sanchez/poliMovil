@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { InputPasswordType } from '../components/InputPasswordType'
-import { handleLogin } from '../logic/handleLogin'
-import { useAuthenticatonActions } from '../redux/hooks/useAuthenticationActions'
+import { InputPasswordType } from '../../components/InputPasswordType'
+import { handleLogin } from '../../logic/handleLogin'
+import { useAuthenticatonActions } from '../../redux/hooks/useAuthenticationActions'
 
 export const Login = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)

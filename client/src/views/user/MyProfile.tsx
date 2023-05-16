@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { UpdatePersonalInformationForm } from '../components/UpdatePersonalInformationForm'
-import { UpdatePasswordForm } from '../components/UpdatePasswordForm'
+import { UpdatePersonalInformationForm } from '../../components/UpdatePersonalInformationForm'
+import { UpdatePasswordForm } from '../../components/UpdatePasswordForm'
 
 export const MyProfile = (): JSX.Element => {
   const [personalInfoCurrentView, setPersonalInfoCurrentView] = useState(true)
