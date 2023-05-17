@@ -1,13 +1,10 @@
 import { useState } from 'react'
 import { IconMenu, IconClose } from '../assets/Icons'
 import { Menu } from './Menu'
-import { usePreventScroll } from '../hooks/usePreventScroll'
 import { Link } from 'react-router-dom'
 
 export const Header = (): JSX.Element => {
   const [showMenu, setShowMenu] = useState(false)
-
-  usePreventScroll({ showMenu })
 
   const toggleMenu = (): void => {
     setShowMenu((prev) => { return !prev })
@@ -19,7 +16,7 @@ export const Header = (): JSX.Element => {
         <h1>PoliMovil <span className='text-xs'>(beta)</span></h1>
       </Link>
 
-      <button onClick={toggleMenu}>
+      <button onClick={toggleMenu} aria-label='Menu desplegable'>
         {
           !showMenu
             ? <IconMenu height={'1.25em'} width={'1.25em'} />

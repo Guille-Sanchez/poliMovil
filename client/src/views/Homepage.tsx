@@ -7,7 +7,7 @@ export const Homepage = (): JSX.Element => {
   const posts = useAppSelector((state) => state.posts)
 
   return (
-    <section className="bg-white w-full h-full pt-5 pb-5">
+    <section className="bg-white w-full min-h-full pt-5 pb-5">
       {
         posts.length > 0 && posts[0].id !== ''
           ? <ul>
