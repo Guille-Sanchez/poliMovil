@@ -1,13 +1,13 @@
-import { PostHeader } from '../components/post/PostHeader'
-import { PostTable } from '../components/post/PostTable'
-import { type messageType, type submittedValues } from '../types'
 import { useState } from 'react'
-import { MessageInitialState } from '../constants'
-import { MessageDialog } from '../components/post/MessageDialog'
+import { useAppSelector } from '../redux/hooks/useStore'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
 import { createPostService } from '../services/posts/createPostService'
 import { updatePostService } from '../services/posts/updatePostService'
-import { useAppSelector } from '../redux/hooks/useStore'
+import { PostHeader } from '../components/post/PostHeader'
+import { PostTable } from '../components/post/PostTable'
+import { MessageDialog } from '../components/post/MessageDialog'
+import { MessageInitialState } from '../constants'
+import { type messageType, type submittedValues } from '../types'
 
 interface Props {
   submittedValues: submittedValues
@@ -20,7 +20,7 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
   const [openDialog, setOpenDialog] = useState(false)
   const accessToken = useAppSelector((state) => state.authentication.accessToken)
 
-  const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
+  const handlePostSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
     e.preventDefault()
     const { newPost } = submittedValues
     const { travelId, ...newPostInformation } = newPost
@@ -76,7 +76,7 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
 
         <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'
           onClick={ (e) => {
-            handleOnClick(e)
+            handlePostSubmit(e)
               .catch((error) => {
                 console.log(error)
               })

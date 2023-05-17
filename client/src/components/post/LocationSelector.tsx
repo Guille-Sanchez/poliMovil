@@ -17,6 +17,7 @@ const LocationSelector = ({ location, defaultValue }: Props): JSX.Element => {
       </label>
 
       <select
+        aria-label={`Seleccione la ciudad de ${location}`}
         className="border border-gray-500 rounded-lg pl-5 w-full"
         name={location}
         id={location}

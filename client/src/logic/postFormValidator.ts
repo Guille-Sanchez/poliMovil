@@ -60,7 +60,9 @@ export const postFormValidator = ({ e, driverId, submittedValues }: Props): retu
       asientosDisponibles: asientosDisponibles as string,
       detalles: detalles as string,
       precio: precio as string,
-      travelId: travelState
+      travelId: travelState,
+      created: new Date().toISOString(),
+      updated: new Date().toISOString()
     },
     setNext: true
   }

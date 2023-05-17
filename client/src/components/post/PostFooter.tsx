@@ -19,7 +19,7 @@ export const PostFooter = ({ post }: Props): JSX.Element => {
         post.travelId.driverId.id === userId
           ? (
               <div>
-                <select name="userOptions" id="userOptions"
+                <select name="userOptions" id="userOptions" aria-label='Opciones del usuario'
                   className='block bg-gradient-to-r from-blue-900 to-indigo-900 text-white font-semibold p-1 rounded-lg'
                   onChange={(e) => { handleOptionSelected({ e, navigate, postId }) }}
                 >

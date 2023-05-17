@@ -14,14 +14,14 @@ export const PostHour = ({ created, updated }: Props): JSX.Element => {
   let timeValue = 0
 
   if (hoursAgo > 0) {
-    timeType = hoursAgo === 1 ? 'hora' : 'horas'
+    timeType = 'h.'
     timeValue = hoursAgo
   } else {
-    timeType = minutesAgo === 1 ? 'minuto' : 'minutos'
+    timeType = 'min.'
     timeValue = minutesAgo
   }
 
   return (
-    <p className="text-sm">{created === updated ? `Publicado hace: ${timeValue} ${timeType}` : `Actualizado hace: ${timeValue} ${timeType}`}</p>
+    <p className="text-xs">{created === updated ? `Publicado hace: ${timeValue} ${timeType}` : `Actualizado hace: ${timeValue} ${timeType}`}</p>
   )
 }
