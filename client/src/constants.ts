@@ -21,7 +21,9 @@ export const PostInitialState = {
   asientosDisponibles: '',
   detalles: '',
   travelId: TravelInitialState,
-  precio: ''
+  precio: '',
+  created: '',
+  updated: ''
 }
 
 export const PostToSendToDataBase = {

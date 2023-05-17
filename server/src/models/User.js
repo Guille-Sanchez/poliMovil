@@ -15,7 +15,7 @@ const UserSchema = new Schema({
   }]
 },
 {
-  timestamps: true
+  timestamps: false
 })
 
 UserSchema.set('toJSON', {
@@ -24,8 +24,6 @@ UserSchema.set('toJSON', {
     delete returnedObject._id
     delete returnedObject.__v
     delete returnedObject.password
-    delete returnedObject.createdAt
-    delete returnedObject.updatedAt
   }
 })
 

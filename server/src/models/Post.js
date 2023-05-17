@@ -12,10 +12,17 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Travel'
   },
-  precio: String
+  precio: String,
+  created: String,
+  updated: String,
+  createdAt: {
+    type: Date,
+    expires: 86400, // Autodelete post after 24 hours
+    default: Date.now
+  }
 },
 {
-  timestamps: true
+  timestamps: false
 })
 
 PostSchema.set('toJSON', {
@@ -23,8 +30,6 @@ PostSchema.set('toJSON', {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
-    delete returnedObject.createdAt
-    delete returnedObject.updatedAt
   }
 })
 

@@ -18,7 +18,8 @@ export const usePostEditing = ({ setSubmittedValues, setLoading }: Props): void 
       if (id !== undefined) {
         const post = posts.find(post => post.id === id)
         if (post !== undefined) {
-          setSubmittedValues({ newPost: { ...post }, setNext: false })
+          const updated = new Date().toISOString()
+          setSubmittedValues({ newPost: { ...post, updated }, setNext: false })
         }
       }
       setLoading(false)

@@ -1,6 +1,7 @@
 import { Post } from '../models/Post.js'
-import { Travel } from '../models/Travels.js'
+import { Travel } from '../models/Travel.js'
 import { User } from '../models/User.js'
+import moment from 'moment-timezone'
 
 export const createPost = async (req, res) => {
   const userId = req.userId
@@ -10,7 +11,11 @@ export const createPost = async (req, res) => {
     return res.status(400).send('Faltan datos')
   }
 
-  const post = new Post({ ...req.body })
+  const created = moment().tz('America/Asuncion').format('YYYY-MM-DDTHH:mm:ss.SSSZ')
+  const updated = created
+
+  console.log({ created })
+  const post = new Post({ ...req.body, created, updated })
   await post.save()
 
   const travel = new Travel({
@@ -68,8 +73,9 @@ export const getPost = (req, res) => {
 
 export const updatePost = (req, res) => {
   const postId = req.params.id
+  const updated = moment().tz('America/Asuncion').format('YYYY-MM-DDTHH:mm:ss.SSSZ')
 
-  Post.findByIdAndUpdate(postId, { ...req.body }, { new: true })
+  Post.findByIdAndUpdate(postId, { ...req.body, updated }, { new: true })
     .populate({
       path: 'travelId',
       populate: {
@@ -84,6 +90,7 @@ export const updatePost = (req, res) => {
           message: 'El post buscado no existe'
         })
       }
+      console.log({ post })
       res.status(200).json(post)
     })
     .catch((error) => {

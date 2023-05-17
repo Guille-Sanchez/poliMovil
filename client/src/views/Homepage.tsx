@@ -9,7 +9,7 @@ export const Homepage = (): JSX.Element => {
   return (
     <section className="bg-white w-full h-full pt-5 pb-5">
       {
-        posts.length > 0
+        posts.length > 0 && posts[0].id !== ''
           ? <ul>
               {posts.map((post, index) => {
                 return (

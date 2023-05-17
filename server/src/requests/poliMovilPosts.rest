@@ -4,7 +4,7 @@ content-type: application/json
 authorization: Bearer 
 
 {
-  "origen": "Centro",
+  "origen": "Limpio",
   "destino": "Facultad",
   "horario": "21:30",
   "asientosDisponibles": 2,
@@ -22,13 +22,12 @@ GET http://localhost:3000/api/posts/6449aa7af336f1a93cf1c6d7
 
 // Update post
 ###
-PATCH http://localhost:3000/api/posts/644a95b42386a55800559d03 HTTP/1.1
+PATCH http://localhost:3000/api/posts/6464be33ff0f7635664ee56d HTTP/1.1
 Content-type: application/json
 authorization: Bearer 
 
 {
-  "origen": "Facultad",
-  "destino": "Mariano Roque Alonso"
+  "asientosDisponibles": "2"
 }
 
 // Update post

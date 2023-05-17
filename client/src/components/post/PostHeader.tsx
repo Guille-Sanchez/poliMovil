@@ -1,3 +1,4 @@
+import { PostHour } from './PostHour'
 import { type Post } from '../../types'
 interface Props {
   post: Post
@@ -11,7 +12,10 @@ export const PostHeader = ({ post }: Props): JSX.Element => {
         <p className='text-xs'>{post.travelId.driverId.email}</p>
       </div>
 
-      <p>Precio:&nbsp;<span className='font-bold'>{post.precio}</span></p>
+      <div>
+        <p>Colaboración:&nbsp;<span className='font-bold'>{post.precio}</span></p>
+        <PostHour created={post.created} updated={post.updated}/>
+      </div>
     </header>
   )
 }

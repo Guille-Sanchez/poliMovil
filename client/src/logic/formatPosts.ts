@@ -14,7 +14,9 @@ export const formatPosts = (data: Posts): Posts => {
         asientosDisponibles: asientosDisponibles.toString(),
         detalles: post.detalles,
         travelId: post.travelId,
-        precio: post.precio
+        precio: post.precio,
+        created: post.created,
+        updated: post.updated
       })
     })
   )

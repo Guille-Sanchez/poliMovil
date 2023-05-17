@@ -28,9 +28,10 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
     if (newPost.id !== '') {
       updatePostService({ newPostInformation, accessToken })
         .then((res) => {
-          const { message } = res
+          const { message, updated } = res
 
           if (message.type === '¡Exito!') {
+            newPost.updated = updated
             editPostInStore({ newPost })
           }
 
