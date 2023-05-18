@@ -7,7 +7,7 @@ import { PostHeader } from '../components/post/PostHeader'
 import { PostTable } from '../components/post/PostTable'
 import { MessageDialog } from '../components/post/MessageDialog'
 import { MessageInitialState } from '../constants'
-import { type messageType, type submittedValues } from '../types'
+import { type submittedValues } from '../types'
 
 interface Props {
   submittedValues: submittedValues
@@ -16,12 +16,11 @@ interface Props {
 
 export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX.Element => {
   const { addNewPostInStore, editPostInStore } = usePostsActions()
-  const [message, setMessage] = useState<messageType>(MessageInitialState)
+  const [message, setMessage] = useState({ ...MessageInitialState })
   const [openDialog, setOpenDialog] = useState(false)
   const accessToken = useAppSelector((state) => state.authentication.accessToken)
 
-  const handlePostSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
-    e.preventDefault()
+  const handlePostSubmit = async (): Promise<void> => {
     const { newPost } = submittedValues
     const { travelId, ...newPostInformation } = newPost
 
@@ -75,8 +74,8 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
         </button>
 
         <button className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'
-          onClick={ (e) => {
-            handlePostSubmit(e)
+          onClick={ () => {
+            handlePostSubmit()
               .catch((error) => {
                 console.log(error)
               })

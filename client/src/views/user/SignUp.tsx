@@ -8,7 +8,7 @@ import { MessageInitialState } from '../../constants'
 export const SignUp = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
   const [openDialog, setOpenDialog] = useState(false)
-  const [message, setMessage] = useState(MessageInitialState)
+  const [message, setMessage] = useState({ ...MessageInitialState })
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()

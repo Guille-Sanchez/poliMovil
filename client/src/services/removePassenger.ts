@@ -13,7 +13,7 @@ interface returnProps {
 }
 
 export const removePassenger = async ({ accessToken, post }: Props): Promise<returnProps> => {
-  const message = MessageInitialState
+  const message = { ...MessageInitialState }
   const action = 'cancelado'
   let newPost = { ...post }
 

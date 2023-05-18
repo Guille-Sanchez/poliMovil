@@ -14,7 +14,6 @@ export const createPost = async (req, res) => {
   const created = moment().tz('America/Asuncion').format('YYYY-MM-DDTHH:mm:ss.SSSZ')
   const updated = created
 
-  console.log({ created })
   const post = new Post({ ...req.body, created, updated })
   await post.save()
 

@@ -9,7 +9,7 @@ export const UpdatePasswordForm = (): JSX.Element => {
   const [error, setError] = useState('')
   const accessToken = useAppSelector((state) => state.authentication.accessToken)
   const [openDialog, setOpenDialog] = useState(false)
-  const [message, setMessage] = useState(MessageInitialState)
+  const [message, setMessage] = useState({ ...MessageInitialState })
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()

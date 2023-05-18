@@ -21,27 +21,24 @@ export const createPostService = async ({ accessToken, newPostInformation }: Pro
   const post = PostInitialState
 
   return await new Promise<returnProps>((resolve) => {
-    fetch('http://localhost:3000/api/posts',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newPostInformation)
-      })
+    fetch('http://localhost:3000/api/posts', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newPostInformation)
+    })
       .then(async (res) => {
-        await res.json().then((post: Post) => {
-          const { message } = handleErrors({ res, action })
-          resolve({ message, post })
-        }).catch((_err) => {
-          message.mensaje = 'Un error ocurrión, intenta más tarde'
-          message.type = 'error'
-          resolve({ message, post })
-        })
+        const post = await res.json()
+        return ({ post, res })
+      })
+      .then(({ post, res }: { post: Post, res: Response }) => {
+        const { message } = handleErrors({ res, action })
+        resolve({ message, post })
       })
       .catch((_err) => {
-        message.mensaje = 'Un error ocurrión, intenta más tarde'
+        message.mensaje = 'Un error ocurrió, intenta más tarde'
         message.type = 'error'
         resolve({ message, post })
       })

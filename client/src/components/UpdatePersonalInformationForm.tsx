@@ -13,7 +13,7 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
   const { name, lastName, email, phone, userId } = userInformation
   const { saveAuthenticationDataInStore } = useAuthenticatonActions()
   const [openDialog, setOpenDialog] = useState(false)
-  const [message, setMessage] = useState(MessageInitialState)
+  const [message, setMessage] = useState({ ...MessageInitialState })
 
   const [error, setError] = useState('')
 

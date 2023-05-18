@@ -17,7 +17,7 @@ interface returnProps {
 
 export const useDeleteReservation = ({ continueAction, post }: Props): returnProps => {
   const [openDialog, setOpenDialog] = useState(false)
-  const [message, setMessage] = useState(MessageInitialState)
+  const [message, setMessage] = useState({ ...MessageInitialState })
   const { accessToken } = useAppSelector((state) => state.authentication)
   const { editPostInStore } = usePostsActions()
 

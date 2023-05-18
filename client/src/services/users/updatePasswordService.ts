@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const updatePasswordService = async ({ accessToken, updatePassword }: Props): Promise<messageType> => {
-  const message = MessageInitialState
+  const message = { ...MessageInitialState }
   const action = 'actualizado'
 
   return await new Promise<messageType>(resolve => {

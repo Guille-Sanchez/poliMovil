@@ -14,7 +14,7 @@ interface returnProps {
 }
 
 export const createUser = async ({ postData }: Props): Promise<returnProps> => {
-  const message = MessageInitialState
+  const message = { ...MessageInitialState }
   const action = 'Crear usuario'
 
   return await new Promise<returnProps>(resolve => {

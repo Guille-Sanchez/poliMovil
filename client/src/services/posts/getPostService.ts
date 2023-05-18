@@ -11,7 +11,7 @@ interface returnProps {
 }
 
 export const getPostService = async ({ signal }: Props): Promise<returnProps> => {
-  const message = MessageInitialState
+  const message = { ...MessageInitialState }
   const action = 'obtenido'
 
   return await new Promise<returnProps>(resolve => {

@@ -18,7 +18,7 @@ interface returnProps {
 }
 
 export const updatePersonalInformationService = async ({ updateProfile, accessToken }: Props): Promise<returnProps> => {
-  const message = MessageInitialState
+  const message = { ...MessageInitialState }
   const action = 'actualizado'
 
   return await new Promise<returnProps>(resolve => {

@@ -24,7 +24,7 @@ export const DetailedPost = (): JSX.Element => {
   // Handle delete of post
   const accessToken = useAppSelector((state) => state.authentication.accessToken)
   const [openDialog, setOpenDialog] = useState(false)
-  const [message, setMessage] = useState(MessageInitialState)
+  const [message, setMessage] = useState({ ...MessageInitialState })
 
   if (post === null) {
     return (
