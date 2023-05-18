@@ -32,7 +32,7 @@ function App (): JSX.Element {
   return (
     <div className='flex flex-col h-full'>
       {isAuthenticated ? <Header /> : <UnAuthHeader />}
-        <main className='flex-grow relative'>
+        <main className='flex-grow bg-white h-full relative'>
           <Suspense fallback={<LoadingSPinner/>}>
             {
               areLoadingPosts
