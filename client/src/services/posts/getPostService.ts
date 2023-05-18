@@ -16,19 +16,13 @@ export const getPostService = async ({ signal }: Props): Promise<returnProps> =>
 
   return await new Promise<returnProps>(resolve => {
     fetch('http://localhost:3000/api/posts', { signal })
-      .then((res) => {
+      .then(async (res: Response) => {
+        const posts = await res.json()
+        return ({ res, posts })
+      })
+      .then(({ res, posts }: { res: Response, posts: Posts }) => {
         const { message } = handleErrors({ res, action })
-        if (message.type === '¡Exito!') {
-          res.json().then((posts: Posts) => {
-            resolve({ message, posts })
-          }).catch((error) => {
-            console.log(error)
-          })
-        } else {
-          message.type = '¡Error!'
-          message.mensaje = 'No se pudo obtener los posts'
-          resolve({ message, posts: [] })
-        }
+        message.type === '¡Éxito!' ? resolve({ message, posts }) : resolve({ message, posts: [] })
       })
       .catch((_error) => {
         message.type = '¡Error!'

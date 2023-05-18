@@ -27,6 +27,7 @@ export const deletePostService = async ({ e, id, accessToken }: Props): Promise<
     })
       .then((res) => {
         const { message } = handleErrors({ res, action })
+        message.mensaje = message.type === '¡Éxito!' ? 'El post ha sido eliminado con éxito.' : 'El post no ha podido ser eliminado.'
         resolve({ message })
       })
       .catch((_err) => {

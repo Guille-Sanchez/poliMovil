@@ -29,7 +29,7 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
         .then((res) => {
           const { message, updated } = res
 
-          if (message.type === '¡Exito!') {
+          if (message.type === '¡Éxito!') {
             newPost.updated = updated
             editPostInStore({ newPost })
           }
@@ -45,7 +45,7 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
           const { message, post } = res
           setOpenDialog(() => true)
 
-          if (message.type === '¡Exito!') {
+          if (message.type === '¡Éxito!') {
             addNewPostInStore({ post })
           }
 

@@ -22,8 +22,8 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
   const [openConfirmation, setOpenConfirmation] = useState(false)
   const { message, openDialog } = useDeleteReservation({ continueAction, post })
   const messageConfirmation = {
-    title: '¿Está seguro que desea cancelar esta reserva?',
-    buttonAction: 'Cancelar'
+    title: '¿Está seguro que desea cancelar su reserva en el viaje?',
+    buttonAction: 'Eliminar'
   }
 
   const handleConfirmationClose = (): void => {

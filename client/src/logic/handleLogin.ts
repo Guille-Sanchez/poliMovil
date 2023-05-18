@@ -32,7 +32,7 @@ export const handleLogin = ({ e, setError, saveAuthenticationDataInStore }: Prop
 
   loginService({ authData })
     .then(res => {
-      if (res.message.type === '¡Exito!') {
+      if (res.message.type === '¡Éxito!') {
         localStorage.setItem('accessToken', res.accessToken)
         const decoded: userToken = jwt_decode(res.accessToken)
         const userInformation: currentUserInformationType = { userId: decoded.userId, isProfileCompleted: decoded.isProfileCompleted, name: decoded.name, lastName: decoded.lastName, email: decoded.email, phone: decoded.phone }

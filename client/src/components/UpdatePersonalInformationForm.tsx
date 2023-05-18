@@ -36,7 +36,7 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
 
     updatePersonalInformationService({ updateProfile, accessToken })
       .then((res) => {
-        if (res.message.type === '¡Exito!') {
+        if (res.message.type === '¡Éxito!') {
           // Update token and information from token
           localStorage.setItem('accessToken', res.accessToken)
           const userInformation = { userId, ...updateProfile, isProfileCompleted: true }
@@ -62,24 +62,24 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
           <div className='grid grid-cols-2 gap-5'>
             <div className="flex flex-col gap-2 justify-between items-center h-min">
               <label htmlFor="name" className='w-full text-left'>Nombre <span aria-required className='text-red-500'>*</span></label>
-              <input type="text" id="name" name="name" className="border border-gray-500 rounded-lg pl-5 w-full" defaultValue={name}
+              <input type="text" id="name" name="name" className="border border-gray-500 rounded-lg pl-5 w-full" autoComplete='off' defaultValue={name}
               />
             </div>
 
             <div className="flex flex-col gap-2 justify-between items-center h-min">
               <label htmlFor="lastName" className='w-full text-left'>Apellido <span aria-required className='text-red-500'>*</span></label>
-              <input type="text" id="lastName" name="lastName" className="border border-gray-500 rounded-lg pl-5 w-full" defaultValue={lastName}/>
+              <input type="text" id="lastName" name="lastName" className="border border-gray-500 rounded-lg pl-5 w-full" autoComplete='off' defaultValue={lastName}/>
             </div>
           </div>
 
           <div className="flex flex-col gap-2 justify-between items-center h-min">
             <label htmlFor="email" className='w-full text-left'>Email <span aria-required className='text-red-500'>*</span></label>
-            <input type="email" className="border border-gray-500 rounded-lg pl-5 w-full" id="email" name="email" defaultValue={email}/>
+            <input type="email" className="border border-gray-500 rounded-lg pl-5 w-full" id="email" name="email" autoComplete='off' defaultValue={email}/>
           </div>
 
           <div className="flex flex-col gap-2 justify-between items-center h-min">
             <label htmlFor="phone" className='w-full text-left'>Telefono <span aria-required className='text-red-500'>*</span></label>
-            <input type="text" id="phone" name="phone" className="border border-gray-500 rounded-lg pl-5 w-full" defaultValue={phone}/>
+            <input type="text" id="phone" name="phone" className="border border-gray-500 rounded-lg pl-5 w-full" autoComplete='off' defaultValue={phone}/>
           </div>
         </fieldset>
 

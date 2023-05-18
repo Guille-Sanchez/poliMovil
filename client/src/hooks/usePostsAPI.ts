@@ -18,7 +18,7 @@ export const usePostsAPI = ({ setAreLoadingPosts }: Props): void => {
     getPostService({ signal })
       .then((res) => {
         const { message, posts } = res
-        if (message.type === '¡Exito!') {
+        if (message.type === '¡Éxito!') {
           savePostsInStore({ posts })
         }
       })

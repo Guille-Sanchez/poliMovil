@@ -51,6 +51,8 @@ export const postFormValidator = ({ e, driverId, submittedValues }: Props): retu
     console.log(err)
   }
 
+  const created = new Date().toISOString()
+
   valuesToSubmit = {
     newPost: {
       ...valuesToSubmit.newPost,
@@ -61,8 +63,8 @@ export const postFormValidator = ({ e, driverId, submittedValues }: Props): retu
       detalles: detalles as string,
       precio: precio as string,
       travelId: travelState,
-      created: new Date().toISOString(),
-      updated: new Date().toISOString()
+      created,
+      updated: created
     },
     setNext: true
   }

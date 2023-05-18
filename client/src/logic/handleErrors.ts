@@ -17,11 +17,11 @@ export const handleErrors = ({ res, action }: Props): returnProps => {
 
   switch (res.status) {
     case 200:
-      message.type = '¡Exito!'
+      message.type = '¡Éxito!'
       message.mensaje = `El archivo se ha ${action} correctamente.`
       break
     case 201:
-      message.type = '¡Exito!'
+      message.type = '¡Éxito!'
       message.mensaje = `El archivo se ha ${action} correctamente.`
       break
     case 400:

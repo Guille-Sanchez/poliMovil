@@ -40,7 +40,7 @@ export const DetailedPost = (): JSX.Element => {
     deletePostService({ e, id, accessToken })
       .then((responseMessage) => {
         const { message } = responseMessage
-        if (message.type === '¡Exito!' && id !== undefined) {
+        if (message.type === '¡Éxito!' && id !== undefined) {
           setMessage(() => message)
           setOpenDialog(true)
           deletePostInStore({ id })
@@ -61,7 +61,7 @@ export const DetailedPost = (): JSX.Element => {
     handleReservedSeat({ e, accessToken, travelId })
       .then((data) => {
         const { message, travelId } = data
-        if (message.type === '¡Exito!') {
+        if (message.type === '¡Éxito!') {
           const asientosDisponibles = (+post.asientosDisponibles - 1).toString()
           const newPost = { ...post, asientosDisponibles, travelId }
           editPostInStore({ newPost })

@@ -29,21 +29,18 @@ export const updatePostService = async ({ newPostInformation, accessToken }: Pro
         },
         body: JSON.stringify(newPostInformation)
       })
-      .then((res) => {
+      .then(async (res: Response) => {
+        const updatedPost: Post = await res.json()
+        return ({ res, updatedPost })
+      })
+      .then(({ res, updatedPost }: { res: Response, updatedPost: Post }) => {
         const { message } = handleErrors({ res, action })
-        if (message.type === '¡Exito!') {
-          res.json()
-            .then((data: Post) => {
-              updated = data.updated
-              resolve({ message, updated })
-            }).catch((_err) => {
-              message.mensaje = 'Un error ocurrión, intenta más tarde'
-              message.type = 'error'
-              resolve({ message, updated })
-            })
-        } else {
-          resolve({ message, updated })
+        if (message.type === '¡Éxito!') {
+          updated = updatedPost.updated
+          message.mensaje = message.type === '¡Éxito!' ? 'El post ha sido actualizado con éxito.' : 'El post no ha podido ser actualizado.'
         }
+
+        resolve({ message, updated })
       })
       .catch((_err) => {
         message.mensaje = 'Un error ocurrión, intenta más tarde'

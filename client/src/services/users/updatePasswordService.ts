@@ -25,10 +25,12 @@ export const updatePasswordService = async ({ accessToken, updatePassword }: Pro
       },
       body: JSON.stringify({ ...updatePassword })
     })
-      .then(async res => {
+      .then(res => {
         const { message } = handleErrors({ res, action })
+        message.mensaje = message.type === '¡Éxito!' ? 'La contraseña ha sido actualizada con éxito.' : 'La contraseña no ha podido ser actualizada.'
         resolve(message)
-      }).catch(err => {
+      })
+      .catch(err => {
         message.type = 'error'
         message.mensaje = 'Ocurrio un error, intentar mas tarde'
         console.log(err)

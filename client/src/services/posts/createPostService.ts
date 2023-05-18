@@ -19,6 +19,7 @@ export const createPostService = async ({ accessToken, newPostInformation }: Pro
   }
   const action = 'creado'
   const post = PostInitialState
+  console.log({ accessToken })
 
   return await new Promise<returnProps>((resolve) => {
     fetch('http://localhost:3000/api/posts', {
@@ -35,6 +36,7 @@ export const createPostService = async ({ accessToken, newPostInformation }: Pro
       })
       .then(({ post, res }: { post: Post, res: Response }) => {
         const { message } = handleErrors({ res, action })
+        message.mensaje = message.type === '¡Éxito!' ? 'El post ha sido creado con éxito.' : 'El post no ha podido ser creado.'
         resolve({ message, post })
       })
       .catch((_err) => {

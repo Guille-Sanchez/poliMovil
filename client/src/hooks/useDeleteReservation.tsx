@@ -28,7 +28,7 @@ export const useDeleteReservation = ({ continueAction, post }: Props): returnPro
       removePassenger({ accessToken, post })
         .then((data) => {
           const { message, newPost } = data
-          if (message.type === '¡Exito!') {
+          if (message.type === '¡Éxito!') {
             editPostInStore({ newPost })
           }
           setMessage(message)

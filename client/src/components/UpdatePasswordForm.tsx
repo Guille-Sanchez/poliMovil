@@ -34,7 +34,7 @@ export const UpdatePasswordForm = (): JSX.Element => {
 
     updatePasswordService({ accessToken, updatePassword })
       .then((message) => {
-        if (message.type === '¡Exito!') {
+        if (message.type === '¡Éxito!') {
           setMessage(() => message)
           setOpenDialog(true)
         } else {

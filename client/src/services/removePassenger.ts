@@ -27,16 +27,15 @@ export const removePassenger = async ({ accessToken, post }: Props): Promise<ret
         }
       })
       .then(async res => {
+        const travelId: travel = await res.json()
+        return ({ res, travelId })
+      })
+      .then(({ res, travelId }: { res: Response, travelId: travel }) => {
         const { message } = handleErrors({ res, action })
-        if (message.type === '¡Exito!') {
-          await res.json().then((travelId: travel) => {
-            const asientosDisponibles = (+post.asientosDisponibles + 1).toString()
-            newPost = { ...post, asientosDisponibles, travelId }
-            resolve({ message, newPost })
-          })
-            .catch(() => {
-              resolve({ message, newPost })
-            })
+        if (message.type === '¡Éxito!') {
+          const asientosDisponibles = (+post.asientosDisponibles + 1).toString()
+          newPost = { ...post, asientosDisponibles, travelId }
+          resolve({ message, newPost })
         } else {
           resolve({ message, newPost })
         }

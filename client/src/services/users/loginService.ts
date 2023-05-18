@@ -28,17 +28,14 @@ export const loginService = async ({ authData }: Props): Promise<returnProps> =>
       },
       body: JSON.stringify(authData)
     })
-      .then(async res => {
-        res.json().then((data: returnProps) => {
-          const { message } = handleErrors({ res, action })
-          const accessToken = data.accessToken
-          resolve({ message, accessToken })
-        }).catch(_err => {
-          message.type = 'Un error ha ocurrido.'
-          message.mensaje = 'Error en la petición.'
-          const accessToken = ''
-          resolve({ message, accessToken })
-        })
+      .then(async (res: Response) => {
+        const data: { accessToken: string } = await res.json()
+        return ({ res, data })
+      })
+      .then(({ res, data }: { res: Response, data: { accessToken: string } }) => {
+        const { message } = handleErrors({ res, action })
+        const { accessToken } = data
+        resolve({ message, accessToken })
       })
       .catch(_err => {
         message.type = 'Un error ha ocurrido.'
