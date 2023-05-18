@@ -30,7 +30,7 @@ function App (): JSX.Element {
   usePostsAPI({ setAreLoadingPosts })
 
   return (
-    <div className='flex flex-col h-full'>
+    <div className='flex flex-col min-h-full'>
       {isAuthenticated ? <Header /> : <UnAuthHeader />}
         <main className='flex-grow bg-white h-full relative'>
           <Suspense fallback={<LoadingSPinner/>}>
