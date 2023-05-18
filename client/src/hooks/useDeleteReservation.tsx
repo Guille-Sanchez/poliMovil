@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { MessageInitialState } from '../constants'
-import { removePassenger } from '../services/removePassenger'
+import { removePassenger } from '../services/posts/removePassenger'
 import { type messageType, type Post } from '../types'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
 import { useAppSelector } from '../redux/hooks/useStore'

@@ -1,6 +1,6 @@
-import { type Post, type messageType, type travel } from '../types'
-import { MessageInitialState } from '../constants'
-import { handleErrors } from '../logic/handleErrors'
+import { type Post, type messageType, type travel } from '../../types'
+import { MessageInitialState } from '../../constants'
+import { handleErrors } from '../../logic/handleErrors'
 
 interface Props {
   accessToken: string
