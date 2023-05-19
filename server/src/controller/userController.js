@@ -4,26 +4,35 @@ import jwt from 'jsonwebtoken'
 
 // POST /api/users/Register
 export const createUser = (req, res) => {
-  const { email, password } = req.body
+  let { email, password } = req.body
   if (email === '' || password === '') {
     return res.status(400).send({
       message: 'Favor completar todos los campos'
     })
   }
 
+  email = email.toLowerCase()
   const bcryptSalt = parseInt(process.env.bcryptSalt)
   const hashPassword = bcrypt.hashSync(password, bcryptSalt)
 
-  const user = new User({ ...req.body, password: hashPassword, isAdmin: false })
+  const user = new User({ email, password: hashPassword, isAdmin: false })
 
   user.save()
     .then((savedUser) => {
       res.status(201).json(savedUser)
     })
     .catch((error) => {
-      res.status(400).send({
-        message: error.message
-      })
+      if (error.name === 'ValidationError' && error.errors.email && error.errors.email.kind === 'unique') {
+      // Handle duplicate email error
+        res.status(400).send({
+          message: 'Email already exists.'
+        })
+      } else {
+      // Handle other validation errors or general errors
+        res.status(400).send({
+          message: error.message
+        })
+      }
     })
 }
 
@@ -42,12 +51,14 @@ export const getUsers = (req, res) => {
 
 // POST /api/users/login
 export const logIn = (req, res) => {
-  const { email, password } = req.body
+  let { email, password } = req.body
   if (email === '' || password === '') {
     return res.status(400).json({
       message: 'Favor completar todos los campos'
     })
   }
+
+  email = email.toLowerCase()
 
   User.findOne({ email })
     .then((user) => {
@@ -130,7 +141,7 @@ export const updateUser = (req, res) => {
     // Update personal information
     User.findByIdAndUpdate(userId, req.body, { new: true })
       .then((user) => {
-        const accessToken = jwt.sign({ userId: user._id, isProfileCompleted: true, name: user.name, lastName: user.lastName, email: user.email, phone: user.phone }, process.env.JWT_SECRET)
+        const accessToken = jwt.sign({ userId: user._id, isProfileCompleted: true, name: user.name, lastName: user.lastName, email: user.email.toLowerCase(), phone: user.phone }, process.env.JWT_SECRET)
 
         res.status(200).json({ accessToken })
       })

@@ -27,9 +27,8 @@ export const createUser = async ({ postData }: Props): Promise<returnProps> => {
     })
       .then((res) => {
         const { message } = handleErrors({ res, action })
-        console.log({ message })
-        console.log(message.type === '¡Éxito!')
         message.mensaje = message.type === '¡Éxito!' ? 'El usuario ha sido creado con éxito.' : 'El usuario no ha podido ser creado.'
+        message.mensaje = res.status === 400 ? 'El email ya se encuentra registrado.' : message.mensaje
         resolve({ message })
       })
       . catch(_err => {

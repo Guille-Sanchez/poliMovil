@@ -74,7 +74,7 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
 
           <div className="flex flex-col gap-2 justify-between items-center h-min">
             <label htmlFor="email" className='w-full text-left'>Email <span aria-required className='text-red-500'>*</span></label>
-            <input type="email" className="border border-gray-500 rounded-lg pl-5 w-full" id="email" name="email" autoComplete='off' defaultValue={email}/>
+            <input type="email" className="border border-gray-500 rounded-lg pl-5 w-full" id="email" name="email" autoComplete='off' defaultValue={email} readOnly/>
           </div>
 
           <div className="flex flex-col gap-2 justify-between items-center h-min">

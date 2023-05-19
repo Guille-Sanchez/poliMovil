@@ -1,11 +1,15 @@
 import mongoose from 'mongoose'
+import uniqueValidator from 'mongoose-unique-validator'
 
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
   name: String,
   lastName: String,
-  email: String,
+  email: {
+    type: String,
+    unique: true
+  },
   password: String,
   isAdmin: Boolean,
   phone: String,
@@ -17,6 +21,8 @@ const UserSchema = new Schema({
 {
   timestamps: false
 })
+
+UserSchema.plugin(uniqueValidator)
 
 UserSchema.set('toJSON', {
   transform: (document, returnedObject) => {
