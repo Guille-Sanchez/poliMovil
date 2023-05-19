@@ -3,12 +3,15 @@
 import { useEffect } from 'react'
 import { getPostService } from '../services/posts/getPostService'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
+import { useAppSelector } from '../redux/hooks/useStore'
 
 interface Props {
   setAreLoadingPosts: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const usePostsAPI = ({ setAreLoadingPosts }: Props): void => {
+  // Get access token to update posts information in case the user is a driver/passenger in a post
+  const { accessToken } = useAppSelector(state => state.authentication)
   const { savePostsInStore } = usePostsActions()
 
   useEffect(() => {
@@ -32,5 +35,5 @@ export const usePostsAPI = ({ setAreLoadingPosts }: Props): void => {
     return () => {
       controller.abort()
     }
-  }, [])
+  }, [accessToken])
 }

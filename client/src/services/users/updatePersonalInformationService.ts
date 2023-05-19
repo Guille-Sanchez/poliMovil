@@ -30,18 +30,19 @@ export const updatePersonalInformationService = async ({ updateProfile, accessTo
       },
       body: JSON.stringify({ ...updateProfile })
     })
-      .then(async res => {
-        const data: string = await res.json()
-        return ({ res, data })
+      .then(async (res: Response) => {
+        const data: { accessToken: string } = await res.json()
+        return { res, data }
       })
-      .then(({ res, data }: { res: Response, data: string }) => {
+      .then(({ res, data }) => {
         const { message } = handleErrors({ res, action })
         if (message.type === '¡Éxito!') {
-          accessToken = data
+          accessToken = data.accessToken
           message.mensaje = 'La información de tu perfil ha sido actualizada con éxito.'
         }
         resolve({ message, accessToken })
       })
+
       .catch(err => {
         message.type = '¡Error!'
         message.mensaje = 'Hubo un error al actualizar los datos'

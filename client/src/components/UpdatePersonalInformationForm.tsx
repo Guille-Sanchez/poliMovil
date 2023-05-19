@@ -38,7 +38,8 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
       .then((res) => {
         if (res.message.type === '¡Éxito!') {
           // Update token and information from token
-          localStorage.setItem('accessToken', res.accessToken)
+          const { accessToken } = res
+          localStorage.setItem('accessToken', accessToken)
           const userInformation = { userId, ...updateProfile, isProfileCompleted: true }
           saveAuthenticationDataInStore({ isAuthenticated: true, accessToken: res.accessToken, userInformation })
 
