@@ -22,6 +22,8 @@ export const PostHour = ({ created, updated }: Props): JSX.Element => {
   }
 
   return (
-    <p className="text-xs">{created === updated ? `Publicado hace: ${timeValue} ${timeType}` : `Actualizado hace: ${timeValue} ${timeType}`}</p>
+    <p style={{ fontSize: 'clamp(0.75rem, 0.627rem + 0.525vw, 1.25rem)' }}>
+      {created === updated ? `Publicado hace: ${timeValue} ${timeType}` : `Actualizado hace: ${timeValue} ${timeType}`}
+    </p>
   )
 }

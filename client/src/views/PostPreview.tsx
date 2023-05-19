@@ -57,7 +57,10 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
   }
 
   return (
-    <section className='bg-white w-full h-full p-5 flex flex-col gap-3 relative'>
+    <section
+      className="flex-shrink-0 w-full max-w-4xl min-h-full p-5 flex flex-col gap-3"
+      style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
+    >
       <PostHeader post={submittedValues.newPost} />
       <PostTable post={submittedValues.newPost} />
       {

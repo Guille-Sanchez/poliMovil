@@ -78,9 +78,11 @@ export const DetailedPost = (): JSX.Element => {
   }
 
   const isUserPassanger = post?.travelId.passengerId.find((passengerId) => passengerId.id === userId)?.id === userId
-
   return (
-    <section className="bg-white w-full h-full pt-5 relative">
+    <section
+      className="flex-shrink-0 w-full max-w-4xl min-h-full pt-5"
+      style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
+    >
       <div className='grid gap-3 pr-5 pl-5 pb-5'>
         <PostHeader post={post} />
         <PostTable post={post} />

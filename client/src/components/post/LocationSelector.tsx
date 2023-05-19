@@ -7,7 +7,7 @@ interface Props {
 
 const LocationSelector = ({ location, defaultValue }: Props): JSX.Element => {
   const labelLocation = location.charAt(0).toUpperCase() + location.slice(1)
-  const cities = ['Centro', 'Facultad', 'Limpio', 'Luque', 'Mariano Roque Alonso', 'San Lorenzo', 'Villa Hayes']
+  const cities = ['Asunción', 'Caacupe', 'Capiata', 'Centro', 'Facultad', 'Fernando de la Mora', 'Lambaré', 'Limpio', 'Luque', 'Mariano Roque Alonso', 'Ñemby', 'San Lorenzo', 'Villa Hayes']
   const citiesId = useId()
 
   return (

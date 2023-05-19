@@ -9,8 +9,11 @@ export const Login = (): JSX.Element => {
   const { saveAuthenticationDataInStore } = useAuthenticatonActions()
 
   return (
-    <section className="p-5">
-      <div className='max-w-xl mx-auto min-h-max border-gray-500 shadow-sm border border-1 rounded-3xl'>
+    <section
+      className="flex-shrink-0 w-full max-w-4xl min-h-full p-5 flex flex-col gap-3"
+      style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
+    >
+      <div className='min-h-max border-gray-500 shadow-sm border border-1 rounded-3xl'>
         <form className="p-5 grid gap-6 w-full" onSubmit={e => { handleLogin({ e, setError, saveAuthenticationDataInStore }) }}>
           <div className="flex flex-col gap-2 justify-between items-center h-min">
             <label htmlFor="email" className='w-full text-left'>Email</label>

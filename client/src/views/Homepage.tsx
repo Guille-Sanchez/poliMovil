@@ -7,10 +7,13 @@ export const Homepage = (): JSX.Element => {
   const posts = useAppSelector((state) => state.posts)
 
   return (
-    <section className="bg-white flex justify-center w-full min-h-full pt-5 pb-5">
+    <section
+      className="flex-shrink-0 w-full max-w-4xl min-h-full py-5"
+      style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
+    >
       {
         posts.length > 0 && posts[0].id !== ''
-          ? <ul className='flex-shrink-0 w-full max-w-4xl' style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}>
+          ? <ul>
               {posts.map((post, index) => {
                 return (
                   <li key={post.id} className='grid gap-3'>

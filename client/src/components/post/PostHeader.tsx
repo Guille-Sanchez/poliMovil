@@ -11,7 +11,7 @@ export const PostHeader = ({ post }: Props): JSX.Element => {
     <header className='flex w-full justify-between items-center'>
       <div className='flex flex-col max-w-[50%]'>
         <h2 className='truncate overflow-ellipsis'>{username}</h2>
-        <p className='text-xs'>{post.travelId.driverId.phone}</p>
+        <p style={{ fontSize: 'clamp(0.75rem, 0.627rem + 0.525vw, 1.25rem)' }}>{post.travelId.driverId.phone}</p>
       </div>
 
       <div>

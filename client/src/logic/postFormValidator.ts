@@ -42,7 +42,7 @@ export const postFormValidator = ({ e, driverId, submittedValues }: Props): retu
     } else if (+asientosDisponibles < 1) {
       error = 'El numero de asientos no puede ser menor a 1.'
     } else if (!horarioRegex.test(horario as string)) {
-      error = 'El horario debe ser entre 05:00 y 22:00 h'
+      error = 'El horario debe ser entre 05:00 y 22:00 h formato hh:mm'
     } else if (origen !== 'Facultad' && destino !== 'Facultad') {
       error = 'Origen o destino debe ser Facultad'
     }

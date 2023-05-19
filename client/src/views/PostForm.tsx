@@ -34,7 +34,10 @@ export const PostForm = (): JSX.Element => {
 
   return (
     !submittedValues.setNext
-      ? <section className='bg-white w-full h-full p-5'>
+      ? <section
+          className="flex-shrink-0 w-full max-w-4xl min-h-full py-5"
+          style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
+        >
           {
             <form className=' grid gap-5 w-full' onSubmit={(e) => { handleOnSubmit(e) }}>
               <LocationSelector location={'origen'} defaultValue={submittedValues.newPost.origen}/>
@@ -48,7 +51,7 @@ export const PostForm = (): JSX.Element => {
               <InputPostForm inputLabel={'detalles'} required={false} placeholder={'Por Mcal. Lopez'} defaultValue={submittedValues.newPost.detalles}/>
               <PriceSelector />
 
-              {error !== null && <p className='text-red-500 text-center text-sm'>{error}</p>}
+              {error !== null && <p className='text-red-500 text-center' style={{ fontSize: 'clamp(0.875rem, 0.783rem + 0.393vw, 1.25rem)' }}>{error}</p>}
 
               <div className='flex justify-evenly items-center w-full'>
                 <Link to={'/'}>
