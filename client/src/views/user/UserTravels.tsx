@@ -23,7 +23,7 @@ export const UserTravels = (): JSX.Element => {
               userInPosts.map((post, index) => {
                 return (
                   <li key={post.id} className='grid gap-3'>
-                    <article className='grid gap-3 pr-5 pl-5'>
+                    <article className='grid gap-3 px-5'>
                       <PostHeader post={post}/>
                       <PostTable post={post}/>
                       {post.detalles !== '' && <p><span className='font-bold'>Detalles:&nbsp;</span>{post.detalles}</p>}

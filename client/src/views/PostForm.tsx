@@ -39,7 +39,7 @@ export const PostForm = (): JSX.Element => {
           style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
         >
           {
-            <form className=' grid gap-5 w-full' onSubmit={(e) => { handleOnSubmit(e) }}>
+            <form className=' grid gap-5 px-5 w-full' onSubmit={(e) => { handleOnSubmit(e) }}>
               <LocationSelector location={'origen'} defaultValue={submittedValues.newPost.origen}/>
               <LocationSelector location={'destino'} defaultValue={submittedValues.newPost.destino}/>
 
