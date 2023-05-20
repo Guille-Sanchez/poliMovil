@@ -26,8 +26,8 @@ Proyecto de codigo abierto que busca brindar una alternativa de transporte solid
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Repository URL: [https://github.com/Guille-Sanchez/poliMovil](https://github.com/Guille-Sanchez/poliMovil)
+- PoliMovil site URL: [https://polimovil.netlify.app/](https://polimovil.netlify.app/)
 
 
 ## Instrucciones de instalación

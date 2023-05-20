@@ -65,3 +65,5 @@ export const MessageInitialState = {
   mensaje: '',
   type: ''
 }
+
+export const hostURL = 'https://polimovil.onrender.com' // http://localhost:3000

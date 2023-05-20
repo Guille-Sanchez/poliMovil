@@ -1,4 +1,4 @@
-import { PostInitialState } from '../../constants'
+import { PostInitialState, hostURL } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 import { type messageType, type DataBasePost, type Post } from '../../types'
 
@@ -22,7 +22,7 @@ export const createPostService = async ({ accessToken, newPostInformation }: Pro
   console.log({ accessToken })
 
   return await new Promise<returnProps>((resolve) => {
-    fetch('http://localhost:3000/api/posts', {
+    fetch(`${hostURL}/api/posts`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${accessToken}`,

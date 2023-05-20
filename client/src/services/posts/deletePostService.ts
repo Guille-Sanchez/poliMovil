@@ -1,6 +1,6 @@
 import { handleErrors } from '../../logic/handleErrors'
 import { type messageType } from '../../types'
-import { MessageInitialState } from '../../constants'
+import { MessageInitialState, hostURL } from '../../constants'
 
 interface Props {
   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -18,7 +18,7 @@ export const deletePostService = async ({ e, id, accessToken }: Props): Promise<
   const action = 'eliminado'
 
   return await new Promise<returnProps>((resolve) => {
-    fetch(`http://localhost:3000/api/posts/${id ?? ''}`, {
+    fetch(`${hostURL}/api/posts/${id ?? ''}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

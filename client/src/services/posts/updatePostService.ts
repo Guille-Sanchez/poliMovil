@@ -1,3 +1,4 @@
+import { hostURL } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 import { type Post, type DataBasePost, type messageType } from '../../types'
 
@@ -20,7 +21,7 @@ export const updatePostService = async ({ newPostInformation, accessToken }: Pro
   let updated = ''
 
   return await new Promise<returnProps>((resolve) => {
-    fetch(`http://localhost:3000/api/posts/${newPostInformation.id}`,
+    fetch(`${hostURL}/api/posts/${newPostInformation.id}`,
       {
         method: 'PATCH',
         headers: {

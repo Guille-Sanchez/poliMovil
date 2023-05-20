@@ -1,3 +1,4 @@
+import { hostURL } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 import { type messageType } from '../../types'
 
@@ -21,7 +22,7 @@ export const loginService = async ({ authData }: Props): Promise<returnProps> =>
   const action = 'Iniciar sesión'
 
   return await new Promise((resolve) => {
-    fetch('http://localhost:3000/api/users/login', {
+    fetch(`${hostURL}/api/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

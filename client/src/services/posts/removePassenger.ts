@@ -1,5 +1,5 @@
 import { type Post, type messageType, type travel } from '../../types'
-import { MessageInitialState } from '../../constants'
+import { MessageInitialState, hostURL } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 
 interface Props {
@@ -18,7 +18,7 @@ export const removePassenger = async ({ accessToken, post }: Props): Promise<ret
   let newPost = { ...post }
 
   return await new Promise<returnProps>(resolve => {
-    fetch(`http://localhost:3000/api/travels/remove/${post?.travelId.id ?? ''}`,
+    fetch(`${hostURL}/api/travels/remove/${post?.travelId.id ?? ''}`,
       {
         method: 'PATCH',
         headers: {

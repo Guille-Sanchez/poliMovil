@@ -1,4 +1,4 @@
-import { MessageInitialState } from '../../constants'
+import { MessageInitialState, hostURL } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 import { type messageType } from '../../types'
 
@@ -17,7 +17,7 @@ export const updatePasswordService = async ({ accessToken, updatePassword }: Pro
   const action = 'actualizado'
 
   return await new Promise<messageType>(resolve => {
-    fetch('http://localhost:3000/api/users', {
+    fetch(`${hostURL}/api/users`, {
       method: 'PATCH',
       headers: {
         authorization: `Bearer ${accessToken}`,
