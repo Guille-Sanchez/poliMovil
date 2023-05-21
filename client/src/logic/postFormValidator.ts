@@ -27,7 +27,7 @@ export const postFormValidator = ({ e, driverId, submittedValues }: Props): retu
       ? { ...submittedValues.newPost.travelId }
       : { ...TravelInitialState, driverId }
 
-  const horarioRegex = /^(?:[5-9]|0[5-9]|1[0-9]|2[0-1]):[0-5][0-9]$|^(22:00)$/
+  // const horarioRegex = /^(?:[5-9]|0[5-9]|1[0-9]|2[0-1]):[0-5][0-9]$|^(22:00)$/
 
   const { origen, destino, horario, asientosDisponibles, detalles, precio } = Object.fromEntries(new FormData(e.currentTarget).entries())
 
@@ -41,8 +41,6 @@ export const postFormValidator = ({ e, driverId, submittedValues }: Props): retu
       error = 'El origen y el destino no pueden ser iguales.'
     } else if (+asientosDisponibles < 1) {
       error = 'El numero de asientos no puede ser menor a 1.'
-    } else if (!horarioRegex.test(horario as string)) {
-      error = 'El horario debe ser entre 05:00 y 22:00 h formato hh:mm'
     } else if (origen !== 'Facultad' && destino !== 'Facultad') {
       error = 'Origen o destino debe ser Facultad'
     }
@@ -68,6 +66,8 @@ export const postFormValidator = ({ e, driverId, submittedValues }: Props): retu
     },
     setNext: true
   }
+
+  console.log(valuesToSubmit)
 
   return ({ error, valuesToSubmit })
 }

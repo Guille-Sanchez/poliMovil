@@ -19,7 +19,6 @@ export const createPostService = async ({ accessToken, newPostInformation }: Pro
   }
   const action = 'creado'
   const post = PostInitialState
-  console.log({ accessToken })
 
   return await new Promise<returnProps>((resolve) => {
     fetch(`${getHostURL()}/api/posts`, {

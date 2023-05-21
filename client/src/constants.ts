@@ -67,6 +67,5 @@ export const MessageInitialState = {
 }
 
 export const getHostURL = (): string => {
-  console.log(import.meta.env.VITE_HOST_URL)
   return import.meta.env.VITE_HOST_URL ?? 'http://localhost:3000'
 }

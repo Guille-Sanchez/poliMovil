@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom'
 import LocationSelector from '../components/post/LocationSelector'
 import { postFormValidator } from '../logic/postFormValidator'
 import { type submittedValues } from '../types'
-import { InputPostForm } from '../components/post/InputPostForm'
 import { PostInitialState } from '../constants'
 import { LoadingSPinner } from '../components/LoadingSPinner'
 import { usePostEditing } from '../hooks/usePostEditing'
 import { PostPreview } from './PostPreview'
-import { PriceSelector } from '../components/post/PriceSelector'
 import { useAppSelector } from '../redux/hooks/useStore'
 
 export const PostForm = (): JSX.Element => {
@@ -44,12 +42,60 @@ export const PostForm = (): JSX.Element => {
               <LocationSelector location={'destino'} defaultValue={submittedValues.newPost.destino}/>
 
               <div className='grid grid-cols-2 gap-5'>
-                <InputPostForm inputLabel={'horario'} required={true} placeholder={'5:00 - 22:00'} defaultValue={submittedValues.newPost.horario}/>
-                <InputPostForm inputLabel={'asientosDisponibles'} required={true} placeholder={'1, 2, 3, etc.'} defaultValue={submittedValues.newPost.asientosDisponibles}/>
+                <div className='flex flex-col gap-2 justify-between items-center h-min'>
+                  <label htmlFor='horario' className='text-left w-full'>
+                    Horario <span aria-required className='text-red-500'>*</span>
+                  </label>
+
+                  <input className="border border-gray-500 rounded-lg pl-5 w-full"
+                    type='time' name='horario' id='horario' autoComplete="off"
+                    placeholder={'05:00AM'} defaultValue={submittedValues.newPost.horario}
+                  />
+                </div>
+
+                <div className='flex flex-col gap-2 justify-between items-center h-min'>
+                  <label htmlFor='asientosDisponibles' className='text-left w-full'>
+                    N° de Asientos <span aria-required className='text-red-500'>*</span>
+                  </label>
+                  <select
+                    className='border border-gray-500 rounded-lg pl-5 w-full'
+                    id='asientosDisponibles'
+                    name='asientosDisponibles'
+                    defaultValue={submittedValues.newPost.asientosDisponibles !== null ? submittedValues.newPost.asientosDisponibles : '1'}
+                  >
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                    <option value='5'>5</option>
+                  </select>
+                </div>
               </div>
 
-              <InputPostForm inputLabel={'detalles'} required={false} placeholder={'Por Mcal. Lopez'} defaultValue={submittedValues.newPost.detalles}/>
-              <PriceSelector />
+              <div className='flex flex-col gap-2 justify-between items-center h-min'>
+                <label htmlFor='detalles' className='text-left w-full'>Detalles</label>
+
+                <input className="border border-gray-500 rounded-lg pl-5 w-full"
+                  type='text' name='detalles' id='detalles' autoComplete="off"
+                  placeholder='Por Mcal. Lopez' defaultValue={submittedValues.newPost.detalles}
+                />
+              </div>
+
+              <div className='flex flex-col gap-2 justify-between items-center h-min'>
+                <label htmlFor='precio' className='w-full text-left'>
+                  Precio <span aria-required className='text-red-500'>*</span>
+                </label>
+                <select
+                  className="border border-gray-500 rounded-lg pl-5 w-full"
+                  defaultValue={submittedValues.newPost.precio}
+                  name='precio'
+                  id='precio'
+                >
+                  <option value="gratis">Gratis</option>
+                  <option value="2.300 Gs">2.300 Gs</option>
+                  <option value="A convenir" disabled>A convenir</option>
+                </select>
+              </div>
 
               {error !== null && <p className='text-red-500 text-center' style={{ fontSize: 'clamp(0.875rem, 0.783rem + 0.393vw, 1.25rem)' }}>{error}</p>}
 
