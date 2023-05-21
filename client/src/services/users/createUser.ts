@@ -1,4 +1,4 @@
-import { MessageInitialState, hostURL } from '../../constants'
+import { MessageInitialState, getHostURL } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 import { type messageType } from '../../types'
 
@@ -18,7 +18,7 @@ export const createUser = async ({ postData }: Props): Promise<returnProps> => {
   const action = 'Crear usuario'
 
   return await new Promise<returnProps>(resolve => {
-    fetch(`${hostURL}/api/users/register`, {
+    fetch(`${getHostURL()}/api/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

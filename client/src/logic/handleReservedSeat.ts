@@ -1,4 +1,4 @@
-import { hostURL } from '../constants'
+import { getHostURL } from '../constants'
 import { type messageType, type travel } from '../types'
 import { handleErrors } from './handleErrors'
 
@@ -18,7 +18,7 @@ export const handleReservedSeat = async ({ e, accessToken, travelId }: Props): P
   const action = 'reservado'
 
   return await new Promise<returnProps>(resolve => {
-    fetch(`${hostURL}/api/travels/${travelId}`,
+    fetch(`${getHostURL()}/api/travels/${travelId}`,
       {
         method: 'PATCH',
         headers: {

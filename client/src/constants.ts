@@ -66,4 +66,7 @@ export const MessageInitialState = {
   type: ''
 }
 
-export const hostURL = 'https://polimovil.onrender.com' // http://localhost:3000
+export const getHostURL = (): string => {
+  console.log(import.meta.env.VITE_HOST_URL)
+  return import.meta.env.VITE_HOST_URL ?? 'http://localhost:3000'
+}

@@ -1,4 +1,4 @@
-import { MessageInitialState, hostURL } from '../../constants'
+import { MessageInitialState, getHostURL } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 import { type Posts, type messageType } from '../../types'
 
@@ -15,7 +15,7 @@ export const getPostService = async ({ signal }: Props): Promise<returnProps> =>
   const action = 'obtenido'
 
   return await new Promise<returnProps>(resolve => {
-    fetch(`${hostURL}/api/posts`, { signal })
+    fetch(`${getHostURL()}/api/posts`, { signal })
       .then(async (res: Response) => {
         const posts = await res.json()
         return ({ res, posts })

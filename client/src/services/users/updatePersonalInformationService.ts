@@ -1,4 +1,4 @@
-import { MessageInitialState, hostURL } from '../../constants'
+import { MessageInitialState, getHostURL } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 import { type messageType } from '../../types'
 
@@ -22,7 +22,7 @@ export const updatePersonalInformationService = async ({ updateProfile, accessTo
   const action = 'actualizado'
 
   return await new Promise<returnProps>(resolve => {
-    fetch(`${hostURL}/api/users`, {
+    fetch(`${getHostURL()}/api/users`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',
