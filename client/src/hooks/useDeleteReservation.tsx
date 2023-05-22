@@ -8,6 +8,7 @@ import { useAppSelector } from '../redux/hooks/useStore'
 interface Props {
   continueAction: boolean
   post: Post
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface returnProps {
@@ -15,7 +16,7 @@ interface returnProps {
   openDialog: boolean
 }
 
-export const useDeleteReservation = ({ continueAction, post }: Props): returnProps => {
+export const useDeleteReservation = ({ continueAction, post, setLoading }: Props): returnProps => {
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState({ ...MessageInitialState })
   const { accessToken } = useAppSelector((state) => state.authentication)
@@ -29,6 +30,7 @@ export const useDeleteReservation = ({ continueAction, post }: Props): returnPro
         .then((data) => {
           const { message, newPost } = data
           if (message.type === '¡Éxito!') {
+            message.mensaje = 'Has cancelado correctamente tu reserva de asiento.'
             editPostInStore({ newPost })
           }
           setMessage(message)
@@ -36,6 +38,9 @@ export const useDeleteReservation = ({ continueAction, post }: Props): returnPro
         })
         .catch((err) => {
           console.log(err)
+        })
+        .finally(() => {
+          setLoading(false)
         })
     }
 

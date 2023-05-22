@@ -27,15 +27,18 @@ export const handleReservedSeat = async ({ e, accessToken, travelId }: Props): P
         }
       })
       .then(async res => {
-        const { message } = handleErrors({ res, action })
-        res.json()
-          .then((travelId: travel) => {
-            resolve({ message, travelId })
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        const travelId: travel = await res.json()
+        return ({ res, travelId })
       })
-      .catch(err => { console.log(err) })
+      .then(({ res, travelId }: { res: Response, travelId: travel }) => {
+        const { message } = handleErrors({ res, action })
+        if (message.type === '¡Éxito!') {
+          message.mensaje = 'El asiento ha sido reservado correctamente.'
+        }
+        resolve({ message, travelId })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   })
 }

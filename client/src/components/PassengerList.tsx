@@ -5,6 +5,7 @@ import { ConfirmationDialog } from './ConfirmationDialog'
 import { useDeleteReservation } from '../hooks/useDeleteReservation'
 import { MessageDialog } from './post/MessageDialog'
 import { useAppSelector } from '../redux/hooks/useStore'
+import { LoadingSpinner } from './LoadingSpinner'
 
 interface Props {
   post: Post
@@ -20,7 +21,8 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
   // Get UserInformation to allow user to cancel trip
   const [continueAction, setContinueAction] = useState(false)
   const [openConfirmation, setOpenConfirmation] = useState(false)
-  const { message, openDialog } = useDeleteReservation({ continueAction, post })
+  const [loading, setLoading] = useState(false)
+  const { message, openDialog } = useDeleteReservation({ continueAction, post, setLoading })
   const messageConfirmation = {
     title: '¿Está seguro que desea eliminar su reserva de viaje?',
     buttonAction: 'Eliminar'
@@ -31,6 +33,7 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
   }
 
   const handleConfirmationConfirm = (): void => {
+    setLoading(true)
     setContinueAction(true)
   }
 
@@ -89,6 +92,7 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
         />
       )}
 
+      {loading && <LoadingSpinner />}
       {openDialog && <MessageDialog message={message}/>}
     </div>
   )
