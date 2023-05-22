@@ -24,10 +24,10 @@ const UserTravels = lazy(async () => await import('./views/user/UserTravels').th
 function App (): JSX.Element {
   const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated)
   const { isProfileCompleted } = useAppSelector((state) => state.authentication.userInformation)
-  const [areLoadingPosts, setAreLoadingPosts] = useState(true)
+  const [arePostsLoading, setArePostsLoading] = useState(false)
 
   useTokenFromStorage()
-  usePostsAPI({ setAreLoadingPosts })
+  usePostsAPI({ setArePostsLoading })
 
   return (
     <div className='bg-white flex flex-col min-h-full'>
@@ -35,7 +35,7 @@ function App (): JSX.Element {
         <main className='flex-grow flex justify-center h-full relative'>
           <Suspense fallback={<LoadingSPinner/>}>
             {
-              areLoadingPosts
+              arePostsLoading
                 ? <LoadingSPinner/>
                 : <Routes>
                   {
