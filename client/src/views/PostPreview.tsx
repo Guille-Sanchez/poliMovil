@@ -40,10 +40,10 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
           console.log(err)
         })
     } else {
+      setOpenDialog(() => true)
       createPostService({ accessToken, newPostInformation })
         .then((res) => {
           const { message, post } = res
-          setOpenDialog(() => true)
 
           if (message.type === '¡Éxito!') {
             addNewPostInStore({ post })

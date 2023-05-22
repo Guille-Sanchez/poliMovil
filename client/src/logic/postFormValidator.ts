@@ -27,8 +27,6 @@ export const postFormValidator = ({ e, driverId, submittedValues }: Props): retu
       ? { ...submittedValues.newPost.travelId }
       : { ...TravelInitialState, driverId }
 
-  // const horarioRegex = /^(?:[5-9]|0[5-9]|1[0-9]|2[0-1]):[0-5][0-9]$|^(22:00)$/
-
   const { origen, destino, horario, asientosDisponibles, detalles, precio } = Object.fromEntries(new FormData(e.currentTarget).entries())
 
   if (origen === '' || destino === '' || horario === '' || asientosDisponibles === '') {
@@ -66,8 +64,6 @@ export const postFormValidator = ({ e, driverId, submittedValues }: Props): retu
     },
     setNext: true
   }
-
-  console.log(valuesToSubmit)
 
   return ({ error, valuesToSubmit })
 }
