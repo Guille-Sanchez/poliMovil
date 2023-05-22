@@ -8,6 +8,7 @@ import { PostTable } from '../components/post/PostTable'
 import { MessageDialog } from '../components/post/MessageDialog'
 import { MessageInitialState } from '../constants'
 import { type submittedValues } from '../types'
+import { LoadingSpinner } from '../components/LoadingSpinner'
 
 interface Props {
   submittedValues: submittedValues
@@ -18,11 +19,13 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
   const { addNewPostInStore, editPostInStore } = usePostsActions()
   const [message, setMessage] = useState({ ...MessageInitialState })
   const [openDialog, setOpenDialog] = useState(false)
+  const [loading, setLoding] = useState(false)
   const accessToken = useAppSelector((state) => state.authentication.accessToken)
 
   const handlePostSubmit = async (): Promise<void> => {
     const { newPost } = submittedValues
     const { travelId, ...newPostInformation } = newPost
+    setLoding(() => true)
 
     if (newPost.id !== '') {
       updatePostService({ newPostInformation, accessToken })
@@ -36,11 +39,14 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
 
           setMessage(() => { return ({ ...message }) })
           setOpenDialog(() => true)
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err)
         })
+        .finally(() => {
+          setLoding(() => false)
+        })
     } else {
-      setOpenDialog(() => true)
       createPostService({ accessToken, newPostInformation })
         .then((res) => {
           const { message, post } = res
@@ -48,10 +54,14 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
           if (message.type === '¡Éxito!') {
             addNewPostInStore({ post })
           }
-
+          setOpenDialog(() => true)
           setMessage(() => { return ({ ...message }) })
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err)
+        })
+        .finally(() => {
+          setLoding(() => false)
         })
     }
   }
@@ -87,7 +97,7 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
           {submittedValues.newPost.id === '' ? 'Crear post' : 'Editar post'}
         </button>
       </div>
-
+      {loading && <LoadingSpinner />}
       { openDialog && <MessageDialog message={message} /> }
     </section>
   )

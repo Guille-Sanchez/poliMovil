@@ -6,7 +6,7 @@ import { UnAuthHeader } from './components/unAuth/UnAuthHeader'
 import { UnAuthFooter } from './components/unAuth/UnAuthFooter'
 import { useAppSelector } from './redux/hooks/useStore'
 import { lazy, Suspense, useState } from 'react'
-import { LoadingSPinner } from './components/LoadingSPinner'
+import { LoadingSpinner } from './components/LoadingSpinner'
 import { useTokenFromStorage } from './hooks/useTokenFromStorage'
 import { usePostsAPI } from './hooks/usePostsAPI'
 
@@ -33,10 +33,10 @@ function App (): JSX.Element {
     <div className='bg-white flex flex-col min-h-full'>
       {isAuthenticated ? <Header /> : <UnAuthHeader />}
         <main className='flex-grow flex justify-center h-full relative'>
-          <Suspense fallback={<LoadingSPinner/>}>
+          <Suspense fallback={<LoadingSpinner/>}>
             {
               arePostsLoading
-                ? <LoadingSPinner/>
+                ? <LoadingSpinner/>
                 : <Routes>
                   {
                     isAuthenticated && isProfileCompleted

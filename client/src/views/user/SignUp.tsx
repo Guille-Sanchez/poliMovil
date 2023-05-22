@@ -4,7 +4,7 @@ import { InputPasswordType } from '../../components/InputPasswordType'
 import { createUser } from '../../services/users/createUser'
 import { MessageDialog } from '../../components/post/MessageDialog'
 import { MessageInitialState } from '../../constants'
-import { LoadingSPinner } from '../../components/LoadingSPinner'
+import { LoadingSpinner } from '../../components/LoadingSpinner'
 
 export const SignUp = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
@@ -50,7 +50,7 @@ export const SignUp = (): JSX.Element => {
 
   return (
     isLoading
-      ? <LoadingSPinner />
+      ? <LoadingSpinner />
       : <section className="bg-white p-5 h-full w-full">
           <div className='max-w-xl mx-auto min-h-max border-gray-500 shadow-sm border border-1 rounded-3xl'>
             <form className='flex flex-col gap-6 h-full w-full p-5' onSubmit={(e) => { handleOnSubmit(e) }}>

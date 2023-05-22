@@ -4,7 +4,7 @@ import LocationSelector from '../components/post/LocationSelector'
 import { postFormValidator } from '../logic/postFormValidator'
 import { type submittedValues } from '../types'
 import { PostInitialState } from '../constants'
-import { LoadingSPinner } from '../components/LoadingSPinner'
+import { LoadingSpinner } from '../components/LoadingSpinner'
 import { usePostEditing } from '../hooks/usePostEditing'
 import { PostPreview } from './PostPreview'
 import { useAppSelector } from '../redux/hooks/useStore'
@@ -26,7 +26,7 @@ export const PostForm = (): JSX.Element => {
 
   if (loading) {
     return (
-      <LoadingSPinner />
+      <LoadingSpinner />
     )
   }
 

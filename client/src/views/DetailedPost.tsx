@@ -10,13 +10,14 @@ import { PassengerList } from '../components/PassengerList'
 import { type Post } from '../types'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
 import { useAppSelector } from '../redux/hooks/useStore'
-import { LoadingSPinner } from '../components/LoadingSPinner'
+import { LoadingSpinner } from '../components/LoadingSpinner'
 
 export const DetailedPost = (): JSX.Element => {
   const posts = useAppSelector((state) => state.posts)
   const { id } = useParams<{ id: string }>()
   const { userId } = useAppSelector((state) => state.authentication.userInformation)
   const { deletePostInStore, editPostInStore } = usePostsActions()
+  const [loading, setLoading] = useState(false)
 
   // Find the post with matching ID
   const post = posts.find((post: Post) => post.id === id) ?? null
@@ -29,7 +30,7 @@ export const DetailedPost = (): JSX.Element => {
   if (post === null) {
     return (
       !openDialog
-        ? <LoadingSPinner />
+        ? <LoadingSpinner />
         : <MessageDialog message={message} />
     )
   }
@@ -37,6 +38,7 @@ export const DetailedPost = (): JSX.Element => {
   const isUserPost = post.travelId.driverId.id === userId
 
   const handleOnClickDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    setLoading(true)
     deletePostService({ e, id, accessToken })
       .then((responseMessage) => {
         const { message } = responseMessage
@@ -52,12 +54,16 @@ export const DetailedPost = (): JSX.Element => {
         setMessage(() => message)
         setOpenDialog(true)
       })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   // Handle reserve seat of post
   const travelId = post.travelId.id
 
   const handleOnClickReserveSeat = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    setLoading(true)
     handleReservedSeat({ e, accessToken, travelId })
       .then((data) => {
         const { message, travelId } = data
@@ -74,6 +80,9 @@ export const DetailedPost = (): JSX.Element => {
         message.mensaje = 'Ocurrio un error, por favor intente de nuevo'
         setMessage(() => message)
         setOpenDialog(true)
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 
@@ -120,6 +129,7 @@ export const DetailedPost = (): JSX.Element => {
       }
 
       <PassengerList post={post} />
+      {loading && <LoadingSpinner />}
       {openDialog && <MessageDialog message={message} />}
     </section>
   )
