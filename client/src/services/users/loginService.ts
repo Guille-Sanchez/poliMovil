@@ -1,4 +1,4 @@
-import { getHostURL } from '../../constants'
+import { MessageInitialState, getHostURL } from '../../constants'
 import { handleErrors } from '../../logic/handleErrors'
 import { type messageType } from '../../types'
 
@@ -15,10 +15,7 @@ interface returnProps {
 }
 
 export const loginService = async ({ authData }: Props): Promise<returnProps> => {
-  const message = {
-    mensaje: '',
-    type: ''
-  }
+  const message = { ...MessageInitialState }
   const action = 'Iniciar sesión'
 
   return await new Promise((resolve) => {
