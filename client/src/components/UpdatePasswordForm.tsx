@@ -4,26 +4,32 @@ import { updatePasswordService } from '../services/users/updatePasswordService'
 import { MessageInitialState } from '../constants'
 import { MessageDialog } from './post/MessageDialog'
 import { useAppSelector } from '../redux/hooks/useStore'
+import { LoadingSpinner } from './LoadingSpinner'
 
 export const UpdatePasswordForm = (): JSX.Element => {
   const [error, setError] = useState('')
   const accessToken = useAppSelector((state) => state.authentication.accessToken)
   const [openDialog, setOpenDialog] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ ...MessageInitialState })
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     setError(() => '')
+    setLoading(() => true)
     const { oldPassword, newPassword, confirmPassword } = Object.fromEntries(new FormData(e.currentTarget).entries())
 
     if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
       setError('Todos los campos son obligatorios')
+      setLoading(() => false)
       return
     } else if (oldPassword === newPassword) {
       setError('La nueva contraseña no puede ser igual a la anterior')
+      setLoading(() => false)
       return
     } else if (newPassword !== confirmPassword) {
       setError('Las contraseñas no coinciden')
+      setLoading(() => false)
       return
     }
 
@@ -45,6 +51,9 @@ export const UpdatePasswordForm = (): JSX.Element => {
         setError('Un error ha ocurrido, intentelo nuevamente')
         console.log(err)
       })
+      .finally(() => {
+        setLoading(() => false)
+      })
   }
 
   return (
@@ -62,7 +71,7 @@ export const UpdatePasswordForm = (): JSX.Element => {
           Actualizar
         </button>
       </form>
-
+      {loading && <LoadingSpinner />}
       {openDialog && <MessageDialog message={message}/>}
     </>
   )

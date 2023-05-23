@@ -4,6 +4,7 @@ import { MessageDialog } from './post/MessageDialog'
 import { MessageInitialState } from '../constants'
 import { useAuthenticatonActions } from '../redux/hooks/useAuthenticationActions'
 import { useAppSelector } from '../redux/hooks/useStore'
+import { LoadingSpinner } from './LoadingSpinner'
 interface Props {
   formLegend: string
 }
@@ -13,6 +14,7 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
   const { name, lastName, email, phone, userId } = userInformation
   const { saveAuthenticationDataInStore } = useAuthenticatonActions()
   const [openDialog, setOpenDialog] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ ...MessageInitialState })
 
   const [error, setError] = useState('')
@@ -20,6 +22,7 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     setError(() => '')
+    setLoading(() => true)
 
     const { name, lastName, email, phone } = Object.fromEntries(new FormData(e.currentTarget).entries())
     const updateProfile = {
@@ -31,6 +34,7 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
 
     if (name === '' || lastName === '' || email === '' || phone === '') {
       setError(() => 'Todos los campos son obligatorios')
+      setLoading(() => false)
       return
     }
 
@@ -42,16 +46,15 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
           localStorage.setItem('accessToken', accessToken)
           const userInformation = { userId, ...updateProfile, isProfileCompleted: true }
           saveAuthenticationDataInStore({ isAuthenticated: true, accessToken: res.accessToken, userInformation })
-
-          // Update user information
-          setOpenDialog(() => true)
-          setMessage(() => res.message)
-        } else {
-          setError(() => res.message.mensaje)
+          setMessage(() => { return { ...res.message } })
         }
       })
       .catch((err) => {
         console.log(err)
+      })
+      .finally(() => {
+        setLoading(() => false)
+        setOpenDialog(() => true)
       })
   }
 
@@ -89,6 +92,7 @@ export const UpdatePersonalInformationForm = ({ formLegend }: Props): JSX.Elemen
           Actualizar
         </button>
       </form>
+      {loading && <LoadingSpinner />}
       {openDialog && <MessageDialog message={message }/>}
     </>
   )

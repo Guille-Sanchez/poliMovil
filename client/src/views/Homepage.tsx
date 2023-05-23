@@ -3,14 +3,21 @@ import { PostFooter } from '../components/post/PostFooter'
 import { PostHeader } from '../components/post/PostHeader'
 import { useAppSelector } from '../redux/hooks/useStore'
 import { LoadingSpinner } from '../components/LoadingSpinner'
+import { usePostsAPI } from '../hooks/usePostsAPI'
+import { useState } from 'react'
 
 export const Homepage = (): JSX.Element => {
+  // Get posts from API and store them in Redux Store
+  const [arePostsLoading, setArePostsLoading] = useState(true)
+  usePostsAPI({ setArePostsLoading })
+
+  // Get posts from Redux Store and check if they are available
   const posts = useAppSelector((state) => state.posts)
   const loadPostsFromStore = posts.length === 1 && posts[0].id === ''
   const arePostAvailable = posts.length > 0 && posts[0].id !== ''
 
   return (
-    loadPostsFromStore
+    arePostsLoading || loadPostsFromStore
       ? <LoadingSpinner />
       : <section
         className="flex-shrink-0 flex flex-col gap-3 w-full max-w-4xl min-h-full py-5"
