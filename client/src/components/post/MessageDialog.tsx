@@ -7,7 +7,7 @@ interface Props {
 export const MessageDialog = ({ message }: Props): JSX.Element => {
   return (
     <dialog className="absolute inset-0 h-full w-full z-50 overflow-auto bg-gray-500 bg-opacity-75 flex items-center justify-center">
-      <div className="p-4 mx-5 flex justify-center items-center flex-col bg-white rounded-md shadow-lg max-w-lg outline-none focus:outline-none">
+      <div className="p-4 mx-5 flex justify-center items-center flex-col bg-gray-100 rounded-md shadow-lg max-w-lg outline-none focus:outline-none">
         <div className="text-2xl text-center font-semibold mb-2">{message.type}</div>
         <div className="mb-4 text-center">{message.mensaje}</div>
         <Link to={'/'}>

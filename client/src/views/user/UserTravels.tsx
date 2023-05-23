@@ -14,30 +14,41 @@ export const UserTravels = (): JSX.Element => {
   const userHasTravels = userInPosts.length > 0
   return (
     <section
-        className="flex-shrink-0 w-full max-w-4xl min-h-full py-5"
+        className="flex-shrink-0 flex flex-col gap-3 w-full max-w-4xl min-h-full py-5"
         style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
       >
+      <h2
+        className='px-5 text-left font-semibold'
+        style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)' }}
+      >
+        Mis viajes registrados
+      </h2>
       {userHasTravels
-        ? <ul>
+        ? <ul className='p-3'>
             {
-              userInPosts.map((post, index) => {
+              userInPosts.map((post) => {
                 return (
-                  <li key={post.id} className='grid gap-3'>
-                    <article className='grid gap-3 px-5'>
+                  <li key={post.id}>
+                    <article
+                      className='bg-white grid gap-3 p-5 rounded-lg'
+                      style={{
+                        boxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+                        WebkitBoxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+                        MozBoxShadow: ' 0px 4px 18px 3px rgba(0,0,0,0.25)'
+                      }}
+                    >
                       <PostHeader post={post}/>
                       <PostTable post={post}/>
                       {post.detalles !== '' && <p><span className='font-bold'>Detalles:&nbsp;</span>{post.detalles}</p>}
                       <PostFooter post={post} />
                     </article>
-
-                    {(index < posts.length - 1) && <hr className='w-full mt-4 mb-4'/>}
                   </li>
                 )
               })
             }
           </ul>
         : <div className='flex h-full w-full justify-center items-center text-2xl font-semibold text-center'>
-            <p>No tiene viajes registrados.</p>
+            <p style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)' }}>No tiene viajes registrados.</p>
           </div>
     }
     </section>

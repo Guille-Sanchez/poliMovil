@@ -92,7 +92,20 @@ export const DetailedPost = (): JSX.Element => {
       className="flex-shrink-0 w-full max-w-4xl min-h-full pt-5"
       style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
     >
-      <div className='grid gap-3 pr-5 pl-5 pb-5'>
+      <h2
+        className='px-5 text-left font-semibold pb-3'
+        style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)' }}
+      >
+        Detalles del viaje
+      </h2>
+      <div
+        className='bg-white grid gap-3 p-5 rounded-lg m-3'
+        style={{
+          boxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+          WebkitBoxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+          MozBoxShadow: ' 0px 4px 18px 3px rgba(0,0,0,0.25)'
+        }}
+      >
         <PostHeader post={post} />
         <PostTable post={post} />
         {post.detalles !== '' && <p><span className='font-bold'>Detalles:&nbsp;</span>{post.detalles}</p>}

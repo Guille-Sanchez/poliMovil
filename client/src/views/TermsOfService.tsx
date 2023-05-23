@@ -14,7 +14,7 @@ export const TermsOfService = (): JSX.Element => {
   }]
 
   return (
-    <section className="bg-white w-full h-full flex justify-center p-5">
+    <section className="bg-gray-100 w-full h-full flex justify-center p-5">
       <div className="w-full h-full max-w-5xl flex flex-col gap-5">
         <article className="flex flex-col">
           <header>

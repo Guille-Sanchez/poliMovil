@@ -38,29 +38,37 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
   }
 
   return (
-    <div>
-      <p className='font-bold text-xl pr-5 pl-5 pb-2'>Pasajeros</p>
+    <div className='flex flex-col gap-5 justify-center px-5 '>
+      <p
+        className='font-bold text-xl py-3 mt-3'
+        style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)' }}
+      >
+        Pasajeros
+      </p>
       {
         (hasPassengers)
           ? (
-              <ul>
+              <ul className='flex flex-col gap-3'>
                 {
                   passengerInfoList.map((user, index) => {
                     return (
-                      <li key={user.id} className='border mr-5 ml-5 mb-5 p-1'>
-                        <div className='flex gap-2 pr-5 pl-5 items-center relative'>
+                      <li key={user.id}
+                        className='bg-white border p-2 rounded-lg'
+                        style={{
+                          boxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+                          WebkitBoxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+                          MozBoxShadow: ' 0px 4px 18px 3px rgba(0,0,0,0.25)'
+                        }}
+                      >
+                        <div className='flex gap-2 items-center relative'>
                           <p className='font-bold text-xl'>{index + 1}- </p>
 
-                          <div className='flex gap-2'>
-                            <div className='flex flex-col gap-1 w-max'>
-                              <span>Usuario:</span>
-                              <span>Email:</span>
-                              <span>Celular:</span>
-                            </div>
+                          <div className='flex w-3/4 flex-col gap-2'>
+                            <p className='truncate'>Usuario: {user?.name} {user?.lastName}</p>
+                            <p>Celular: {user?.phone}</p>
 
-                            <div className='flex flex-col gap-1 w-max'>
+                            <div className='flex flex-col gap-1'>
                               <div className='flex gap-2'>
-                                <p>{user?.name} {user?.lastName}</p>
                                 {
                                   userId === user.id &&
                                   <button className='absolute -right-4 -top-4'
@@ -70,8 +78,6 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
                                   </button>
                                 }
                               </div>
-                              <p>{user?.email}</p>
-                              <p>{user?.phone}</p>
                             </div>
                           </div>
                         </div>
@@ -81,7 +87,12 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
                 }
               </ul>
             )
-          : <p className='pl-5'>Sin pasajeros</p>
+          : <p
+              className='pl-5'
+              style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)' }}
+            >
+              Sin pasajeros
+            </p>
       }
 
       {openConfirmation && (

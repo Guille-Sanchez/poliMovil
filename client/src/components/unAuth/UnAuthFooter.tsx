@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export const UnAuthFooter = (): JSX.Element => {
   return (
-    <footer className="bg-white p-5 w-full flex flex-col items-center justify-center gap-2">
+    <footer className="bg-gray-100 p-5 w-full flex flex-col items-center justify-center gap-2">
       <div className='flex-shrink-0 w-full grid grid-cols-3 gap-5 justify-evenly items-center max-w-xl mx-auto'
         style={{ fontSize: 'clamp(0.875rem, 0.658rem + 0.924vw, 1.25rem)' }}
       >

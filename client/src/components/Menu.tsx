@@ -18,7 +18,7 @@ export const Menu = ({ setShowMenu }: Props): JSX.Element => {
 
   return (
     <nav className="absolute z-10 inset-0 h-scree bg-black bg-opacity-50 flex" style={{ top: 'calc(32px + 2 * clamp(1.25rem, 1.066rem + 0.787vw, 2rem))' }}>
-      <ul className="mx-auto flex-shrink-0 bg-white absolute flex flex-col max-w-xl items-center gap-4 p-5 rounded-lg text-black text-xl font-semibold"
+      <ul className="mx-auto flex-shrink-0 bg-gray-100 absolute flex flex-col max-w-xl items-center gap-4 p-5 rounded-lg text-black text-xl font-semibold"
         style={{ inset: '0 20px auto' }}>
         {
           links.map((link) => {

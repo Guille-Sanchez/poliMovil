@@ -51,7 +51,7 @@ export const SignUp = (): JSX.Element => {
   return (
     isLoading
       ? <LoadingSpinner />
-      : <section className="bg-white p-5 h-full w-full">
+      : <section className="bg-gray-100 p-5 h-full w-full">
           <div className='max-w-xl mx-auto min-h-max border-gray-500 shadow-sm border border-1 rounded-3xl'>
             <form className='flex flex-col gap-6 h-full w-full p-5' onSubmit={(e) => { handleOnSubmit(e) }}>
               <div className="flex flex-col gap-2 justify-between items-center h-min">
