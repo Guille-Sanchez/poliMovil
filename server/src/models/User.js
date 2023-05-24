@@ -15,8 +15,7 @@ const UserSchema = new Schema({
   phone: String,
   travels: [{
     type: Schema.Types.ObjectId,
-    ref: 'Travel',
-    autodelete: true
+    ref: 'Travel'
   }]
 },
 {

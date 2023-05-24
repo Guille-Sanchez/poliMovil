@@ -16,9 +16,10 @@ const TravelSchema = new Schema({
     ref: 'Post'
   },
   createdAt: {
-    type: String,
-    expires: '60s', // Autodelete post after 60 seconds
-    default: Date.now
+    type: Date,
+    expires: 86400, // Autodelete post after 24 hours
+    default: Date.now,
+    autodelete: true
   }
 },
 {
