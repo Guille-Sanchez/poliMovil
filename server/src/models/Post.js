@@ -17,7 +17,7 @@ const PostSchema = new Schema({
   updated: String,
   createdAt: {
     type: Date,
-    expires: 86400, // Autodelete post after 24 hours
+    expires: 60, // Autodelete post after 24 hours
     default: Date.now
   }
 },

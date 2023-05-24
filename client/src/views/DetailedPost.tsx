@@ -11,6 +11,7 @@ import { type Post } from '../types'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
 import { useAppSelector } from '../redux/hooks/useStore'
 import { LoadingSpinner } from '../components/LoadingSpinner'
+import { PageNotFound } from './PageNotFound'
 
 export const DetailedPost = (): JSX.Element => {
   const posts = useAppSelector((state) => state.posts)
@@ -30,7 +31,7 @@ export const DetailedPost = (): JSX.Element => {
   if (post === null) {
     return (
       !openDialog
-        ? <LoadingSpinner />
+        ? <PageNotFound />
         : <MessageDialog message={message} />
     )
   }
@@ -89,7 +90,7 @@ export const DetailedPost = (): JSX.Element => {
   const isUserPassanger = post?.travelId.passengerId.find((passengerId) => passengerId.id === userId)?.id === userId
   return (
     <section
-      className="flex-shrink-0 w-full max-w-4xl min-h-full pt-5"
+      className="flex-shrink-0 flex flex-col gap-3 w-full max-w-4xl min-h-full pt-5"
       style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
     >
       <h2
@@ -99,7 +100,7 @@ export const DetailedPost = (): JSX.Element => {
         Detalles del viaje
       </h2>
       <div
-        className='bg-white grid gap-3 p-5 rounded-lg m-3'
+        className='bg-white grid gap-3 p-5 rounded-lg mx-3'
         style={{
           boxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
           WebkitBoxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
@@ -117,7 +118,7 @@ export const DetailedPost = (): JSX.Element => {
       {!isUserPost
         ? (
             (+post.asientosDisponibles > 0 && !isUserPassanger) && (
-              <div className='flex gap-5 items-center justify-center pr-5 pl-5 pb-5 w-full'>
+              <div className='flex gap-5 items-center justify-center pr-5 pl-5 w-full'>
                 <button
                   className='bg-gradient-to-r from-blue-900 to-indigo-900 text-white pt-2 pb-2 p-7 pr-7 rounded-lg'
                   onClick={(e) => { handleOnClickReserveSeat(e) }}
@@ -128,7 +129,7 @@ export const DetailedPost = (): JSX.Element => {
             )
           )
         : (
-            <div className='flex gap-5 items-center justify-center pr-5 pl-5 pb-5 w-full'>
+            <div className='flex gap-5 items-center justify-center pr-5 pl-5 w-full'>
               <div>
                 <button
                   className='bg-[#990000] text-white pt-2 pb-2 p-7 pr-7 rounded-lg'

@@ -41,7 +41,7 @@ export const PassengerList = ({ post }: Props): JSX.Element => {
     <div className='flex flex-col gap-5 justify-center px-5 '>
       <p
         className='font-bold text-xl'
-        style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)' }}
+        style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)', padding: 'clamp(0rem, -0.307rem + 1.311vw, 1.25rem) 0' }}
       >
         Pasajeros
       </p>
