@@ -9,15 +9,17 @@ import { useState } from 'react'
 export const Homepage = (): JSX.Element => {
   // Get posts from API and store them in Redux Store
   const [arePostsLoading, setArePostsLoading] = useState(true)
-  usePostsAPI({ setArePostsLoading })
+  const { message } = usePostsAPI({ setArePostsLoading })
 
   // Get posts from Redux Store and check if they are available
   const posts = useAppSelector((state) => state.posts)
   const loadPostsFromStore = posts.length === 1 && posts[0].id === ''
   const arePostAvailable = posts.length > 0 && posts[0].id !== ''
 
+  console.log({ arePostAvailable, posts })
+
   return (
-    arePostsLoading || loadPostsFromStore
+    (arePostsLoading || loadPostsFromStore) && message.type !== '¡Error!'
       ? <LoadingSpinner />
       : <section
         className="flex-shrink-0 flex flex-col gap-3 w-full max-w-4xl min-h-full py-5"
@@ -58,10 +60,10 @@ export const Homepage = (): JSX.Element => {
               </ul>
             : <div className='flex h-full justify-center items-center'>
                 <p
-                  className='text-center text-2xl font-semibold px-5'
+                  className='text-center font-semibold px-5'
                   style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)' }}
                 >
-                  No hay viajes disponibles que mostrar.
+                  { message.type === '¡Error!' ? message.mensaje : 'No hay viajes disponibles que mostrar.'}
                 </p>
               </div>
         }

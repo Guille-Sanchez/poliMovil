@@ -23,8 +23,8 @@ const UserTravels = lazy(async () => await import('./views/user/UserTravels').th
 function App (): JSX.Element {
   const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated)
   const { isProfileCompleted } = useAppSelector((state) => state.authentication.userInformation)
-
   useTokenFromStorage()
+
   return (
     <div className='bg-gray-100  flex flex-col min-h-full'>
       {isAuthenticated ? <Header /> : <UnAuthHeader />}

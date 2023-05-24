@@ -1,29 +1,38 @@
-//  Custom hook that retrieves posts from an API and updates the state of posts in the Redux store
+// Custom hook that retrieves posts from an API and updates the state of posts in the Redux store
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getPostService } from '../services/posts/getPostService'
 import { usePostsActions } from '../redux/hooks/usePostsActions'
 import { useAppSelector } from '../redux/hooks/useStore'
+import { type messageType } from '../types'
+import { MessageInitialState } from '../constants'
 
 interface Props {
   setArePostsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const usePostsAPI = ({ setArePostsLoading }: Props): void => {
+interface returnProps {
+  message: messageType
+}
+
+export const usePostsAPI = ({ setArePostsLoading }: Props): returnProps => {
   // Get access token to update posts information in case the user is a driver/passenger in a post
-  const { accessToken } = useAppSelector(state => state.authentication)
+  const { accessToken } = useAppSelector((state) => state.authentication)
   const { savePostsInStore } = usePostsActions()
+  const [message, setMessage] = useState({ ...MessageInitialState })
 
   useEffect(() => {
     setArePostsLoading(true)
     const controller = new AbortController()
     const signal = controller.signal
-    getPostService({ signal })
+
+    getPostService({ controller, signal })
       .then((res) => {
         const { message, posts } = res
         if (message.type === '¡Éxito!') {
           savePostsInStore({ posts })
         }
+        setMessage({ ...message })
       })
       .catch((err) => {
         console.log(err)
@@ -36,4 +45,6 @@ export const usePostsAPI = ({ setArePostsLoading }: Props): void => {
       controller.abort()
     }
   }, [accessToken])
+
+  return { message }
 }
