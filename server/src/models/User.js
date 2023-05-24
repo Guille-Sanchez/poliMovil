@@ -19,7 +19,7 @@ const UserSchema = new Schema({
   }]
 },
 {
-  timestamps: true
+  timestamps: false
 })
 
 UserSchema.plugin(uniqueValidator)

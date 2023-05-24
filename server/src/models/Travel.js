@@ -17,13 +17,13 @@ const TravelSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    expires: 60, // Autodelete post after 24 hours
+    expires: 28800, // Autodelete post after 24 hours
     default: Date.now,
     autodelete: true
   }
 },
 {
-  timestamps: true
+  timestamps: false
 })
 
 TravelSchema.set('toJSON', {

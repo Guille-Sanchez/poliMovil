@@ -17,12 +17,12 @@ const PostSchema = new Schema({
   updated: String,
   createdAt: {
     type: Date,
-    expires: 60, // Autodelete post after 24 hours
+    expires: 28800, // Autodelete post after 24 hours
     default: Date.now
   }
 },
 {
-  timestamps: true
+  timestamps: false
 })
 
 PostSchema.set('toJSON', {

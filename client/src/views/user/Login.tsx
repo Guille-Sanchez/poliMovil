@@ -73,7 +73,7 @@ export const Login = (): JSX.Element => {
           </button>
         </form>
 
-        <div className="flex flex-col gap-2 justify-between items-center h-min">
+        <div className="flex flex-col mb-5 gap-2 justify-between items-center h-min">
           <div className="flex items-center w-full">
             <hr className="flex-1 border-gray-500 border-1"/>
             <span className="mx-3 border-gray-500 text-xl">o</span>
@@ -81,7 +81,7 @@ export const Login = (): JSX.Element => {
           </div>
 
           <Link to={'/signup'}>
-            <button className='border shadow-md border-blue-900 text-blue-900 py-2 px-7 mb-5 rounded-lg'>
+            <button className='border shadow-md border-blue-900 text-blue-900 py-2 px-7 rounded-lg'>
               Crear cuenta
             </button>
           </Link>
