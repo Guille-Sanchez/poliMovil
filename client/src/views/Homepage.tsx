@@ -3,20 +3,18 @@ import { PostFooter } from '../components/post/PostFooter'
 import { PostHeader } from '../components/post/PostHeader'
 import { useAppSelector } from '../redux/hooks/useStore'
 import { LoadingSpinner } from '../components/LoadingSpinner'
-import { usePostsAPI } from '../hooks/usePostsAPI'
-import { useState } from 'react'
+import { type messageType } from '../types'
 
-export const Homepage = (): JSX.Element => {
-  // Get posts from API and store them in Redux Store
-  const [arePostsLoading, setArePostsLoading] = useState(true)
-  const { message } = usePostsAPI({ setArePostsLoading })
+interface Props {
+  message: messageType
+  arePostsLoading: boolean
+}
 
+export const Homepage = ({ message, arePostsLoading }: Props): JSX.Element => {
   // Get posts from Redux Store and check if they are available
   const posts = useAppSelector((state) => state.posts)
   const loadPostsFromStore = posts.length === 1 && posts[0].id === ''
   const arePostAvailable = posts.length > 0 && posts[0].id !== ''
-
-  console.log({ arePostAvailable, posts })
 
   return (
     (arePostsLoading || loadPostsFromStore) && message.type !== '¡Error!'

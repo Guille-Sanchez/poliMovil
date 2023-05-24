@@ -8,6 +8,7 @@ import { type messageType } from '../types'
 import { MessageInitialState } from '../constants'
 
 interface Props {
+  isAuthenticated: boolean
   setArePostsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -15,31 +16,33 @@ interface returnProps {
   message: messageType
 }
 
-export const usePostsAPI = ({ setArePostsLoading }: Props): returnProps => {
+export const usePostsAPI = ({ setArePostsLoading, isAuthenticated }: Props): returnProps => {
   // Get access token to update posts information in case the user is a driver/passenger in a post
   const { accessToken } = useAppSelector((state) => state.authentication)
   const { savePostsInStore } = usePostsActions()
   const [message, setMessage] = useState({ ...MessageInitialState })
 
   useEffect(() => {
-    setArePostsLoading(true)
     const controller = new AbortController()
     const signal = controller.signal
 
-    getPostService({ controller, signal })
-      .then((res) => {
-        const { message, posts } = res
-        if (message.type === '¡Éxito!') {
-          savePostsInStore({ posts })
-        }
-        setMessage({ ...message })
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .finally(() => {
-        setArePostsLoading(false)
-      })
+    if (isAuthenticated) {
+      setArePostsLoading(true)
+      getPostService({ controller, signal })
+        .then((res) => {
+          const { message, posts } = res
+          if (message.type === '¡Éxito!') {
+            savePostsInStore({ posts })
+          }
+          setMessage({ ...message })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          setArePostsLoading(false)
+        })
+    }
 
     return () => {
       controller.abort()

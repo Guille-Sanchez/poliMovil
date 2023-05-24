@@ -5,9 +5,10 @@ import { PageNotFound } from './views/PageNotFound'
 import { UnAuthHeader } from './components/unAuth/UnAuthHeader'
 import { UnAuthFooter } from './components/unAuth/UnAuthFooter'
 import { useAppSelector } from './redux/hooks/useStore'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { LoadingSpinner } from './components/LoadingSpinner'
 import { useTokenFromStorage } from './hooks/useTokenFromStorage'
+import { usePostsAPI } from './hooks/usePostsAPI'
 
 const About = lazy(async () => await import('./views/About').then(module => ({ default: module.About })))
 const CompleteProfile = lazy(async () => await import('./views/user/CompleteProfile').then(module => ({ default: module.CompleteProfile })))
@@ -23,46 +24,73 @@ const UserTravels = lazy(async () => await import('./views/user/UserTravels').th
 function App (): JSX.Element {
   const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated)
   const { isProfileCompleted } = useAppSelector((state) => state.authentication.userInformation)
+  const [arePostsLoading, setArePostsLoading] = useState(true)
+
+  // Get posts from API and store them in Redux Store
+  const { message } = usePostsAPI({ setArePostsLoading, isAuthenticated })
   useTokenFromStorage()
 
-  return (
-    <div className='bg-gray-100  flex flex-col min-h-full'>
-      {isAuthenticated ? <Header /> : <UnAuthHeader />}
-        <main className='flex-grow flex justify-center h-full relative'>
-          <Suspense fallback={<LoadingSpinner/>}>
-            {
-              <Routes>
-                {
-                  isAuthenticated && isProfileCompleted
-                    ? <>
-                        <Route path='/' element={<Homepage />} />
-                        <Route path='/posts' element={<PostForm />} />
-                        <Route path='/posts/:id' element={<DetailedPost />} />
-                        <Route path='/mi-perfil' element={<MyProfile />} />
-                        <Route path='/posts/editar/:id' element={<PostForm />} />
-                        <Route path='/travels' element={<UserTravels />} />
-                      </>
-                    : <>
-                        { (isAuthenticated && !isProfileCompleted) && <Route path='*' element={<CompleteProfile />} />}
-                        {
-                          !isAuthenticated &&
-                            <>
-                              <Route path='/' element={<Login />} />
-                              <Route path='/signup' element={<SignUp />} />
-                            </>
-                        }
-                      </>
-                  }
+  if (!isAuthenticated) {
+    return (
+      <div className='bg-gray-100  flex flex-col min-h-full'>
+        <UnAuthHeader />
+          <main className='flex-grow flex justify-center h-full relative'>
+            <Suspense fallback={<LoadingSpinner/>}>
+              {
+                <Routes>
+                  <Route path='/' element={<Login />} />
+                  <Route path='/signup' element={<SignUp />} />
                   <Route path='/acerca-de' element={<About />} />
                   <Route path='/terminos-y-condiciones' element={<TermsOfService />} />
                   <Route path='*' element={<PageNotFound />} />
                 </Routes>
+              }
+            </Suspense>
+          </main>
+        <UnAuthFooter/>
+      </div>
+    )
+  } else if (isAuthenticated && !isProfileCompleted) {
+    return (
+      <div className='bg-gray-100  flex flex-col min-h-full'>
+        <Header />
+          <main className='flex-grow flex justify-center h-full relative'>
+            <Suspense fallback={<LoadingSpinner/>}>
+              {
+                <Routes>
+                  <Route path='*' element={<CompleteProfile />} />
+                </Routes>
+              }
+            </Suspense>
+          </main>
+        <Footer/>
+      </div>
+    )
+  } else {
+    return (
+    <div className='bg-gray-100  flex flex-col min-h-full'>
+      <Header />
+        <main className='flex-grow flex justify-center h-full relative'>
+          <Suspense fallback={<LoadingSpinner/>}>
+            {
+              <Routes>
+                <Route path='/' element={<Homepage message={message} arePostsLoading={arePostsLoading}/>} />
+                <Route path='/posts' element={<PostForm />} />
+                <Route path='/posts/:id' element={<DetailedPost />} />
+                <Route path='/mi-perfil' element={<MyProfile />} />
+                <Route path='/posts/editar/:id' element={<PostForm />} />
+                <Route path='/travels' element={<UserTravels />} />
+                <Route path='/acerca-de' element={<About />} />
+                <Route path='/terminos-y-condiciones' element={<TermsOfService />} />
+                <Route path='*' element={<PageNotFound />} />
+              </Routes>
             }
           </Suspense>
         </main>
-      {isAuthenticated ? <Footer/> : <UnAuthFooter/>}
+      <Footer/>
     </div>
-  )
+    )
+  }
 }
 
 export default App

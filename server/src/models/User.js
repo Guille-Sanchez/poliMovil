@@ -15,11 +15,12 @@ const UserSchema = new Schema({
   phone: String,
   travels: [{
     type: Schema.Types.ObjectId,
-    ref: 'Travel'
+    ref: 'Travel',
+    autodelete: true
   }]
 },
 {
-  timestamps: false
+  timestamps: true
 })
 
 UserSchema.plugin(uniqueValidator)
