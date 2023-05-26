@@ -14,12 +14,6 @@ const TravelSchema = new Schema({
   postId: {
     type: Schema.Types.ObjectId,
     ref: 'Post'
-  },
-  createdAt: {
-    type: Date,
-    expires: 28800, // Autodelete post after 24 hours
-    default: Date.now,
-    autodelete: true
   }
 },
 {

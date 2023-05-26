@@ -28,7 +28,7 @@ export const DetailedPost = (): JSX.Element => {
   const [openDialog, setOpenDialog] = useState(false)
   const [message, setMessage] = useState({ ...MessageInitialState })
 
-  if (post === null) {
+  if (post === null || id === undefined) {
     return (
       !openDialog
         ? <PageNotFound />
@@ -65,20 +65,31 @@ export const DetailedPost = (): JSX.Element => {
 
   const handleOnClickReserveSeat = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     setLoading(true)
-    handleReservedSeat({ e, accessToken, travelId })
+    handleReservedSeat({ e, accessToken, travelId, id })
       .then((data) => {
         const { message, travelId } = data
+        let asientosDisponibles = post.asientosDisponibles
+
         if (message.type === '¡Éxito!') {
-          const asientosDisponibles = (+post.asientosDisponibles - 1).toString()
-          const newPost = { ...post, asientosDisponibles, travelId }
-          editPostInStore({ newPost })
-          setMessage(() => message)
-          setOpenDialog(true)
+          asientosDisponibles = (+post.asientosDisponibles - 1).toString()
+        } else if (message.mensaje === 'Los asientos ya han sido reservados.') {
+          asientosDisponibles = '0'
         }
+
+        const newPost = { ...post, asientosDisponibles, travelId }
+
+        if (message.type !== 'Error') {
+          editPostInStore({ newPost })
+        }
+
+        setMessage(() => message)
+        setOpenDialog(true)
       })
       .catch((_error) => {
-        message.type = 'Error'
-        message.mensaje = 'Ocurrio un error, por favor intente de nuevo'
+        const message = {
+          type: 'Error',
+          mensaje: 'Ocurrio un error, por favor intente de nuevo'
+        }
         setMessage(() => message)
         setOpenDialog(true)
       })
