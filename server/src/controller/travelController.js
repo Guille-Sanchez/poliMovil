@@ -40,6 +40,17 @@ export const addPassengerToTravel = (req, res) => {
               error: err
             })
           })
+
+        // The following code removes expired travel reference from the user model
+        setTimeout(() => {
+          User.findByIdAndUpdate(userId, { $pull: { travels: travelId } })
+            .then(() => {
+              console.log('Expired travel reference removed from user')
+            })
+            .catch(err => {
+              console.error('Error removing expired travel reference from user:', err)
+            })
+        }, 86400000) // 24 hours in milliseconds
       }
     })
     .catch(err => {

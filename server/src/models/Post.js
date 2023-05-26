@@ -14,13 +14,15 @@ const PostSchema = new Schema({
   },
   precio: String,
   created: String,
-  updated: String
+  updated: String,
+  createdAt: {
+    type: Date,
+    expires: 86400, // Autodelete post after 24 hours
+    default: Date.now
+  }
 },
 {
-  timestamps: {
-    createdAt: true,
-    updatedAt: true
-  }
+  timestamps: false
 })
 
 PostSchema.set('toJSON', {

@@ -36,6 +36,17 @@ export const createPost = async (req, res) => {
     .then((post) => {
       res.status(201).json(post)
     })
+
+  // The following code removes expired travel reference from the user model
+  setTimeout(() => {
+    User.findByIdAndUpdate(userId, { $pull: { travels: travel._id } })
+      .then(() => {
+        console.log('Expired travel reference removed from user')
+      })
+      .catch(err => {
+        console.error('Error removing expired travel reference from user:', err)
+      })
+  }, 86400000) // 24 hours in milliseconds
 }
 
 export const getPosts = (req, res) => {
