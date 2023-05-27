@@ -51,8 +51,11 @@ export const SignUp = (): JSX.Element => {
   return (
     isLoading
       ? <LoadingSpinner />
-      : <section className="bg-gray-100 p-5 h-full w-full">
-          <div className='max-w-xl mx-auto min-h-max border-gray-500 shadow-sm border border-1 rounded-3xl'>
+      : <section
+        className="bg-gray-100 p-5 w-full max-w-4xl min-h-full"
+        style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
+        >
+          <div className='min-h-max border-gray-500 shadow-sm border border-1 rounded-3xl'>
             <form className='flex flex-col gap-6 h-full w-full p-5' onSubmit={(e) => { handleOnSubmit(e) }}>
               <div className="flex flex-col gap-2 justify-between items-center h-min">
                 <label htmlFor="email" className='w-full text-left'>Email</label>

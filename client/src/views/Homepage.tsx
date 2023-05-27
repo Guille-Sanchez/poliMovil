@@ -24,7 +24,7 @@ export const Homepage = ({ message, arePostsLoading }: Props): JSX.Element => {
         style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
       >
         <h2
-          className='px-5 text-left font-semibold'
+          className='px-5 text-left font-semibold w-full'
           style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)' }}
         >
           Viajes disponibles
@@ -58,7 +58,7 @@ export const Homepage = ({ message, arePostsLoading }: Props): JSX.Element => {
               </ul>
             : <div className='flex h-full justify-center items-center'>
                 <p
-                  className='text-center font-semibold px-5'
+                  className='px-5 text-center font-semibold w-full'
                   style={{ fontSize: 'clamp(1.5rem, 1.193rem + 1.311vw, 2.75rem)' }}
                 >
                   { message.type === '¡Error!' ? message.mensaje : 'No hay viajes disponibles que mostrar.'}
