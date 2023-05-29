@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import LocationSelector from '../components/post/LocationSelector'
 import { postFormValidator } from '../logic/postFormValidator'
 import { type submittedValues } from '../types'
 import { PostInitialState } from '../constants'
@@ -8,17 +7,19 @@ import { LoadingSpinner } from '../components/LoadingSpinner'
 import { usePostEditing } from '../hooks/usePostEditing'
 import { PostPreview } from './PostPreview'
 import { useAppSelector } from '../redux/hooks/useStore'
+import LocationSelector from '../components/post/LocationSelector'
 
 export const PostForm = (): JSX.Element => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [submittedValues, setSubmittedValues] = useState<submittedValues>({ newPost: PostInitialState, setNext: false })
+
   const { name, lastName, email, phone, userId } = useAppSelector((state) => state.authentication.userInformation)
   const driverId = { name, lastName, email, phone, id: userId }
-  const [submittedValues, setSubmittedValues] = useState<submittedValues>({ newPost: PostInitialState, setNext: false })
 
   usePostEditing({ setSubmittedValues, setLoading })
 
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleFormOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     setError(null)
     const { error, valuesToSubmit } = postFormValidator({ e, driverId, submittedValues })
     error !== '' ? setError(error) : setSubmittedValues(valuesToSubmit)
@@ -42,7 +43,7 @@ export const PostForm = (): JSX.Element => {
           >
             Crea tu viaje
           </h2>
-          <form className=' grid gap-5 px-5 w-full' onSubmit={(e) => { handleOnSubmit(e) }}>
+          <form className=' grid gap-5 px-5 w-full' onSubmit={(e) => { handleFormOnSubmit(e) }}>
             <LocationSelector location={'origen'} defaultValue={submittedValues.newPost.origen}/>
             <LocationSelector location={'destino'} defaultValue={submittedValues.newPost.destino}/>
 
