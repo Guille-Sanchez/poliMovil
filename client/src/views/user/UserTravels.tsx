@@ -24,19 +24,20 @@ export const UserTravels = (): JSX.Element => {
         Mis viajes registrados
       </h2>
       {userHasTravels
-        ? <ul className='p-3'>
+        ? <ul className='flex flex-col h-full w-full p-3 gap-5'>
             {
               userInPosts.map((post) => {
                 return (
-                  <li key={post.id}>
-                    <article
-                      className='bg-white grid gap-3 p-5 rounded-lg'
-                      style={{
-                        boxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
-                        WebkitBoxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
-                        MozBoxShadow: ' 0px 4px 18px 3px rgba(0,0,0,0.25)'
-                      }}
-                    >
+                  <li
+                    className='bg-white rounded-lg'
+                    style={{
+                      boxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+                      WebkitBoxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+                      MozBoxShadow: ' 0px 4px 18px 3px rgba(0,0,0,0.25)'
+                    }}
+                    key={post.id}
+                  >
+                    <article className='grid gap-3 p-5'>
                       <PostHeader post={post}/>
                       <PostTable post={post}/>
                       {post.detalles !== '' && <p><span className='font-bold'>Detalles:&nbsp;</span>{post.detalles}</p>}

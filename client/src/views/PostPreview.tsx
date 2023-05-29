@@ -71,13 +71,21 @@ export const PostPreview = ({ submittedValues, setSubmittedValues }: Props): JSX
       className="flex-shrink-0 w-full max-w-4xl min-h-full p-5 flex flex-col gap-3"
       style={{ fontSize: 'clamp(1rem, 0.711rem + 1.233vw, 1.5rem)' }}
     >
-      <PostHeader post={submittedValues.newPost} />
-      <PostTable post={submittedValues.newPost} />
-      {
-        submittedValues.newPost.detalles !== '' &&
-          <p><span className='font-bold'>Detalles:&nbsp;</span>{submittedValues.newPost.detalles}</p>
-      }
-      <p>Asientos Disponibles: {submittedValues.newPost.asientosDisponibles}</p>
+      <article className='bg-white grid gap-3 p-5 rounded-lg'
+        style={{
+          boxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+          WebkitBoxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+          MozBoxShadow: ' 0px 4px 18px 3px rgba(0,0,0,0.25)'
+        }}
+        >
+        <PostHeader post={submittedValues.newPost} />
+        <PostTable post={submittedValues.newPost} />
+        {
+          submittedValues.newPost.detalles !== '' &&
+            <p><span className='font-bold'>Detalles:&nbsp;</span>{submittedValues.newPost.detalles}</p>
+        }
+        <p>Asientos Disponibles: {submittedValues.newPost.asientosDisponibles}</p>
+      </article>
 
       <div className='flex justify-evenly items-center w-full'>
         <button className='bg-[#990000] text-white pt-2 pb-2 p-5 pr-5 rounded-lg'

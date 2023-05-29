@@ -34,14 +34,16 @@ export const Homepage = ({ message, arePostsLoading }: Props): JSX.Element => {
             ? <ul className='flex flex-col gap-5 p-3'>
                 {posts.map((post) => {
                   return (
-                    <li key={post.id}>
-                      <article
-                        className='bg-white grid gap-3 p-5 rounded-lg'
-                        style={{
-                          boxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
-                          WebkitBoxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
-                          MozBoxShadow: ' 0px 4px 18px 3px rgba(0,0,0,0.25)'
-                        }}>
+                    <li
+                      className='bg-white rounded-lg'
+                      style={{
+                        boxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+                        WebkitBoxShadow: '0px 4px 18px 3px rgba(0,0,0,0.25)',
+                        MozBoxShadow: ' 0px 4px 18px 3px rgba(0,0,0,0.25)'
+                      }}
+                      key={post.id}
+                    >
+                    <article className='grid gap-3 p-5'>
                         <PostHeader post={post} />
                         <PostTable post={post} />
                         {post.detalles !== '' && (
